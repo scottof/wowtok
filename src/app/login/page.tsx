@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/shared/logo";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 function LoginForm() {
   const router = useRouter();
@@ -18,6 +19,7 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const t = useTranslations("Auth");
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -57,9 +59,9 @@ function LoginForm() {
       </div>
 
       <div className="mb-6 text-center">
-        <h1 className="text-2xl font-bold">Welcome back</h1>
+        <h1 className="text-2xl font-bold">{t("loginTitle")}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Log in to your Promptok account
+          {t("loginSubtitle")}
         </p>
       </div>
 
@@ -86,7 +88,7 @@ function LoginForm() {
             fill="#EA4335"
           />
         </svg>
-        Continue with Google
+        {t("continueWithGoogle")}
       </Button>
 
       <div className="relative mb-6">
@@ -95,18 +97,18 @@ function LoginForm() {
         </div>
         <div className="relative flex justify-center text-xs">
           <span className="bg-background px-2 text-muted-foreground">
-            or continue with email
+            {t("orContinueWithEmail")}
           </span>
         </div>
       </div>
 
       <form onSubmit={handleLogin} className="space-y-4">
         <div>
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t("email")}</Label>
           <Input
             id="email"
             type="email"
-            placeholder="you@example.com"
+            placeholder={t("emailPlaceholder")}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -114,11 +116,11 @@ function LoginForm() {
           />
         </div>
         <div>
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{t("password")}</Label>
           <Input
             id="password"
             type="password"
-            placeholder="Your password"
+            placeholder={t("passwordPlaceholder")}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -132,14 +134,14 @@ function LoginForm() {
 
         <Button type="submit" className="w-full" disabled={loading}>
           {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Log in
+          {t("loginButton")}
         </Button>
       </form>
 
       <p className="mt-6 text-center text-sm text-muted-foreground">
-        Don&apos;t have an account?{" "}
+        {t("noAccount")}{" "}
         <Link href="/signup" className="font-medium text-foreground hover:underline">
-          Sign up
+          {t("signupLink")}
         </Link>
       </p>
     </div>

@@ -4,8 +4,11 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export function CTA() {
+  const t = useTranslations("CTA");
+
   return (
     <section className="py-20">
       <div className="mx-auto max-w-6xl px-6">
@@ -19,11 +22,10 @@ export function CTA() {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.12),transparent)]" />
           <div className="relative">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Ready to create your first AI video?
+              {t("title")}
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-white/80">
-              Join thousands of creators using Promptok to produce viral TikTok
-              content. Start with a free video — no credit card needed.
+              {t("subtitle")}
             </p>
             <Button
               size="lg"
@@ -31,7 +33,7 @@ export function CTA() {
               asChild
             >
               <Link href="/signup">
-                Get started for free
+                {t("button")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>

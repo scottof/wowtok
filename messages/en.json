@@ -1,0 +1,126 @@
+{
+  "Nav": {
+    "features": "Features",
+    "howItWorks": "How it Works",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "login": "Log in",
+    "getStarted": "Get Started"
+  },
+  "Hero": {
+    "badge": "AI-powered TikTok video generation",
+    "titleStart": "From prompt to",
+    "titleHighlight": "viral TikTok",
+    "titleEnd": "in minutes",
+    "description": "Choose a theme, write your prompt, and let AI create a complete video with voiceover. Ready to post on TikTok in minutes, not hours.",
+    "cta": "Start creating free",
+    "secondaryCta": "See how it works",
+    "note": "No credit card required · 1 free video to try",
+    "videoPreview": "See Promptok in action"
+  },
+  "Features": {
+    "title": "Everything you need to go viral",
+    "subtitle": "A complete AI video pipeline, from idea to TikTok-ready content.",
+    "aiScript": "AI Script Generation",
+    "aiScriptDesc": "Describe your idea and AI writes a compelling script with scene breakdowns automatically.",
+    "themes": "10+ Themed Styles",
+    "themesDesc": "Horror, fantasy, sci-fi, comedy and more. Each theme comes with curated visual styles.",
+    "voices": "Premium AI Voices",
+    "voicesDesc": "Choose from realistic AI narrators powered by ElevenLabs. Multiple voices and tones.",
+    "video": "Full AI Video",
+    "videoDesc": "Not just slideshows — real AI-generated video clips animated from your scenes.",
+    "captions": "Auto Captions",
+    "captionsDesc": "TikTok-style captions are automatically synced with your narration for maximum engagement.",
+    "download": "Ready to Post",
+    "downloadDesc": "Download in 9:16 vertical format, optimized for TikTok, Reels, and YouTube Shorts."
+  },
+  "HowItWorks": {
+    "title": "Three steps to your next viral video",
+    "subtitle": "No video editing skills needed. Just describe it and let AI do the rest.",
+    "step1Title": "Choose your theme & prompt",
+    "step1Desc": "Select a theme like horror, fantasy, or comedy. Then describe what your video should be about.",
+    "step2Title": "Add narration text",
+    "step2Desc": "Write the narrator's script or let AI generate one. Pick from premium AI voices to bring it to life.",
+    "step3Title": "Generate & download",
+    "step3Desc": "Hit generate and watch AI create your video with scenes, animations, voiceover, and captions. Download and post!"
+  },
+  "Pricing": {
+    "badge": "Limited launch offer — up to 51% off",
+    "title": "Simple, transparent pricing",
+    "subtitle": "Start free, upgrade when you're ready. Cancel anytime.",
+    "mostPopular": "Most popular",
+    "save": "SAVE {discount}%",
+    "perMonth": "/month",
+    "getStarted": "Get started",
+    "starter": "Starter",
+    "starterDesc": "Perfect for getting started with AI videos",
+    "creator": "Creator",
+    "creatorDesc": "For content creators who need more",
+    "pro": "Pro",
+    "proDesc": "For professionals and teams"
+  },
+  "FAQ": {
+    "title": "Frequently asked questions",
+    "subtitle": "Everything you need to know about Promptok.",
+    "q1": "What is Promptok?",
+    "a1": "Promptok is an AI-powered platform that generates complete TikTok-ready videos from simple text prompts. You choose a theme, write what you want, and AI creates a video with generated scenes, voiceover narration, and captions.",
+    "q2": "How does the AI video generation work?",
+    "a2": "Our pipeline uses multiple AI models: GPT-4o breaks your script into scenes, FLUX generates visuals for each scene, Hailuo animates them into video clips, and ElevenLabs creates the voiceover. Everything is assembled into a final 9:16 vertical video.",
+    "q3": "How long does it take to generate a video?",
+    "a3": "Most videos are generated in 3-5 minutes depending on length and complexity. You'll see real-time progress updates as each stage completes.",
+    "q4": "What video format do I get?",
+    "a4": "Videos are generated in 9:16 vertical format (1080x1920) — optimized for TikTok, Instagram Reels, and YouTube Shorts. You get an MP4 file ready to upload directly.",
+    "q5": "Can I cancel my subscription anytime?",
+    "a5": "Yes, you can cancel anytime from your dashboard. You'll keep access until the end of your billing period. No questions asked.",
+    "q6": "Do I own the videos I create?",
+    "a6": "Yes, you have full commercial rights to all videos generated on Promptok. Use them on any platform for any purpose."
+  },
+  "CTA": {
+    "title": "Ready to create your first AI video?",
+    "subtitle": "Join thousands of creators using Promptok to produce viral TikTok content. Start with a free video — no credit card needed.",
+    "button": "Get started for free"
+  },
+  "Footer": {
+    "tagline": "Create stunning TikTok videos with AI in minutes.",
+    "product": "Product",
+    "company": "Company",
+    "legal": "Legal",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "copyright": "© {year} Promptok. All rights reserved."
+  },
+  "Auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Log in to your Promptok account",
+    "signupTitle": "Create your account",
+    "signupSubtitle": "Start creating AI videos in minutes",
+    "continueWithGoogle": "Continue with Google",
+    "orContinueWithEmail": "or continue with email",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "Your password",
+    "passwordSignupPlaceholder": "At least 6 characters",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "loginButton": "Log in",
+    "signupButton": "Create account",
+    "noAccount": "Don't have an account?",
+    "signupLink": "Sign up",
+    "hasAccount": "Already have an account?",
+    "loginLink": "Log in"
+  },
+  "PricingPage": {
+    "title": "Pricing",
+    "description": "Simple, transparent pricing for Promptok. Start free, upgrade when you're ready. Cancel anytime."
+  },
+  "Common": {
+    "features": "Features",
+    "howItWorks": "How it Works",
+    "pricing": "Pricing",
+    "faq": "FAQ"
+  }
+}

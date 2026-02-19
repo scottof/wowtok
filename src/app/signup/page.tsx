@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/shared/logo";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -17,6 +18,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const t = useTranslations("Auth");
 
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
@@ -61,9 +63,9 @@ export default function SignupPage() {
         </div>
 
         <div className="mb-6 text-center">
-          <h1 className="text-2xl font-bold">Create your account</h1>
+          <h1 className="text-2xl font-bold">{t("signupTitle")}</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Start creating AI videos in minutes
+            {t("signupSubtitle")}
           </p>
         </div>
 
@@ -90,7 +92,7 @@ export default function SignupPage() {
               fill="#EA4335"
             />
           </svg>
-          Continue with Google
+          {t("continueWithGoogle")}
         </Button>
 
         <div className="relative mb-6">
@@ -99,18 +101,18 @@ export default function SignupPage() {
           </div>
           <div className="relative flex justify-center text-xs">
             <span className="bg-background px-2 text-muted-foreground">
-              or continue with email
+              {t("orContinueWithEmail")}
             </span>
           </div>
         </div>
 
         <form onSubmit={handleSignup} className="space-y-4">
           <div>
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name">{t("name")}</Label>
             <Input
               id="name"
               type="text"
-              placeholder="Your name"
+              placeholder={t("namePlaceholder")}
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -118,11 +120,11 @@ export default function SignupPage() {
             />
           </div>
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t("email")}</Label>
             <Input
               id="email"
               type="email"
-              placeholder="you@example.com"
+              placeholder={t("emailPlaceholder")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -130,11 +132,11 @@ export default function SignupPage() {
             />
           </div>
           <div>
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t("password")}</Label>
             <Input
               id="password"
               type="password"
-              placeholder="At least 6 characters"
+              placeholder={t("passwordSignupPlaceholder")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -149,14 +151,14 @@ export default function SignupPage() {
 
           <Button type="submit" className="w-full" disabled={loading}>
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Create account
+            {t("signupButton")}
           </Button>
         </form>
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
-          Already have an account?{" "}
+          {t("hasAccount")}{" "}
           <Link href="/login" className="font-medium text-foreground hover:underline">
-            Log in
+            {t("loginLink")}
           </Link>
         </p>
       </div>

@@ -1,0 +1,126 @@
+{
+  "Nav": {
+    "features": "Fonctionnalites",
+    "howItWorks": "Comment ca marche",
+    "pricing": "Tarifs",
+    "faq": "FAQ",
+    "login": "Se connecter",
+    "getStarted": "Commencer"
+  },
+  "Hero": {
+    "badge": "Generation de videos TikTok par IA",
+    "titleStart": "Du prompt au",
+    "titleHighlight": "TikTok viral",
+    "titleEnd": "en quelques minutes",
+    "description": "Choisissez un theme, ecrivez votre prompt et laissez l'IA creer une video complete avec narration. Pret a publier sur TikTok en minutes, pas en heures.",
+    "cta": "Commencez a creer gratuitement",
+    "secondaryCta": "Voir comment ca marche",
+    "note": "Pas de carte bancaire requise · 1 video gratuite pour essayer",
+    "videoPreview": "Voir Promptok en action"
+  },
+  "Features": {
+    "title": "Tout ce qu'il faut pour devenir viral",
+    "subtitle": "Un pipeline video IA complet, de l'idee au contenu pret pour TikTok.",
+    "aiScript": "Generation de scripts par IA",
+    "aiScriptDesc": "Decrivez votre idee et l'IA ecrit un script convaincant avec un decoupage automatique des scenes.",
+    "themes": "Plus de 10 styles thematiques",
+    "themesDesc": "Horreur, fantaisie, science-fiction, comedie et plus. Chaque theme dispose de styles visuels selectionnes.",
+    "voices": "Voix IA premium",
+    "voicesDesc": "Choisissez parmi des narrateurs IA realistes propulses par ElevenLabs. Voix et tons multiples.",
+    "video": "Video IA complete",
+    "videoDesc": "Pas de simples diaporamas — de vrais clips video generes par IA et animes a partir de vos scenes.",
+    "captions": "Sous-titres automatiques",
+    "captionsDesc": "Sous-titres style TikTok synchronises automatiquement avec votre narration pour un engagement maximum.",
+    "download": "Pret a publier",
+    "downloadDesc": "Telechargez au format vertical 9:16, optimise pour TikTok, Reels et YouTube Shorts."
+  },
+  "HowItWorks": {
+    "title": "Trois etapes pour votre prochaine video virale",
+    "subtitle": "Aucune competence en montage video necessaire. Decrivez et laissez l'IA faire le reste.",
+    "step1Title": "Choisissez votre theme et prompt",
+    "step1Desc": "Selectionnez un theme comme horreur, fantaisie ou comedie. Puis decrivez le sujet de votre video.",
+    "step2Title": "Ajoutez le texte de narration",
+    "step2Desc": "Ecrivez le script du narrateur ou laissez l'IA en generer un. Choisissez parmi des voix IA premium pour donner vie au texte.",
+    "step3Title": "Generez et telechargez",
+    "step3Desc": "Appuyez sur generer et regardez l'IA creer votre video avec scenes, animations, narration et sous-titres. Telechargez et publiez!"
+  },
+  "Pricing": {
+    "badge": "Offre de lancement limitee — jusqu'a 51% de reduction",
+    "title": "Des tarifs simples et transparents",
+    "subtitle": "Commencez gratuitement, passez a la vitesse superieure quand vous etes pret. Annulez a tout moment.",
+    "mostPopular": "Le plus populaire",
+    "save": "ECONOMISEZ {discount}%",
+    "perMonth": "/mois",
+    "getStarted": "Commencer",
+    "starter": "Starter",
+    "starterDesc": "Parfait pour debuter avec les videos IA",
+    "creator": "Creator",
+    "creatorDesc": "Pour les createurs de contenu qui en veulent plus",
+    "pro": "Pro",
+    "proDesc": "Pour les professionnels et les equipes"
+  },
+  "FAQ": {
+    "title": "Questions frequentes",
+    "subtitle": "Tout ce que vous devez savoir sur Promptok.",
+    "q1": "Qu'est-ce que Promptok?",
+    "a1": "Promptok est une plateforme propulsee par l'IA qui genere des videos completes pretes pour TikTok a partir de simples prompts textuels. Choisissez un theme, ecrivez ce que vous voulez, et l'IA cree une video avec des scenes generees, une narration vocale et des sous-titres.",
+    "q2": "Comment fonctionne la generation video par IA?",
+    "a2": "Notre pipeline utilise plusieurs modeles d'IA: GPT-4o decompose votre script en scenes, FLUX genere les visuels de chaque scene, Hailuo les anime en clips video, et ElevenLabs cree la narration. Le tout est assemble en une video verticale finale 9:16.",
+    "q3": "Combien de temps faut-il pour generer une video?",
+    "a3": "La plupart des videos sont generees en 3 a 5 minutes selon la longueur et la complexite. Vous verrez des mises a jour en temps reel au fur et a mesure que chaque etape se termine.",
+    "q4": "Quel format video est-ce que j'obtiens?",
+    "a4": "Les videos sont generees au format vertical 9:16 (1080x1920) — optimise pour TikTok, Instagram Reels et YouTube Shorts. Vous obtenez un fichier MP4 pret a etre telecharge directement.",
+    "q5": "Puis-je annuler mon abonnement a tout moment?",
+    "a5": "Oui, vous pouvez annuler a tout moment depuis votre tableau de bord. Vous conserverez l'acces jusqu'a la fin de votre periode de facturation. Sans poser de questions.",
+    "q6": "Suis-je proprietaire des videos que je cree?",
+    "a6": "Oui, vous avez tous les droits commerciaux sur toutes les videos generees sur Promptok. Utilisez-les sur n'importe quelle plateforme a n'importe quelle fin."
+  },
+  "CTA": {
+    "title": "Pret a creer votre premiere video IA?",
+    "subtitle": "Rejoignez des milliers de createurs qui utilisent Promptok pour produire du contenu viral pour TikTok. Commencez avec une video gratuite — pas de carte bancaire requise.",
+    "button": "Commencer gratuitement"
+  },
+  "Footer": {
+    "tagline": "Creez de superbes videos TikTok avec l'IA en quelques minutes.",
+    "product": "Produit",
+    "company": "Entreprise",
+    "legal": "Mentions legales",
+    "blog": "Blog",
+    "about": "A propos",
+    "contact": "Contact",
+    "privacy": "Politique de confidentialite",
+    "terms": "Conditions d'utilisation",
+    "copyright": "© {year} Promptok. Tous droits reserves."
+  },
+  "Auth": {
+    "loginTitle": "Bon retour",
+    "loginSubtitle": "Connectez-vous a votre compte Promptok",
+    "signupTitle": "Creez votre compte",
+    "signupSubtitle": "Commencez a creer des videos IA en quelques minutes",
+    "continueWithGoogle": "Continuer avec Google",
+    "orContinueWithEmail": "ou continuer avec email",
+    "email": "Email",
+    "emailPlaceholder": "vous@exemple.com",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Votre mot de passe",
+    "passwordSignupPlaceholder": "Au moins 6 caracteres",
+    "name": "Nom",
+    "namePlaceholder": "Votre nom",
+    "loginButton": "Se connecter",
+    "signupButton": "Creer un compte",
+    "noAccount": "Pas encore de compte?",
+    "signupLink": "S'inscrire",
+    "hasAccount": "Vous avez deja un compte?",
+    "loginLink": "Se connecter"
+  },
+  "PricingPage": {
+    "title": "Tarifs",
+    "description": "Des tarifs simples et transparents pour Promptok. Commencez gratuitement, passez a un plan superieur quand vous etes pret. Annulez a tout moment."
+  },
+  "Common": {
+    "features": "Fonctionnalites",
+    "howItWorks": "Comment ca marche",
+    "pricing": "Tarifs",
+    "faq": "FAQ"
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "Nav": {
+    "features": "Funktionen",
+    "howItWorks": "So funktioniert's",
+    "pricing": "Preise",
+    "faq": "FAQ",
+    "login": "Anmelden",
+    "getStarted": "Jetzt starten"
+  },
+  "Hero": {
+    "badge": "KI-gestutzte TikTok-Videogenerierung",
+    "titleStart": "Vom Prompt zum",
+    "titleHighlight": "viralen TikTok",
+    "titleEnd": "in Minuten",
+    "description": "Wahle ein Thema, schreibe deinen Prompt und lass die KI ein komplettes Video mit Sprachkommentar erstellen. In Minuten auf TikTok veroffentlichen, nicht Stunden.",
+    "cta": "Kostenlos erstellen starten",
+    "secondaryCta": "So funktioniert's",
+    "note": "Keine Kreditkarte erforderlich · 1 kostenloses Video zum Testen",
+    "videoPreview": "Promptok in Aktion sehen"
+  },
+  "Features": {
+    "title": "Alles was du brauchst, um viral zu gehen",
+    "subtitle": "Eine komplette KI-Video-Pipeline, von der Idee bis zum TikTok-fertigen Inhalt.",
+    "aiScript": "KI-Skriptgenerierung",
+    "aiScriptDesc": "Beschreibe deine Idee und die KI schreibt ein uberzeugendes Skript mit automatischer Szenenaufteilung.",
+    "themes": "Uber 10 thematische Stile",
+    "themesDesc": "Horror, Fantasy, Sci-Fi, Komodie und mehr. Jedes Thema kommt mit kuratierten visuellen Stilen.",
+    "voices": "Premium-KI-Stimmen",
+    "voicesDesc": "Wahle aus realistischen KI-Erzahlern von ElevenLabs. Mehrere Stimmen und Tone.",
+    "video": "Vollstandiges KI-Video",
+    "videoDesc": "Nicht nur Diashows — echte KI-generierte Videoclips, animiert aus deinen Szenen.",
+    "captions": "Automatische Untertitel",
+    "captionsDesc": "TikTok-typische Untertitel, automatisch mit deiner Erzahlung synchronisiert fur maximales Engagement.",
+    "download": "Bereit zum Posten",
+    "downloadDesc": "Download im vertikalen 9:16-Format, optimiert fur TikTok, Reels und YouTube Shorts."
+  },
+  "HowItWorks": {
+    "title": "Drei Schritte zu deinem nachsten viralen Video",
+    "subtitle": "Keine Videobearbeitungskenntnisse notig. Beschreibe es einfach und lass die KI den Rest erledigen.",
+    "step1Title": "Wahle Thema und Prompt",
+    "step1Desc": "Wahle ein Thema wie Horror, Fantasy oder Komodie. Beschreibe dann, worum es in deinem Video gehen soll.",
+    "step2Title": "Erzahltext hinzufugen",
+    "step2Desc": "Schreibe das Erzahler-Skript oder lass die KI eines generieren. Wahle aus Premium-KI-Stimmen.",
+    "step3Title": "Generieren und herunterladen",
+    "step3Desc": "Klicke auf Generieren und schau zu, wie die KI dein Video mit Szenen, Animationen, Sprachkommentar und Untertiteln erstellt. Herunterladen und posten!"
+  },
+  "Pricing": {
+    "badge": "Limitiertes Einfuhrungsangebot — bis zu 51% Rabatt",
+    "title": "Einfache, transparente Preise",
+    "subtitle": "Starte kostenlos, upgrade wenn du bereit bist. Jederzeit kundbar.",
+    "mostPopular": "Am beliebtesten",
+    "save": "{discount}% SPAREN",
+    "perMonth": "/Monat",
+    "getStarted": "Jetzt starten",
+    "starter": "Starter",
+    "starterDesc": "Perfekt fur den Einstieg mit KI-Videos",
+    "creator": "Creator",
+    "creatorDesc": "Fur Content-Creator, die mehr brauchen",
+    "pro": "Pro",
+    "proDesc": "Fur Profis und Teams"
+  },
+  "FAQ": {
+    "title": "Haufig gestellte Fragen",
+    "subtitle": "Alles, was du uber Promptok wissen musst.",
+    "q1": "Was ist Promptok?",
+    "a1": "Promptok ist eine KI-gestutzte Plattform, die komplette TikTok-fertige Videos aus einfachen Textprompts generiert. Wahle ein Thema, schreibe was du willst, und die KI erstellt ein Video mit generierten Szenen, Sprachkommentar und Untertiteln.",
+    "q2": "Wie funktioniert die KI-Videogenerierung?",
+    "a2": "Unsere Pipeline nutzt mehrere KI-Modelle: GPT-4o teilt dein Skript in Szenen auf, FLUX generiert die Visuals fur jede Szene, Hailuo animiert sie zu Videoclips, und ElevenLabs erstellt den Sprachkommentar. Alles wird zu einem finalen 9:16 Hochformatvideo zusammengesetzt.",
+    "q3": "Wie lange dauert die Videogenerierung?",
+    "a3": "Die meisten Videos werden in 3-5 Minuten generiert, je nach Lange und Komplexitat. Du siehst Echtzeit-Fortschrittsupdates, wahrend jede Phase abgeschlossen wird.",
+    "q4": "Welches Videoformat bekomme ich?",
+    "a4": "Videos werden im vertikalen 9:16-Format (1080x1920) generiert — optimiert fur TikTok, Instagram Reels und YouTube Shorts. Du erhaltst eine MP4-Datei, die direkt hochgeladen werden kann.",
+    "q5": "Kann ich mein Abonnement jederzeit kundigen?",
+    "a5": "Ja, du kannst jederzeit uber dein Dashboard kundigen. Du behaltst den Zugang bis zum Ende deines Abrechnungszeitraums. Ohne Fragen.",
+    "q6": "Gehoren die Videos, die ich erstelle, mir?",
+    "a6": "Ja, du hast alle kommerziellen Rechte an allen auf Promptok generierten Videos. Nutze sie auf jeder Plattform fur jeden Zweck."
+  },
+  "CTA": {
+    "title": "Bereit, dein erstes KI-Video zu erstellen?",
+    "subtitle": "Schliesse dich Tausenden von Creatorn an, die Promptok nutzen, um virale TikTok-Inhalte zu produzieren. Starte mit einem kostenlosen Video — keine Kreditkarte notig.",
+    "button": "Kostenlos starten"
+  },
+  "Footer": {
+    "tagline": "Erstelle beeindruckende TikTok-Videos mit KI in Minuten.",
+    "product": "Produkt",
+    "company": "Unternehmen",
+    "legal": "Rechtliches",
+    "blog": "Blog",
+    "about": "Uber uns",
+    "contact": "Kontakt",
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen",
+    "copyright": "© {year} Promptok. Alle Rechte vorbehalten."
+  },
+  "Auth": {
+    "loginTitle": "Willkommen zuruck",
+    "loginSubtitle": "Melde dich bei deinem Promptok-Konto an",
+    "signupTitle": "Konto erstellen",
+    "signupSubtitle": "Starte in Minuten mit KI-Videos",
+    "continueWithGoogle": "Weiter mit Google",
+    "orContinueWithEmail": "oder weiter mit E-Mail",
+    "email": "E-Mail",
+    "emailPlaceholder": "du@beispiel.com",
+    "password": "Passwort",
+    "passwordPlaceholder": "Dein Passwort",
+    "passwordSignupPlaceholder": "Mindestens 6 Zeichen",
+    "name": "Name",
+    "namePlaceholder": "Dein Name",
+    "loginButton": "Anmelden",
+    "signupButton": "Konto erstellen",
+    "noAccount": "Noch kein Konto?",
+    "signupLink": "Registrieren",
+    "hasAccount": "Bereits ein Konto?",
+    "loginLink": "Anmelden"
+  },
+  "PricingPage": {
+    "title": "Preise",
+    "description": "Einfache, transparente Preise fur Promptok. Starte kostenlos, upgrade wenn du bereit bist. Jederzeit kundbar."
+  },
+  "Common": {
+    "features": "Funktionen",
+    "howItWorks": "So funktioniert's",
+    "pricing": "Preise",
+    "faq": "FAQ"
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "Nav": {
+    "features": "功能",
+    "howItWorks": "使用方法",
+    "pricing": "定价",
+    "faq": "常见问题",
+    "login": "登录",
+    "getStarted": "开始使用"
+  },
+  "Hero": {
+    "badge": "AI驱动的TikTok视频生成",
+    "titleStart": "从提示词到",
+    "titleHighlight": "爆款TikTok",
+    "titleEnd": "只需几分钟",
+    "description": "选择主题，输入提示词，让AI创建带有配音的完整视频。几分钟内即可发布到TikTok，而不是几小时。",
+    "cta": "免费开始创作",
+    "secondaryCta": "了解使用方法",
+    "note": "无需信用卡 · 1个免费视频体验",
+    "videoPreview": "观看Promptok演示"
+  },
+  "Features": {
+    "title": "打造爆款所需的一切",
+    "subtitle": "完整的AI视频流水线，从创意到TikTok就绪的内容。",
+    "aiScript": "AI脚本生成",
+    "aiScriptDesc": "描述你的想法，AI会自动编写引人入胜的脚本并进行场景分解。",
+    "themes": "10+主题风格",
+    "themesDesc": "恐怖、奇幻、科幻、喜剧等。每个主题都配有精选的视觉风格。",
+    "voices": "高级AI配音",
+    "voicesDesc": "从ElevenLabs提供的逼真AI旁白中选择。多种声音和语调。",
+    "video": "完整AI视频",
+    "videoDesc": "不仅仅是幻灯片 — 从你的场景中动画化的真正AI生成视频片段。",
+    "captions": "自动字幕",
+    "captionsDesc": "TikTok风格的字幕自动与旁白同步，实现最大参与度。",
+    "download": "即可发布",
+    "downloadDesc": "以9:16竖屏格式下载，针对TikTok、Reels和YouTube Shorts优化。"
+  },
+  "HowItWorks": {
+    "title": "三步创建你的下一个爆款视频",
+    "subtitle": "无需视频编辑技能。只需描述，让AI完成其余工作。",
+    "step1Title": "选择主题和提示词",
+    "step1Desc": "选择恐怖、奇幻或喜剧等主题。然后描述你的视频内容。",
+    "step2Title": "添加旁白文本",
+    "step2Desc": "编写旁白脚本或让AI生成一个。从高级AI声音中选择以赋予它生命。",
+    "step3Title": "生成并下载",
+    "step3Desc": "点击生成，观看AI创建包含场景、动画、配音和字幕的视频。下载并发布！"
+  },
+  "Pricing": {
+    "badge": "限时上线优惠 — 最高51%折扣",
+    "title": "简单透明的定价",
+    "subtitle": "免费开始，准备好后再升级。随时取消。",
+    "mostPopular": "最受欢迎",
+    "save": "节省{discount}%",
+    "perMonth": "/月",
+    "getStarted": "开始使用",
+    "starter": "入门版",
+    "starterDesc": "非常适合开始使用AI视频",
+    "creator": "创作者版",
+    "creatorDesc": "适合需要更多功能的内容创作者",
+    "pro": "专业版",
+    "proDesc": "适合专业人士和团队"
+  },
+  "FAQ": {
+    "title": "常见问题",
+    "subtitle": "关于Promptok你需要知道的一切。",
+    "q1": "什么是Promptok？",
+    "a1": "Promptok是一个AI驱动的平台，可以从简单的文本提示生成完整的TikTok就绪视频。你选择主题，写下想要的内容，AI就会创建包含生成场景、配音旁白和字幕的视频。",
+    "q2": "AI视频生成是如何工作的？",
+    "a2": "我们的流水线使用多个AI模型：GPT-4o将脚本分解为场景，FLUX为每个场景生成视觉效果，Hailuo将它们动画化为视频片段，ElevenLabs创建配音。所有内容组装成最终的9:16竖屏视频。",
+    "q3": "生成视频需要多长时间？",
+    "a3": "大多数视频在3-5分钟内生成，具体取决于长度和复杂性。你可以在每个阶段完成时看到实时进度更新。",
+    "q4": "我得到什么视频格式？",
+    "a4": "视频以9:16竖屏格式（1080x1920）生成 — 针对TikTok、Instagram Reels和YouTube Shorts优化。你将获得可直接上传的MP4文件。",
+    "q5": "我可以随时取消订阅吗？",
+    "a5": "是的，你可以随时从控制面板取消。你将保留访问权限直到计费周期结束。无需任何理由。",
+    "q6": "我创建的视频归我所有吗？",
+    "a6": "是的，你对在Promptok上生成的所有视频拥有完全的商业权利。可以在任何平台上用于任何目的。"
+  },
+  "CTA": {
+    "title": "准备创建你的第一个AI视频了吗？",
+    "subtitle": "加入数千名使用Promptok制作TikTok爆款内容的创作者。免费视频开始 — 无需信用卡。",
+    "button": "免费开始"
+  },
+  "Footer": {
+    "tagline": "用AI在几分钟内创建精彩的TikTok视频。",
+    "product": "产品",
+    "company": "公司",
+    "legal": "法律",
+    "blog": "博客",
+    "about": "关于我们",
+    "contact": "联系我们",
+    "privacy": "隐私政策",
+    "terms": "服务条款",
+    "copyright": "© {year} Promptok. 保留所有权利。"
+  },
+  "Auth": {
+    "loginTitle": "欢迎回来",
+    "loginSubtitle": "登录你的Promptok账户",
+    "signupTitle": "创建账户",
+    "signupSubtitle": "几分钟内开始创建AI视频",
+    "continueWithGoogle": "使用Google继续",
+    "orContinueWithEmail": "或使用邮箱继续",
+    "email": "邮箱",
+    "emailPlaceholder": "you@example.com",
+    "password": "密码",
+    "passwordPlaceholder": "你的密码",
+    "passwordSignupPlaceholder": "至少6个字符",
+    "name": "姓名",
+    "namePlaceholder": "你的姓名",
+    "loginButton": "登录",
+    "signupButton": "创建账户",
+    "noAccount": "还没有账户？",
+    "signupLink": "注册",
+    "hasAccount": "已有账户？",
+    "loginLink": "登录"
+  },
+  "PricingPage": {
+    "title": "定价",
+    "description": "Promptok的简单透明定价。免费开始，准备好后再升级。随时取消。"
+  },
+  "Common": {
+    "features": "功能",
+    "howItWorks": "使用方法",
+    "pricing": "定价",
+    "faq": "常见问题"
+  }
+}

@@ -4,8 +4,11 @@ import Link from "next/link";
 import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export function Hero() {
+  const t = useTranslations("Hero");
+
   return (
     <section className="relative overflow-hidden">
       {/* Subtle gradient background */}
@@ -22,18 +25,17 @@ export function Hero() {
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/50 px-4 py-1.5 text-sm text-muted-foreground">
             <Play className="h-3 w-3 fill-violet-600 text-violet-600" />
-            AI-powered TikTok video generation
+            {t("badge")}
           </div>
 
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-            From prompt to{" "}
-            <span className="gradient-text">viral TikTok</span>{" "}
-            in minutes
+            {t("titleStart")}{" "}
+            <span className="gradient-text">{t("titleHighlight")}</span>{" "}
+            {t("titleEnd")}
           </h1>
 
           <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
-            Choose a theme, write your prompt, and let AI create a complete
-            video with voiceover. Ready to post on TikTok in minutes, not hours.
+            {t("description")}
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -43,7 +45,7 @@ export function Hero() {
               asChild
             >
               <Link href="/signup">
-                Start creating free
+                {t("cta")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -53,12 +55,12 @@ export function Hero() {
               className="w-full sm:w-auto"
               asChild
             >
-              <Link href="/#how-it-works">See how it works</Link>
+              <Link href="/#how-it-works">{t("secondaryCta")}</Link>
             </Button>
           </div>
 
           <p className="mt-4 text-xs text-muted-foreground">
-            No credit card required &middot; 1 free video to try
+            {t("note")}
           </p>
         </motion.div>
 
@@ -77,7 +79,7 @@ export function Hero() {
                     <Play className="h-7 w-7 fill-violet-600 text-violet-600" />
                   </div>
                   <p className="text-sm font-medium text-violet-900/60">
-                    See Promptok in action
+                    {t("videoPreview")}
                   </p>
                 </div>
               </div>

@@ -1,43 +1,31 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
-const steps = [
-  {
-    step: "01",
-    title: "Choose your theme & prompt",
-    description:
-      "Select a theme like horror, fantasy, or comedy. Then describe what your video should be about.",
-  },
-  {
-    step: "02",
-    title: "Add narration text",
-    description:
-      "Write the narrator's script or let AI generate one. Pick from premium AI voices to bring it to life.",
-  },
-  {
-    step: "03",
-    title: "Generate & download",
-    description:
-      "Hit generate and watch AI create your video with scenes, animations, voiceover, and captions. Download and post!",
-  },
+const stepKeys = [
+  { step: "01", titleKey: "step1Title", descKey: "step1Desc" },
+  { step: "02", titleKey: "step2Title", descKey: "step2Desc" },
+  { step: "03", titleKey: "step3Title", descKey: "step3Desc" },
 ];
 
 export function HowItWorks() {
+  const t = useTranslations("HowItWorks");
+
   return (
     <section id="how-it-works" className="bg-muted/30 py-20">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Three steps to your next viral video
+            {t("title")}
           </h2>
           <p className="mt-4 text-muted-foreground">
-            No video editing skills needed. Just describe it and let AI do the rest.
+            {t("subtitle")}
           </p>
         </div>
 
         <div className="mt-14 grid gap-8 md:grid-cols-3">
-          {steps.map((step, i) => (
+          {stepKeys.map((step, i) => (
             <motion.div
               key={step.step}
               className="relative"
@@ -51,9 +39,9 @@ export function HowItWorks() {
                   {step.step}
                 </span>
               </div>
-              <h3 className="mb-2 text-lg font-semibold">{step.title}</h3>
+              <h3 className="mb-2 text-lg font-semibold">{t(step.titleKey)}</h3>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                {step.description}
+                {t(step.descKey)}
               </p>
             </motion.div>
           ))}

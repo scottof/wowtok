@@ -23,6 +23,7 @@ export interface PricingPlan {
   id: Plan;
   name: string;
   price: number;
+  originalPrice: number;
   stripePriceId: string;
   description: string;
   features: string[];

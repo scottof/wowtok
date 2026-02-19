@@ -5,16 +5,19 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./logo";
-
-const navLinks = [
-  { href: "/#features", label: "Features" },
-  { href: "/#how-it-works", label: "How it Works" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/#faq", label: "FAQ" },
-];
+import { LanguageSwitcher } from "./language-switcher";
+import { useTranslations } from "next-intl";
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const t = useTranslations("Nav");
+
+  const navLinks = [
+    { href: "/#features", label: t("features") },
+    { href: "/#how-it-works", label: t("howItWorks") },
+    { href: "/pricing", label: t("pricing") },
+    { href: "/#faq", label: t("faq") },
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl">
@@ -36,11 +39,12 @@ export function Navbar() {
 
         {/* Desktop CTA */}
         <div className="hidden items-center gap-3 md:flex">
+          <LanguageSwitcher />
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/login">Log in</Link>
+            <Link href="/login">{t("login")}</Link>
           </Button>
           <Button size="sm" className="gradient-bg border-0 text-white hover:opacity-90" asChild>
-            <Link href="/signup">Get Started</Link>
+            <Link href="/signup">{t("getStarted")}</Link>
           </Button>
         </div>
 
@@ -69,11 +73,12 @@ export function Navbar() {
               </Link>
             ))}
             <div className="flex flex-col gap-2 pt-3">
+              <LanguageSwitcher />
               <Button variant="outline" size="sm" asChild>
-                <Link href="/login">Log in</Link>
+                <Link href="/login">{t("login")}</Link>
               </Button>
               <Button size="sm" className="gradient-bg border-0 text-white" asChild>
-                <Link href="/signup">Get Started</Link>
+                <Link href="/signup">{t("getStarted")}</Link>
               </Button>
             </div>
           </div>
