@@ -20,7 +20,7 @@ export const plans: PricingPlan[] = [
   {
     id: "CREATOR",
     name: "Creator",
-    price: 49,
+    price: 59,
     originalPrice: 99,
     stripePriceId: process.env.STRIPE_CREATOR_PRICE_ID || "",
     description: "For content creators who need more",
@@ -39,7 +39,7 @@ export const plans: PricingPlan[] = [
   {
     id: "PRO",
     name: "Pro",
-    price: 99,
+    price: 149,
     originalPrice: 199,
     stripePriceId: process.env.STRIPE_PRO_PRICE_ID || "",
     description: "For professionals and teams",
