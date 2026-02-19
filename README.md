@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Promptok
+
+AI-powered TikTok video generator. Create stunning short-form videos from simple text prompts.
+
+## Tech Stack
+
+- **Frontend**: Next.js 15 (App Router), TypeScript, Tailwind CSS v4, shadcn/ui
+- **Backend**: Next.js API Routes & Server Actions
+- **Database**: Supabase (PostgreSQL) + Prisma ORM
+- **Auth**: Supabase Auth (Google + Email/Password)
+- **Payments**: Stripe (Checkout, Webhooks, Customer Portal)
+- **AI**: OpenAI GPT-4o-mini, ElevenLabs, fal.ai (FLUX + Hailuo)
+- **Jobs**: Inngest (background video generation)
+- **Deployment**: Vercel
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 20+
+- npm
+- Supabase project
+- Stripe account
+- OpenAI API key
+- ElevenLabs API key
+- fal.ai API key
+
+### Setup
+
+1. Clone the repo:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/scottof/promptok.git
+cd promptok
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Copy environment variables:
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Fill in your `.env.local` with keys from:
+   - [Supabase](https://supabase.com) — Project URL, anon key, service role key, database URL
+   - [Stripe](https://stripe.com) — Secret key, publishable key, webhook secret, price IDs
+   - [OpenAI](https://platform.openai.com) — API key
+   - [ElevenLabs](https://elevenlabs.io) — API key
+   - [fal.ai](https://fal.ai) — API key
 
-## Learn More
+5. Set up the database:
+```bash
+npx prisma db push
+npx prisma generate
+```
 
-To learn more about Next.js, take a look at the following resources:
+6. Create a Supabase storage bucket named `media` (public).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+7. Run the development server:
+```bash
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+8. For local Stripe webhooks:
+```bash
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
+```
 
-## Deploy on Vercel
+9. For Inngest dev server:
+```bash
+npx inngest-cli dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Stripe Setup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Create 3 products in Stripe with recurring monthly prices:
+- **Starter**: $19/month
+- **Creator**: $49/month
+- **Pro**: $99/month
+
+Copy the price IDs into your `.env.local`.
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── api/                # API routes (webhooks, videos, inngest)
+│   ├── blog/               # Blog pages (SEO)
+│   ├── dashboard/          # Protected dashboard pages
+│   ├── login/ & signup/    # Auth pages
+│   └── pricing/            # Pricing page
+├── components/
+│   ├── dashboard/          # Dashboard-specific components
+│   ├── landing/            # Landing page sections
+│   ├── shared/             # Shared components (navbar, footer, logo)
+│   └── ui/                 # shadcn/ui components
+├── config/                 # Site config, theme definitions
+├── hooks/                  # React hooks
+├── inngest/                # Background job functions
+├── lib/
+│   ├── ai/                 # AI integrations (OpenAI, fal.ai, ElevenLabs)
+│   ├── stripe/             # Stripe client, config, server actions
+│   └── supabase/           # Supabase clients (browser + server)
+└── types/                  # TypeScript type definitions
+```
+
+## AI Video Pipeline
+
+1. User inputs: theme, prompt, narration text
+2. **GPT-4o-mini** splits text into 4-6 scenes with visual descriptions
+3. **FLUX.2 Pro** generates an image per scene
+4. **Hailuo** animates each image into video clips
+5. **ElevenLabs** generates voiceover audio
+6. Final video assembled and delivered as 9:16 MP4
+
+## License
+
+MIT

@@ -1,0 +1,86 @@
+import type { VideoTheme } from "@/types";
+
+export const videoThemes: VideoTheme[] = [
+  {
+    id: "horror",
+    name: "Horror",
+    description: "Dark, eerie atmospheres with suspenseful storytelling",
+    icon: "Ghost",
+    promptPrefix: "Create a horror-themed scene with dark, eerie lighting and suspenseful atmosphere.",
+    style: "dark cinematic horror, dramatic shadows, desaturated colors, fog, moonlight",
+  },
+  {
+    id: "fantasy",
+    name: "Fantasy",
+    description: "Magical worlds with epic landscapes and mythical creatures",
+    icon: "Sparkles",
+    promptPrefix: "Create a fantasy-themed scene with magical elements and epic atmosphere.",
+    style: "epic fantasy art, magical lighting, vibrant colors, mystical atmosphere, detailed landscape",
+  },
+  {
+    id: "comedy",
+    name: "Comedy",
+    description: "Lighthearted, colorful scenes with humorous vibes",
+    icon: "Laugh",
+    promptPrefix: "Create a comedic, lighthearted scene with bright colors and playful elements.",
+    style: "bright colorful illustration, cartoon-like, playful, warm lighting, humorous atmosphere",
+  },
+  {
+    id: "scifi",
+    name: "Sci-Fi",
+    description: "Futuristic technology, space, and cyberpunk aesthetics",
+    icon: "Rocket",
+    promptPrefix: "Create a sci-fi scene with futuristic technology and advanced civilization.",
+    style: "futuristic sci-fi, neon lighting, cyberpunk, holographic elements, sleek technology",
+  },
+  {
+    id: "drama",
+    name: "Drama",
+    description: "Emotional, cinematic storytelling with depth",
+    icon: "Theater",
+    promptPrefix: "Create a dramatic, emotionally charged scene with cinematic quality.",
+    style: "cinematic drama, golden hour lighting, emotional depth, film grain, warm tones",
+  },
+  {
+    id: "mystery",
+    name: "Mystery",
+    description: "Intriguing puzzles, detective vibes, and hidden clues",
+    icon: "Search",
+    promptPrefix: "Create a mysterious scene with detective noir atmosphere and hidden elements.",
+    style: "noir mystery, dim lighting, rain, shadows, vintage detective aesthetic, moody atmosphere",
+  },
+  {
+    id: "romance",
+    name: "Romance",
+    description: "Beautiful, dreamy scenes with warmth and passion",
+    icon: "Heart",
+    promptPrefix: "Create a romantic, dreamy scene with warm and passionate atmosphere.",
+    style: "romantic atmosphere, soft warm lighting, bokeh, pastel colors, dreamy and ethereal",
+  },
+  {
+    id: "thriller",
+    name: "Thriller",
+    description: "High-tension, fast-paced action and suspense",
+    icon: "Zap",
+    promptPrefix: "Create a high-tension thriller scene with dynamic action and suspense.",
+    style: "thriller action, high contrast, dynamic angles, motion blur, intense atmosphere, teal and orange",
+  },
+  {
+    id: "educational",
+    name: "Educational",
+    description: "Clean, informative visuals for learning content",
+    icon: "BookOpen",
+    promptPrefix: "Create a clean, informative educational scene with clear visual elements.",
+    style: "clean educational illustration, infographic style, clear colors, professional, modern flat design",
+  },
+  {
+    id: "motivational",
+    name: "Motivational",
+    description: "Inspiring visuals with powerful, uplifting energy",
+    icon: "Flame",
+    promptPrefix: "Create an inspiring, motivational scene with powerful uplifting energy.",
+    style: "inspirational photography, golden light, mountain peaks, sunrise, epic scale, empowering atmosphere",
+  },
+];
+
+export const getTheme = (id: string) => videoThemes.find((t) => t.id === id);

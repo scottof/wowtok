@@ -1,0 +1,43 @@
+# Promptok — AI TikTok Video Generator
+
+> Promptok is an AI-powered platform that generates TikTok-ready videos from simple text prompts.
+
+## What is Promptok?
+
+Promptok lets content creators generate complete TikTok videos using AI. Users choose a theme (horror, fantasy, comedy, sci-fi, etc.), provide a prompt describing their video idea, and write or auto-generate narration text. The platform then uses AI to create a full video with generated scenes, AI voiceover, and captions — ready to post on TikTok, Instagram Reels, or YouTube Shorts.
+
+## How it works
+
+1. Choose a theme (horror, fantasy, comedy, sci-fi, drama, mystery, romance, thriller, educational, motivational)
+2. Write a prompt describing your video concept
+3. Add narration text (or let AI generate it)
+4. Select an AI voice
+5. Generate — AI creates scenes, images, video clips, voiceover, and assembles the final vertical video
+
+## Features
+
+- AI script generation from prompts
+- 10+ themed video styles
+- Premium AI voices powered by ElevenLabs
+- Full AI video generation (not just slideshows)
+- Auto-synced captions
+- 9:16 vertical format optimized for TikTok
+- 1080x1920 resolution output
+- Download as MP4
+
+## Pricing
+
+- Starter: $19/month — 5 videos/month, 3 voices, 720p
+- Creator: $49/month — 20 videos/month, 10+ voices, 1080p, no watermark
+- Pro: $99/month — 50 videos/month, all voices + cloning, API access
+
+## Technology
+
+Built with Next.js, powered by GPT-4o for script generation, FLUX for image generation, MiniMax Hailuo for video generation, and ElevenLabs for voice synthesis.
+
+## Links
+
+- Website: https://promptok.ai
+- Pricing: https://promptok.ai/pricing
+- Login: https://promptok.ai/login
+- Sign up: https://promptok.ai/signup
