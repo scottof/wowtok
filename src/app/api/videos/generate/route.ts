@@ -1,8 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
-import { inngest } from "@/inngest/client";
 import { getVideosLimit } from "@/lib/stripe/config";
+
+function getBaseUrl() {
+  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return "http://localhost:3000";
+}
 
 export async function POST(req: Request) {
   try {
@@ -87,10 +92,21 @@ export async function POST(req: Request) {
       data: { videosGenerated: { increment: 1 } },
     });
 
-    // Trigger background job
-    await inngest.send({
-      name: "video/generate",
-      data: { videoId: video.id },
+    // Trigger background pipeline (self-chaining step processor)
+    const baseUrl = getBaseUrl();
+    after(async () => {
+      try {
+        await fetch(`${baseUrl}/api/videos/process`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-process-secret": process.env.PROCESS_SECRET || "",
+          },
+          body: JSON.stringify({ videoId: video.id, step: "scenes" }),
+        });
+      } catch (e) {
+        console.error("Failed to trigger pipeline:", e);
+      }
     });
 
     return NextResponse.json({ videoId: video.id });
