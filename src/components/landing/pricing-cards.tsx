@@ -1,15 +1,34 @@
 "use client";
 
 import Link from "next/link";
-import { Check } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { plans } from "@/lib/stripe/config";
+import { createCheckoutSessionByPlan } from "@/lib/stripe/actions";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { useState, useTransition } from "react";
 
-export function PricingCards() {
+interface PricingCardsProps {
+  isLoggedIn?: boolean;
+}
+
+export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
   const t = useTranslations("Pricing");
+  const [isPending, startTransition] = useTransition();
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+
+  function handleSubscribe(planId: string) {
+    setLoadingPlan(planId);
+    startTransition(async () => {
+      try {
+        await createCheckoutSessionByPlan(planId);
+      } catch {
+        setLoadingPlan(null);
+      }
+    });
+  }
 
   return (
     <section id="pricing" className="py-20">
@@ -31,6 +50,7 @@ export function PricingCards() {
             const discount = Math.round(
               ((plan.originalPrice - plan.price) / plan.originalPrice) * 100
             );
+            const isLoading = isPending && loadingPlan === plan.id;
             return (
               <motion.div
                 key={plan.id}
@@ -73,18 +93,37 @@ export function PricingCards() {
                   <span className="text-muted-foreground">{t("perMonth")}</span>
                 </div>
 
-                <Button
-                  className={cn(
-                    "mb-8 w-full",
-                    plan.highlighted
-                      ? "gradient-bg border-0 text-white hover:opacity-90"
-                      : ""
-                  )}
-                  variant={plan.highlighted ? "default" : "outline"}
-                  asChild
-                >
-                  <Link href="/signup">{t("getStarted")}</Link>
-                </Button>
+                {isLoggedIn ? (
+                  <Button
+                    className={cn(
+                      "mb-8 w-full",
+                      plan.highlighted
+                        ? "gradient-bg border-0 text-white hover:opacity-90"
+                        : ""
+                    )}
+                    variant={plan.highlighted ? "default" : "outline"}
+                    disabled={isPending}
+                    onClick={() => handleSubscribe(plan.id)}
+                  >
+                    {isLoading ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : null}
+                    {isLoading ? "Redirecting..." : t("getStarted")}
+                  </Button>
+                ) : (
+                  <Button
+                    className={cn(
+                      "mb-8 w-full",
+                      plan.highlighted
+                        ? "gradient-bg border-0 text-white hover:opacity-90"
+                        : ""
+                    )}
+                    variant={plan.highlighted ? "default" : "outline"}
+                    asChild
+                  >
+                    <Link href="/signup">{t("getStarted")}</Link>
+                  </Button>
+                )}
 
                 <ul className="space-y-3">
                   {plan.features.map((feature) => (

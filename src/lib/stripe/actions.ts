@@ -5,6 +5,15 @@ import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { stripe } from "./client";
 
+export async function createCheckoutSessionByPlan(planId: string) {
+  const { plans } = await import("./config");
+  const plan = plans.find((p) => p.id === planId.toUpperCase());
+  if (!plan || !plan.stripePriceId) {
+    throw new Error("Invalid plan");
+  }
+  return createCheckoutSession(plan.stripePriceId);
+}
+
 export async function createCheckoutSession(priceId: string) {
   const supabase = await createClient();
   const {
