@@ -58,10 +58,6 @@ export function Hero() {
               <Link href="/#how-it-works">{t("secondaryCta")}</Link>
             </Button>
           </div>
-
-          <p className="mt-4 text-xs text-muted-foreground">
-            {t("note")}
-          </p>
         </motion.div>
 
         {/* Video preview mockup */}
