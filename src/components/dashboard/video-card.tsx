@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { Play, Clock, AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { VideoStatus } from "@/types";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface VideoCardProps {
   id: string;
@@ -14,19 +17,19 @@ interface VideoCardProps {
   createdAt: Date;
 }
 
-const statusConfig: Record<
-  VideoStatus,
-  { label: string; icon: typeof Clock; color: string }
-> = {
-  PENDING: { label: "Queued", icon: Clock, color: "bg-yellow-100 text-yellow-800" },
-  SCENES: { label: "Generating scenes", icon: Loader2, color: "bg-blue-100 text-blue-800" },
-  IMAGES: { label: "Creating images", icon: Loader2, color: "bg-blue-100 text-blue-800" },
-  VIDEO: { label: "Rendering video", icon: Loader2, color: "bg-blue-100 text-blue-800" },
-  VOICEOVER: { label: "Adding voice", icon: Loader2, color: "bg-blue-100 text-blue-800" },
-  COMPOSING: { label: "Composing", icon: Loader2, color: "bg-purple-100 text-purple-800" },
-  COMPLETED: { label: "Ready", icon: CheckCircle2, color: "bg-green-100 text-green-800" },
-  FAILED: { label: "Failed", icon: AlertCircle, color: "bg-red-100 text-red-800" },
-};
+function useStatusConfig() {
+  const t = useTranslations("Dashboard");
+  return {
+    PENDING: { label: t("statusQueued"), icon: Clock, color: "bg-yellow-100 text-yellow-800" },
+    SCENES: { label: t("statusScenes"), icon: Loader2, color: "bg-blue-100 text-blue-800" },
+    IMAGES: { label: t("statusImages"), icon: Loader2, color: "bg-blue-100 text-blue-800" },
+    VIDEO: { label: t("statusVideo"), icon: Loader2, color: "bg-blue-100 text-blue-800" },
+    VOICEOVER: { label: t("statusAddingVoice"), icon: Loader2, color: "bg-blue-100 text-blue-800" },
+    COMPOSING: { label: t("statusComposingShort"), icon: Loader2, color: "bg-purple-100 text-purple-800" },
+    COMPLETED: { label: t("statusReady"), icon: CheckCircle2, color: "bg-green-100 text-green-800" },
+    FAILED: { label: t("statusFailed"), icon: AlertCircle, color: "bg-red-100 text-red-800" },
+  } as Record<VideoStatus, { label: string; icon: typeof Clock; color: string }>;
+}
 
 export function VideoCard({
   id,
@@ -37,6 +40,7 @@ export function VideoCard({
   duration,
   createdAt,
 }: VideoCardProps) {
+  const statusConfig = useStatusConfig();
   const config = statusConfig[status];
   const StatusIcon = config.icon;
   const isProcessing = !["COMPLETED", "FAILED"].includes(status);

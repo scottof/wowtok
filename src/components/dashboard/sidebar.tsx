@@ -11,20 +11,23 @@ import {
 } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
+import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
-const links = [
-  { href: "/dashboard", label: "My Videos", icon: LayoutDashboard },
-  { href: "/dashboard/create", label: "Create Video", icon: PlusCircle },
-  { href: "/dashboard/billing", label: "Billing", icon: CreditCard },
-  { href: "/dashboard/settings", label: "Settings", icon: Settings },
-];
+const linkKeys = [
+  { href: "/dashboard", labelKey: "myVideos", icon: LayoutDashboard },
+  { href: "/dashboard/create", labelKey: "createVideo", icon: PlusCircle },
+  { href: "/dashboard/billing", labelKey: "billing", icon: CreditCard },
+  { href: "/dashboard/settings", labelKey: "settings", icon: Settings },
+] as const;
 
 export function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const t = useTranslations("Dashboard");
 
   async function handleSignOut() {
     const supabase = createClient();
@@ -40,7 +43,7 @@ export function Sidebar() {
       </div>
 
       <nav className="flex-1 space-y-1 px-3 py-4">
-        {links.map((link) => {
+        {linkKeys.map((link) => {
           const isActive =
             link.href === "/dashboard"
               ? pathname === "/dashboard"
@@ -57,13 +60,16 @@ export function Sidebar() {
               )}
             >
               <link.icon className="h-4 w-4" />
-              {link.label}
+              {t(link.labelKey)}
             </Link>
           );
         })}
       </nav>
 
-      <div className="border-t border-border/40 p-3">
+      <div className="border-t border-border/40 p-3 space-y-2">
+        <div className="px-1">
+          <LanguageSwitcher />
+        </div>
         <Button
           variant="ghost"
           size="sm"
@@ -71,7 +77,7 @@ export function Sidebar() {
           onClick={handleSignOut}
         >
           <LogOut className="h-4 w-4" />
-          Sign out
+          {t("signOut")}
         </Button>
       </div>
     </aside>

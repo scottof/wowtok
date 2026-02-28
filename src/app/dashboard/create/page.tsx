@@ -25,6 +25,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { videoThemes } from "@/config/themes";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Ghost,
@@ -39,19 +40,9 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Flame,
 };
 
-const voiceOptions = [
-  { id: "adam", name: "Adam", description: "Deep, authoritative male voice" },
-  { id: "bella", name: "Bella", description: "Warm, engaging female voice" },
-  { id: "charlie", name: "Charlie", description: "Energetic, young male voice" },
-  { id: "sarah", name: "Sarah", description: "Calm, professional female voice" },
-  { id: "james", name: "James", description: "Dramatic, narrative male voice" },
-  { id: "emily", name: "Emily", description: "Friendly, conversational female voice" },
-];
-
-const steps = ["Theme", "Prompt", "Narration", "Voice", "Review"];
-
 export default function CreateVideoPage() {
   const router = useRouter();
+  const t = useTranslations("Dashboard");
   const [step, setStep] = useState(0);
   const [theme, setTheme] = useState("");
   const [title, setTitle] = useState("");
@@ -60,6 +51,23 @@ export default function CreateVideoPage() {
   const [voiceId, setVoiceId] = useState("adam");
   const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
+
+  const steps = [
+    t("stepTheme"),
+    t("stepPrompt"),
+    t("stepNarration"),
+    t("stepVoice"),
+    t("stepReview"),
+  ];
+
+  const voiceOptions = [
+    { id: "adam", name: "Adam", description: t("voiceAdam") },
+    { id: "bella", name: "Bella", description: t("voiceBella") },
+    { id: "charlie", name: "Charlie", description: t("voiceCharlie") },
+    { id: "sarah", name: "Sarah", description: t("voiceSarah") },
+    { id: "james", name: "James", description: t("voiceJames") },
+    { id: "emily", name: "Emily", description: t("voiceEmily") },
+  ];
 
   function canProceed() {
     switch (step) {
@@ -87,10 +95,10 @@ export default function CreateVideoPage() {
       const data = await res.json();
       if (data.script) {
         setNarratorText(data.script);
-        toast.success("Script generated!");
+        toast.success(t("scriptGenerated"));
       }
     } catch {
-      toast.error("Failed to generate script");
+      toast.error(t("failedScript"));
     } finally {
       setGenerating(false);
     }
@@ -107,16 +115,16 @@ export default function CreateVideoPage() {
 
       if (!res.ok) {
         const data = await res.json();
-        toast.error(data.error || "Failed to start generation");
+        toast.error(data.error || t("failedGeneration"));
         setLoading(false);
         return;
       }
 
       const data = await res.json();
-      toast.success("Video generation started!");
+      toast.success(t("videoStarted"));
       router.push(`/dashboard/videos/${data.videoId}`);
     } catch {
-      toast.error("Something went wrong");
+      toast.error(t("somethingWrong"));
       setLoading(false);
     }
   }
@@ -124,9 +132,9 @@ export default function CreateVideoPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold">Create Video</h1>
+        <h1 className="text-2xl font-bold">{t("createTitle")}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Follow the steps to create your AI-generated TikTok video
+          {t("createSubtitle")}
         </p>
       </div>
 
@@ -166,17 +174,17 @@ export default function CreateVideoPage() {
         {/* Step 0: Theme */}
         {step === 0 && (
           <div>
-            <h2 className="mb-4 text-lg font-semibold">Choose a theme</h2>
+            <h2 className="mb-4 text-lg font-semibold">{t("chooseTheme")}</h2>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {videoThemes.map((t) => {
-                const Icon = iconMap[t.icon] || Sparkles;
+              {videoThemes.map((th) => {
+                const Icon = iconMap[th.icon] || Sparkles;
                 return (
                   <button
-                    key={t.id}
-                    onClick={() => setTheme(t.id)}
+                    key={th.id}
+                    onClick={() => setTheme(th.id)}
                     className={cn(
                       "flex items-start gap-3 rounded-xl border p-4 text-left transition-all",
-                      theme === t.id
+                      theme === th.id
                         ? "border-violet-400 bg-violet-50 shadow-sm"
                         : "border-border/60 hover:border-violet-200"
                     )}
@@ -184,7 +192,7 @@ export default function CreateVideoPage() {
                     <div
                       className={cn(
                         "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg",
-                        theme === t.id
+                        theme === th.id
                           ? "bg-violet-100 text-violet-600"
                           : "bg-muted text-muted-foreground"
                       )}
@@ -192,9 +200,9 @@ export default function CreateVideoPage() {
                       <Icon className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium">{t.name}</p>
+                      <p className="text-sm font-medium">{th.name}</p>
                       <p className="mt-0.5 text-xs text-muted-foreground">
-                        {t.description}
+                        {th.description}
                       </p>
                     </div>
                   </button>
@@ -208,23 +216,23 @@ export default function CreateVideoPage() {
         {step === 1 && (
           <div className="space-y-4">
             <h2 className="mb-4 text-lg font-semibold">
-              Describe your video
+              {t("describeVideo")}
             </h2>
             <div>
-              <Label htmlFor="title">Video title</Label>
+              <Label htmlFor="title">{t("videoTitle")}</Label>
               <Input
                 id="title"
-                placeholder="e.g., The Haunted Lighthouse"
+                placeholder={t("videoTitlePlaceholder")}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="mt-1.5"
               />
             </div>
             <div>
-              <Label htmlFor="prompt">What should the video be about?</Label>
+              <Label htmlFor="prompt">{t("whatAbout")}</Label>
               <Textarea
                 id="prompt"
-                placeholder="e.g., A sailor discovers an abandoned lighthouse on a foggy night, only to find it's not as empty as it seems..."
+                placeholder={t("promptPlaceholder")}
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 className="mt-1.5 min-h-[120px]"
@@ -237,7 +245,7 @@ export default function CreateVideoPage() {
         {step === 2 && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold">Narration text</h2>
+              <h2 className="text-lg font-semibold">{t("narrationText")}</h2>
               <Button
                 variant="outline"
                 size="sm"
@@ -249,23 +257,23 @@ export default function CreateVideoPage() {
                 ) : (
                   <Wand2 className="mr-2 h-3 w-3" />
                 )}
-                Auto-generate
+                {t("autoGenerate")}
               </Button>
             </div>
             <div>
               <Label htmlFor="narration">
-                Write the text the AI narrator will read
+                {t("narratorLabel")}
               </Label>
               <Textarea
                 id="narration"
-                placeholder="Write or generate the narrator's script. This text will be split into scenes and read aloud by the AI voice..."
+                placeholder={t("narratorPlaceholder")}
                 value={narratorText}
                 onChange={(e) => setNarratorText(e.target.value)}
                 className="mt-1.5 min-h-[200px]"
               />
               <p className="mt-1.5 text-xs text-muted-foreground">
-                {narratorText.length} characters &middot; ~
-                {Math.ceil(narratorText.length / 15)} seconds
+                {narratorText.length} {t("characters")} &middot; ~
+                {Math.ceil(narratorText.length / 15)} {t("seconds")}
               </p>
             </div>
           </div>
@@ -274,7 +282,7 @@ export default function CreateVideoPage() {
         {/* Step 3: Voice */}
         {step === 3 && (
           <div>
-            <h2 className="mb-4 text-lg font-semibold">Choose a voice</h2>
+            <h2 className="mb-4 text-lg font-semibold">{t("chooseVoice")}</h2>
             <div className="grid gap-3 sm:grid-cols-2">
               {voiceOptions.map((v) => (
                 <button
@@ -314,28 +322,28 @@ export default function CreateVideoPage() {
         {/* Step 4: Review */}
         {step === 4 && (
           <div className="space-y-4">
-            <h2 className="mb-4 text-lg font-semibold">Review & generate</h2>
+            <h2 className="mb-4 text-lg font-semibold">{t("reviewGenerate")}</h2>
             <div className="space-y-3 rounded-lg bg-muted/50 p-4">
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Theme</span>
+                <span className="text-muted-foreground">{t("theme")}</span>
                 <span className="font-medium capitalize">{theme}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Title</span>
+                <span className="text-muted-foreground">{t("title")}</span>
                 <span className="font-medium">{title}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Voice</span>
+                <span className="text-muted-foreground">{t("voice")}</span>
                 <span className="font-medium capitalize">{voiceId}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Est. duration</span>
+                <span className="text-muted-foreground">{t("estDuration")}</span>
                 <span className="font-medium">
                   ~{Math.ceil(narratorText.length / 15)}s
                 </span>
               </div>
               <div className="border-t pt-3">
-                <p className="text-xs text-muted-foreground">Narration preview</p>
+                <p className="text-xs text-muted-foreground">{t("narrationPreview")}</p>
                 <p className="mt-1 text-sm">
                   {narratorText.slice(0, 200)}
                   {narratorText.length > 200 && "..."}
@@ -354,7 +362,7 @@ export default function CreateVideoPage() {
           disabled={step === 0}
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back
+          {t("back")}
         </Button>
 
         {step < steps.length - 1 ? (
@@ -362,7 +370,7 @@ export default function CreateVideoPage() {
             onClick={() => setStep(step + 1)}
             disabled={!canProceed()}
           >
-            Next
+            {t("next")}
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         ) : (
@@ -376,7 +384,7 @@ export default function CreateVideoPage() {
             ) : (
               <Zap className="mr-2 h-4 w-4" />
             )}
-            Generate Video
+            {t("generateVideo")}
           </Button>
         )}
       </div>

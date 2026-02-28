@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { VideoStatus } from "@/types";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface VideoData {
   id: string;
@@ -30,17 +31,19 @@ interface VideoData {
   createdAt: string;
 }
 
-const statusSteps: { key: VideoStatus; label: string }[] = [
-  { key: "PENDING", label: "Queued" },
-  { key: "SCENES", label: "Generating scenes" },
-  { key: "IMAGES", label: "Creating images" },
-  { key: "VIDEO", label: "Rendering video" },
-  { key: "VOICEOVER", label: "Adding voiceover" },
-  { key: "COMPOSING", label: "Composing final video" },
-  { key: "COMPLETED", label: "Complete" },
-];
+function getStatusSteps(t: (key: string) => string) {
+  return [
+    { key: "PENDING" as VideoStatus, label: t("statusQueued") },
+    { key: "SCENES" as VideoStatus, label: t("statusScenes") },
+    { key: "IMAGES" as VideoStatus, label: t("statusImages") },
+    { key: "VIDEO" as VideoStatus, label: t("statusVideo") },
+    { key: "VOICEOVER" as VideoStatus, label: t("statusVoiceover") },
+    { key: "COMPOSING" as VideoStatus, label: t("statusComposing") },
+    { key: "COMPLETED" as VideoStatus, label: t("statusCompleted") },
+  ];
+}
 
-function getStepIndex(status: VideoStatus) {
+function getStepIndex(status: VideoStatus, statusSteps: { key: VideoStatus; label: string }[]) {
   const idx = statusSteps.findIndex((s) => s.key === status);
   return idx >= 0 ? idx : 0;
 }
@@ -48,8 +51,11 @@ function getStepIndex(status: VideoStatus) {
 export default function VideoDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const t = useTranslations("Dashboard");
   const [video, setVideo] = useState<VideoData | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const statusSteps = getStatusSteps(t);
 
   async function fetchVideo() {
     try {
@@ -90,16 +96,16 @@ export default function VideoDetailPage() {
   if (!video) {
     return (
       <div className="py-20 text-center">
-        <h2 className="text-lg font-semibold">Video not found</h2>
+        <h2 className="text-lg font-semibold">{t("videoNotFound")}</h2>
         <Button variant="outline" className="mt-4" onClick={() => router.push("/dashboard")}>
-          Back to dashboard
+          {t("backToDashboard")}
         </Button>
       </div>
     );
   }
 
   const isProcessing = !["COMPLETED", "FAILED"].includes(video.status);
-  const currentStep = getStepIndex(video.status);
+  const currentStep = getStepIndex(video.status, statusSteps);
 
   return (
     <div>
@@ -110,7 +116,7 @@ export default function VideoDetailPage() {
         onClick={() => router.push("/dashboard")}
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to videos
+        {t("backToVideos")}
       </Button>
 
       <div className="grid gap-8 lg:grid-cols-2">
@@ -128,7 +134,7 @@ export default function VideoDetailPage() {
               {video.status === "FAILED" ? (
                 <div className="text-center text-red-400">
                   <AlertCircle className="mx-auto h-10 w-10" />
-                  <p className="mt-2 text-sm">Generation failed</p>
+                  <p className="mt-2 text-sm">{t("generationFailed")}</p>
                   {video.errorMessage && (
                     <p className="mt-1 text-xs opacity-60">{video.errorMessage}</p>
                   )}
@@ -136,7 +142,7 @@ export default function VideoDetailPage() {
               ) : (
                 <div className="text-center text-white/60">
                   <Loader2 className="mx-auto h-10 w-10 animate-spin" />
-                  <p className="mt-3 text-sm">Generating your video...</p>
+                  <p className="mt-3 text-sm">{t("generatingVideo")}</p>
                 </div>
               )}
             </div>
@@ -163,7 +169,7 @@ export default function VideoDetailPage() {
           {/* Progress steps */}
           {isProcessing && (
             <div className="mb-6 rounded-xl border border-border/60 p-4">
-              <h3 className="mb-3 text-sm font-medium">Generation progress</h3>
+              <h3 className="mb-3 text-sm font-medium">{t("generationProgress")}</h3>
               <div className="space-y-2">
                 {statusSteps.map((s, i) => (
                   <div
@@ -195,7 +201,7 @@ export default function VideoDetailPage() {
               <Button className="gradient-bg border-0 text-white hover:opacity-90" asChild>
                 <a href={video.videoUrl} download>
                   <Download className="mr-2 h-4 w-4" />
-                  Download Video
+                  {t("downloadVideo")}
                 </a>
               </Button>
             </div>
@@ -220,7 +226,7 @@ export default function VideoDetailPage() {
                 }}
               >
                 <RefreshCw className="mr-2 h-4 w-4" />
-                Retry Generation
+                {t("retryGeneration")}
               </Button>
             </div>
           )}
@@ -228,15 +234,15 @@ export default function VideoDetailPage() {
           {/* Details section */}
           <div className="space-y-4 rounded-xl border border-border/60 p-4">
             <div>
-              <h4 className="text-xs font-medium text-muted-foreground">Prompt</h4>
+              <h4 className="text-xs font-medium text-muted-foreground">{t("prompt")}</h4>
               <p className="mt-1 text-sm">{video.prompt}</p>
             </div>
             <div>
-              <h4 className="text-xs font-medium text-muted-foreground">Narration</h4>
+              <h4 className="text-xs font-medium text-muted-foreground">{t("narration")}</h4>
               <p className="mt-1 text-sm">{video.narratorText}</p>
             </div>
             <div>
-              <h4 className="text-xs font-medium text-muted-foreground">Created</h4>
+              <h4 className="text-xs font-medium text-muted-foreground">{t("created")}</h4>
               <p className="mt-1 text-sm">
                 {new Date(video.createdAt).toLocaleString()}
               </p>
