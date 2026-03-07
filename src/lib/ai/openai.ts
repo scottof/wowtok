@@ -1,9 +1,10 @@
 import OpenAI from "openai";
 import { getTheme } from "@/config/themes";
 import type { Scene } from "@/types";
+import { env } from "@/lib/env";
 
 function getOpenAI() {
-  return new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  return new OpenAI({ apiKey: env.OPENAI_API_KEY });
 }
 
 export async function generateScenes(

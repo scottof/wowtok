@@ -1,9 +1,10 @@
 import { fal } from "@fal-ai/client";
+import { env } from "@/lib/env";
 
 let configured = false;
 function ensureConfig() {
   if (!configured) {
-    fal.config({ credentials: process.env.FAL_KEY });
+    fal.config({ credentials: env.FAL_KEY });
     configured = true;
   }
 }

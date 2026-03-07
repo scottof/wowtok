@@ -1,3 +1,5 @@
+import { env } from "@/lib/env";
+
 const ELEVENLABS_API_URL = "https://api.elevenlabs.io/v1";
 
 // Default voice IDs from ElevenLabs
@@ -22,7 +24,7 @@ export async function generateVoiceover(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "xi-api-key": process.env.ELEVENLABS_API_KEY!,
+        "xi-api-key": env.ELEVENLABS_API_KEY,
       },
       body: JSON.stringify({
         text,

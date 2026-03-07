@@ -2,6 +2,7 @@ import { NextResponse, after } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { getVideosLimit } from "@/lib/stripe/config";
+import { env } from "@/lib/env";
 
 function getBaseUrl() {
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
@@ -100,7 +101,7 @@ export async function POST(req: Request) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-process-secret": process.env.PROCESS_SECRET || "",
+            "x-process-secret": env.PROCESS_SECRET,
           },
           body: JSON.stringify({ videoId: video.id, step: "scenes" }),
         });

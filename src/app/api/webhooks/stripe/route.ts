@@ -4,12 +4,13 @@ import Stripe from "stripe";
 import { stripe } from "@/lib/stripe/client";
 import { prisma } from "@/lib/prisma";
 import { getVideosLimit } from "@/lib/stripe/config";
+import { env } from "@/lib/env";
 import type { Plan, SubStatus } from "@prisma/client";
 
 function mapPriceToPlan(priceId: string): Plan {
-  if (priceId === process.env.STRIPE_STARTER_PRICE_ID) return "STARTER";
-  if (priceId === process.env.STRIPE_CREATOR_PRICE_ID) return "CREATOR";
-  if (priceId === process.env.STRIPE_PRO_PRICE_ID) return "PRO";
+  if (priceId === env.STRIPE_STARTER_PRICE_ID) return "STARTER";
+  if (priceId === env.STRIPE_CREATOR_PRICE_ID) return "CREATOR";
+  if (priceId === env.STRIPE_PRO_PRICE_ID) return "PRO";
   return "STARTER";
 }
 
@@ -37,7 +38,7 @@ export async function POST(req: Request) {
     event = stripe.webhooks.constructEvent(
       body,
       sig,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      env.STRIPE_WEBHOOK_SECRET
     );
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";

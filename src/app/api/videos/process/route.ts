@@ -5,6 +5,7 @@ import { generateScenes } from "@/lib/ai/openai";
 import { generateImage, generateVideoFromImage } from "@/lib/ai/fal";
 import { generateVoiceover } from "@/lib/ai/elevenlabs";
 import { getTheme } from "@/config/themes";
+import { env } from "@/lib/env";
 import type { Scene } from "@/types";
 
 export const maxDuration = 60;
@@ -27,7 +28,7 @@ function triggerNextStep(
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-process-secret": process.env.PROCESS_SECRET || "",
+          "x-process-secret": env.PROCESS_SECRET,
         },
         body: JSON.stringify({ videoId, step, sceneIndex }),
       });
@@ -51,7 +52,7 @@ async function updateVideoStatus(
 export async function POST(req: Request) {
   // Verify internal secret
   const secret = req.headers.get("x-process-secret");
-  if (secret !== process.env.PROCESS_SECRET) {
+  if (secret !== env.PROCESS_SECRET) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -157,8 +158,8 @@ export async function POST(req: Request) {
         // Upload audio to Supabase Storage
         const { createClient } = await import("@supabase/supabase-js");
         const supabase = createClient(
-          process.env.NEXT_PUBLIC_SUPABASE_URL!,
-          process.env.SUPABASE_SERVICE_ROLE_KEY!
+          env.NEXT_PUBLIC_SUPABASE_URL,
+          env.SUPABASE_SERVICE_ROLE_KEY
         );
 
         const audioPath = `videos/${videoId}/voiceover.mp3`;
