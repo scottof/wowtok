@@ -3,7 +3,7 @@ export const siteConfig = {
   description:
     "Create stunning TikTok videos with AI. Choose a theme, write your prompt, and let AI generate a complete video with voiceover in minutes.",
   url: process.env.NEXT_PUBLIC_APP_URL || "https://promptok.ai",
-  ogImage: "/og-image.png",
+  ogImage: "/opengraph-image",
   creator: "@promptok",
   keywords: [
     "AI TikTok video generator",

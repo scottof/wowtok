@@ -1,13 +1,15 @@
 import type { PricingPlan } from "@/types";
-import { env } from "@/lib/env";
 
+// NOTE: This file is imported by "use client" components (pricing-cards.tsx),
+// so it CANNOT use the server-only env validation module. Price IDs are only
+// needed server-side (checkout/webhooks) — the || "" fallback is safe here.
 export const plans: PricingPlan[] = [
   {
     id: "STARTER",
     name: "Starter",
     price: 19,
     originalPrice: 39,
-    stripePriceId: env.STRIPE_STARTER_PRICE_ID,
+    stripePriceId: process.env.STRIPE_STARTER_PRICE_ID || "",
     description: "Perfect for getting started with AI videos",
     videosPerMonth: 5,
     features: [
@@ -23,7 +25,7 @@ export const plans: PricingPlan[] = [
     name: "Creator",
     price: 59,
     originalPrice: 99,
-    stripePriceId: env.STRIPE_CREATOR_PRICE_ID,
+    stripePriceId: process.env.STRIPE_CREATOR_PRICE_ID || "",
     description: "For content creators who need more",
     videosPerMonth: 20,
     highlighted: true,
@@ -42,7 +44,7 @@ export const plans: PricingPlan[] = [
     name: "Pro",
     price: 149,
     originalPrice: 199,
-    stripePriceId: env.STRIPE_PRO_PRICE_ID,
+    stripePriceId: process.env.STRIPE_PRO_PRICE_ID || "",
     description: "For professionals and teams",
     videosPerMonth: 50,
     features: [
