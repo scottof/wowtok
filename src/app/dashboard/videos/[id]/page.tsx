@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import type { VideoStatus } from "@/types";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 interface VideoData {
   id: string;
@@ -54,6 +55,7 @@ export default function VideoDetailPage() {
   const t = useTranslations("Dashboard");
   const [video, setVideo] = useState<VideoData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [retrying, setRetrying] = useState(false);
 
   const statusSteps = getStatusSteps(t);
 
@@ -211,21 +213,37 @@ export default function VideoDetailPage() {
             <div className="mb-6">
               <Button
                 variant="outline"
-                onClick={() => {
-                  // Re-trigger generation
-                  fetch("/api/videos/generate", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      title: video.title,
-                      theme: video.theme,
-                      prompt: video.prompt,
-                      narratorText: video.narratorText,
-                    }),
-                  });
+                disabled={retrying}
+                onClick={async () => {
+                  setRetrying(true);
+                  try {
+                    const res = await fetch("/api/videos/generate", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        title: video.title,
+                        theme: video.theme,
+                        prompt: video.prompt,
+                        narratorText: video.narratorText,
+                      }),
+                    });
+                    if (!res.ok) throw new Error("Failed");
+                    const data = await res.json();
+                    toast.success(t("videoStarted"));
+                    if (data.videoId) {
+                      router.push(`/dashboard/videos/${data.videoId}`);
+                    }
+                  } catch {
+                    toast.error(t("failedGeneration"));
+                    setRetrying(false);
+                  }
                 }}
               >
-                <RefreshCw className="mr-2 h-4 w-4" />
+                {retrying ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <RefreshCw className="mr-2 h-4 w-4" />
+                )}
                 {t("retryGeneration")}
               </Button>
             </div>

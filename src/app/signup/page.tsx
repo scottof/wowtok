@@ -32,7 +32,7 @@ export default function SignupPage() {
       password,
       options: {
         data: { full_name: name },
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        emailRedirectTo: `${window.location.origin}/auth/callback?redirect=/dashboard`,
       },
     });
 
@@ -51,7 +51,7 @@ export default function SignupPage() {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${window.location.origin}/auth/callback?redirect=/dashboard`,
       },
     });
   }

@@ -1,14 +1,42 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { NextRequest, NextResponse } from "next/server";
+import { createServerClient } from "@supabase/ssr";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
   const redirect = searchParams.get("redirect") || "/dashboard";
 
+  // Prepare the redirect response FIRST so we can attach cookies to it
+  const redirectUrl = code
+    ? `${origin}${redirect}`
+    : `${origin}/login?error=auth`;
+  const response = NextResponse.redirect(redirectUrl);
+
   if (code) {
-    const supabase = await createClient();
+    // Create Supabase client that writes cookies to BOTH request AND response.
+    // This is critical — without this, exchangeCodeForSession sets cookies
+    // on the request only, and the redirect response loses the session.
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll();
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) =>
+              request.cookies.set(name, value)
+            );
+            cookiesToSet.forEach(({ name, value, options }) =>
+              response.cookies.set(name, value, options)
+            );
+          },
+        },
+      }
+    );
+
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error && data.user) {
@@ -28,8 +56,12 @@ export async function GET(request: Request) {
         },
       });
 
-      return NextResponse.redirect(`${origin}${redirect}`);
+      // Response already points to redirect URL and has session cookies
+      return response;
     }
+
+    // Auth failed — redirect to login with error
+    return NextResponse.redirect(`${origin}/login?error=auth`);
   }
 
   return NextResponse.redirect(`${origin}/login?error=auth`);

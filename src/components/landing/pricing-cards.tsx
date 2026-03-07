@@ -16,6 +16,7 @@ interface PricingCardsProps {
 
 export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
   const t = useTranslations("Pricing");
+  const tDash = useTranslations("Dashboard");
   const [isPending, startTransition] = useTransition();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
@@ -108,7 +109,7 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
                     {isLoading ? (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     ) : null}
-                    {isLoading ? "Redirecting..." : t("getStarted")}
+                    {isLoading ? tDash("redirecting") : t("getStarted")}
                   </Button>
                 ) : (
                   <Button

@@ -17,7 +17,7 @@ export function Footer() {
     ],
     [t("company")]: [
       { label: t("blog"), href: "/blog" },
-      { label: t("about"), href: "/#" },
+      { label: t("about"), href: "/#features" },
       { label: t("contact"), href: "mailto:hello@promptok.ai" },
     ],
     [t("legal")]: [
