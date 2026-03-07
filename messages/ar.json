@@ -110,7 +110,11 @@
     "noAccount": "ليس لديك حساب؟",
     "signupLink": "سجل الان",
     "hasAccount": "لديك حساب بالفعل؟",
-    "loginLink": "تسجيل الدخول"
+    "loginLink": "تسجيل الدخول",
+    "agreeToTerms": "أوافق على",
+    "termsLink": "شروط الخدمة",
+    "and": "و",
+    "privacyLink": "سياسة الخصوصية"
   },
   "PricingPage": {
     "title": "الاسعار",

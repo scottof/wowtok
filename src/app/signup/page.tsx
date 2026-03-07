@@ -18,6 +18,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [agreed, setAgreed] = useState(false);
   const t = useTranslations("Auth");
 
   async function handleSignup(e: React.FormEvent) {
@@ -145,11 +146,32 @@ export default function SignupPage() {
             />
           </div>
 
+          <div className="flex items-start gap-2">
+            <input
+              type="checkbox"
+              id="terms"
+              checked={agreed}
+              onChange={(e) => setAgreed(e.target.checked)}
+              required
+              className="mt-1 h-4 w-4 rounded border-border"
+            />
+            <label htmlFor="terms" className="text-xs text-muted-foreground">
+              {t("agreeToTerms")}{" "}
+              <Link href="/terms" className="underline hover:text-foreground" target="_blank">
+                {t("termsLink")}
+              </Link>{" "}
+              {t("and")}{" "}
+              <Link href="/privacy" className="underline hover:text-foreground" target="_blank">
+                {t("privacyLink")}
+              </Link>
+            </label>
+          </div>
+
           {error && (
             <p className="text-sm text-destructive">{error}</p>
           )}
 
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button type="submit" className="w-full" disabled={loading || !agreed}>
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {t("signupButton")}
           </Button>

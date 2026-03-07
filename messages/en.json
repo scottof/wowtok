@@ -110,7 +110,11 @@
     "noAccount": "Don't have an account?",
     "signupLink": "Sign up",
     "hasAccount": "Already have an account?",
-    "loginLink": "Log in"
+    "loginLink": "Log in",
+    "agreeToTerms": "I agree to the",
+    "termsLink": "Terms of Service",
+    "and": "and",
+    "privacyLink": "Privacy Policy"
   },
   "PricingPage": {
     "title": "Pricing",

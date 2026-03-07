@@ -34,23 +34,31 @@ export function ProductJsonLd() {
         name: "Starter",
         price: "19",
         priceCurrency: "USD",
-        description: "5 AI videos per month",
+        priceValidUntil: "2027-12-31",
+        description: "5 AI videos per month, 3 standard AI voices, 720p output",
       },
       {
         "@type": "Offer",
         name: "Creator",
-        price: "49",
+        price: "59",
         priceCurrency: "USD",
-        description: "20 AI videos per month",
+        priceValidUntil: "2027-12-31",
+        description: "20 AI videos per month, 10+ premium AI voices, 1080p output, no watermark",
       },
       {
         "@type": "Offer",
         name: "Pro",
-        price: "99",
+        price: "149",
         priceCurrency: "USD",
-        description: "50 AI videos per month",
+        priceValidUntil: "2027-12-31",
+        description: "50 AI videos per month, all voices + voice cloning, API access",
       },
     ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      ratingCount: "127",
+    },
   };
 
   return (
@@ -71,7 +79,7 @@ export function FAQJsonLd() {
     {
       question: "How does the AI video generation work?",
       answer:
-        "Our pipeline uses GPT-4o for scene breakdown, FLUX for image generation, Hailuo for video animation, and ElevenLabs for voiceover. Everything is assembled into a final 9:16 vertical video.",
+        "Our pipeline uses multiple specialized AI models: one breaks your script into scenes, another generates visuals for each scene, a third animates them into video clips, and a fourth creates the voiceover. Everything is assembled into a final 9:16 vertical video.",
     },
     {
       question: "How long does it take to generate a video?",

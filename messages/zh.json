@@ -110,7 +110,11 @@
     "noAccount": "还没有账户？",
     "signupLink": "注册",
     "hasAccount": "已有账户？",
-    "loginLink": "登录"
+    "loginLink": "登录",
+    "agreeToTerms": "我同意",
+    "termsLink": "服务条款",
+    "and": "和",
+    "privacyLink": "隐私政策"
   },
   "PricingPage": {
     "title": "定价",

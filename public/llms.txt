@@ -18,7 +18,7 @@ Promptok lets content creators generate complete TikTok videos using AI. Users c
 
 - AI script generation from prompts
 - 10+ themed video styles
-- Premium AI voices powered by ElevenLabs
+- Premium AI voices
 - Full AI video generation (not just slideshows)
 - Auto-synced captions
 - 9:16 vertical format optimized for TikTok
@@ -33,7 +33,7 @@ Promptok lets content creators generate complete TikTok videos using AI. Users c
 
 ## Technology
 
-Built with Next.js, powered by GPT-4o for script generation, FLUX for image generation, MiniMax Hailuo for video generation, and ElevenLabs for voice synthesis.
+Built with Next.js, powered by multiple specialized AI models for script generation, image generation, video animation, and voice synthesis.
 
 ## Links
 
@@ -41,3 +41,6 @@ Built with Next.js, powered by GPT-4o for script generation, FLUX for image gene
 - Pricing: https://promptok.ai/pricing
 - Login: https://promptok.ai/login
 - Sign up: https://promptok.ai/signup
+- Blog: https://promptok.ai/blog
+- Terms of Service: https://promptok.ai/terms
+- Privacy Policy: https://promptok.ai/privacy
