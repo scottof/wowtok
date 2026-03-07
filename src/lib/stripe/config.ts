@@ -54,7 +54,6 @@ export const plans: PricingPlan[] = [
       "All themes + custom themes",
       "Priority generation queue",
       "No watermark",
-      "API access",
       "Batch generation",
       "Dedicated support",
     ],

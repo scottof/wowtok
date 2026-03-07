@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { DashboardContent } from "@/components/dashboard/dashboard-content";
+import { getVideosLimit } from "@/lib/stripe/config";
 import type { VideoStatus } from "@/types";
 
 export default async function DashboardPage() {
@@ -38,7 +39,7 @@ export default async function DashboardPage() {
         })) ?? []
       }
       used={usage?.videosGenerated ?? 0}
-      limit={usage?.videosLimit ?? 0}
+      limit={usage?.videosLimit ?? (dbUser?.subscription ? getVideosLimit(dbUser.subscription.plan) : 0)}
     />
   );
 }

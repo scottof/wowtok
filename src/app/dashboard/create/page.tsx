@@ -183,7 +183,7 @@ export default function CreateVideoPage() {
                     key={th.id}
                     onClick={() => setTheme(th.id)}
                     className={cn(
-                      "flex items-start gap-3 rounded-xl border p-4 text-left transition-all",
+                      "flex cursor-pointer items-start gap-3 rounded-xl border p-4 text-left transition-all",
                       theme === th.id
                         ? "border-violet-400 bg-violet-50 shadow-sm"
                         : "border-border/60 hover:border-violet-200"
@@ -289,7 +289,7 @@ export default function CreateVideoPage() {
                   key={v.id}
                   onClick={() => setVoiceId(v.id)}
                   className={cn(
-                    "flex items-center gap-3 rounded-xl border p-4 text-left transition-all",
+                    "flex cursor-pointer items-center gap-3 rounded-xl border p-4 text-left transition-all",
                     voiceId === v.id
                       ? "border-violet-400 bg-violet-50 shadow-sm"
                       : "border-border/60 hover:border-violet-200"
@@ -358,6 +358,7 @@ export default function CreateVideoPage() {
       <div className="mt-6 flex items-center justify-between">
         <Button
           variant="outline"
+          className="cursor-pointer"
           onClick={() => setStep(step - 1)}
           disabled={step === 0}
         >
@@ -367,6 +368,7 @@ export default function CreateVideoPage() {
 
         {step < steps.length - 1 ? (
           <Button
+            className="cursor-pointer"
             onClick={() => setStep(step + 1)}
             disabled={!canProceed()}
           >
@@ -377,7 +379,7 @@ export default function CreateVideoPage() {
           <Button
             onClick={handleSubmit}
             disabled={loading}
-            className="gradient-bg border-0 text-white hover:opacity-90"
+            className="cursor-pointer gradient-bg border-0 text-white hover:opacity-90"
           >
             {loading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
