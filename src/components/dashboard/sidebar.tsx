@@ -73,7 +73,7 @@ export function Sidebar() {
         <Button
           variant="ghost"
           size="sm"
-          className="w-full justify-start gap-3 text-muted-foreground"
+          className="w-full cursor-pointer justify-start gap-3 text-muted-foreground"
           onClick={handleSignOut}
         >
           <LogOut className="h-4 w-4" />
