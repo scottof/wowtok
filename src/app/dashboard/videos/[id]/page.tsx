@@ -114,7 +114,7 @@ export default function VideoDetailPage() {
       <Button
         variant="ghost"
         size="sm"
-        className="mb-6"
+        className="mb-6 cursor-pointer"
         onClick={() => router.push("/dashboard")}
       >
         <ArrowLeft className="mr-2 h-4 w-4" />

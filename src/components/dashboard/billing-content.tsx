@@ -77,7 +77,7 @@ export function BillingContent({ subscription, plan }: BillingContentProps) {
 
           {/* Manage subscription */}
           <form action={createPortalSession}>
-            <Button variant="outline">
+            <Button variant="outline" className="cursor-pointer">
               <ExternalLink className="mr-2 h-4 w-4" />
               {t("manageSubscription")}
             </Button>
