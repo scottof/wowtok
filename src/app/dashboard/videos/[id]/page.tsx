@@ -217,24 +217,16 @@ export default function VideoDetailPage() {
                 onClick={async () => {
                   setRetrying(true);
                   try {
-                    const res = await fetch("/api/videos/generate", {
+                    const res = await fetch(`/api/videos/${video.id}/retry`, {
                       method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({
-                        title: video.title,
-                        theme: video.theme,
-                        prompt: video.prompt,
-                        narratorText: video.narratorText,
-                      }),
                     });
                     if (!res.ok) throw new Error("Failed");
-                    const data = await res.json();
                     toast.success(t("videoStarted"));
-                    if (data.videoId) {
-                      router.push(`/dashboard/videos/${data.videoId}`);
-                    }
+                    // Re-fetch to pick up the reset status
+                    fetchVideo();
                   } catch {
                     toast.error(t("failedGeneration"));
+                  } finally {
                     setRetrying(false);
                   }
                 }}
