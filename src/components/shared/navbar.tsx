@@ -39,7 +39,7 @@ export function Navbar() {
 
         {/* Desktop CTA */}
         <div className="hidden items-center gap-3 md:flex">
-          <LanguageSwitcher />
+          <LanguageSwitcher direction="down" />
           <Button variant="ghost" size="sm" asChild>
             <Link href="/login">{t("login")}</Link>
           </Button>
@@ -73,7 +73,7 @@ export function Navbar() {
               </Link>
             ))}
             <div className="flex flex-col gap-2 pt-3">
-              <LanguageSwitcher />
+              <LanguageSwitcher direction="down" />
               <Button variant="outline" size="sm" asChild>
                 <Link href="/login">{t("login")}</Link>
               </Button>

@@ -12,7 +12,11 @@ import {
 } from "@/i18n/config";
 import { ChevronDown } from "lucide-react";
 
-export function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  direction?: "up" | "down";
+}
+
+export function LanguageSwitcher({ direction = "up" }: LanguageSwitcherProps) {
   const locale = useLocale() as Locale;
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -50,7 +54,7 @@ export function LanguageSwitcher() {
       </button>
 
       {open && (
-        <div className="absolute right-0 bottom-full z-50 mb-1 min-w-[160px] rounded-lg border border-border/60 bg-background p-1 shadow-lg">
+        <div className={`absolute right-0 z-50 min-w-[160px] rounded-lg border border-border/60 bg-background p-1 shadow-lg ${direction === "down" ? "top-full mt-1" : "bottom-full mb-1"}`}>
           {locales.map((l) => (
             <button
               key={l}
