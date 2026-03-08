@@ -198,6 +198,7 @@
     "videoNotFound": "الفيديو غير موجود",
     "backToDashboard": "العودة إلى لوحة التحكم",
     "generationFailed": "فشل الإنشاء",
+    "generationStuck": "يبدو أن الإنشاء متوقف. هل تريد المحاولة مرة أخرى؟",
     "generatingVideo": "جاري إنشاء فيديوك...",
     "generationProgress": "تقدم الإنشاء",
     "downloadVideo": "تحميل الفيديو",

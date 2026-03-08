@@ -30,7 +30,10 @@ interface VideoData {
   duration: number | null;
   errorMessage: string | null;
   createdAt: string;
+  updatedAt: string;
 }
+
+const STUCK_THRESHOLD_MS = 10 * 60 * 1000; // 10 minutes
 
 function getStatusSteps(t: (key: string) => string) {
   return [
@@ -107,6 +110,10 @@ export default function VideoDetailPage() {
   }
 
   const isProcessing = !["COMPLETED", "FAILED"].includes(video.status);
+  const isStuck =
+    isProcessing &&
+    Date.now() - new Date(video.updatedAt).getTime() > STUCK_THRESHOLD_MS;
+  const canRetry = video.status === "FAILED" || isStuck;
   const currentStep = getStepIndex(video.status, statusSteps);
 
   return (
@@ -140,6 +147,11 @@ export default function VideoDetailPage() {
                   {video.errorMessage && (
                     <p className="mt-1 text-xs opacity-60">{video.errorMessage}</p>
                   )}
+                </div>
+              ) : isStuck ? (
+                <div className="text-center text-amber-400">
+                  <AlertCircle className="mx-auto h-10 w-10" />
+                  <p className="mt-2 text-sm">{t("generationStuck")}</p>
                 </div>
               ) : (
                 <div className="text-center text-white/60">
@@ -209,11 +221,12 @@ export default function VideoDetailPage() {
             </div>
           )}
 
-          {video.status === "FAILED" && (
+          {canRetry && (
             <div className="mb-6">
               <Button
                 variant="outline"
                 disabled={retrying}
+                className="cursor-pointer"
                 onClick={async () => {
                   setRetrying(true);
                   try {

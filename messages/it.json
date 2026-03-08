@@ -198,6 +198,7 @@
     "videoNotFound": "Video non trovato",
     "backToDashboard": "Torna alla dashboard",
     "generationFailed": "Generazione fallita",
+    "generationStuck": "La generazione sembra bloccata. Riprovare?",
     "generatingVideo": "Generazione del tuo video in corso...",
     "generationProgress": "Progresso generazione",
     "downloadVideo": "Scarica Video",

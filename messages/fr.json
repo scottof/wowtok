@@ -198,6 +198,7 @@
     "videoNotFound": "Vidéo introuvable",
     "backToDashboard": "Retour au tableau de bord",
     "generationFailed": "Échec de la génération",
+    "generationStuck": "La génération semble bloquée. Réessayer ?",
     "generatingVideo": "Génération de votre vidéo en cours...",
     "generationProgress": "Progression de la génération",
     "downloadVideo": "Télécharger la Vidéo",

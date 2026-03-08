@@ -198,6 +198,7 @@
     "videoNotFound": "영상을 찾을 수 없습니다",
     "backToDashboard": "대시보드로 돌아가기",
     "generationFailed": "생성 실패",
+    "generationStuck": "생성이 멈춘 것 같습니다. 다시 시도할까요?",
     "generatingVideo": "영상을 생성하고 있습니다...",
     "generationProgress": "생성 진행률",
     "downloadVideo": "영상 다운로드",

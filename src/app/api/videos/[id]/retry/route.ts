@@ -42,9 +42,22 @@ export async function POST(
       return NextResponse.json({ error: "Video not found" }, { status: 404 });
     }
 
-    if (video.status !== "FAILED") {
+    if (video.status === "COMPLETED") {
       return NextResponse.json(
-        { error: "Only failed videos can be retried" },
+        { error: "Completed videos cannot be retried" },
+        { status: 400 }
+      );
+    }
+
+    // Allow retry for FAILED videos and stuck processing videos (>10 min since last update)
+    const STUCK_THRESHOLD_MS = 10 * 60 * 1000; // 10 minutes
+    const isStuck =
+      video.status !== "FAILED" &&
+      Date.now() - new Date(video.updatedAt).getTime() > STUCK_THRESHOLD_MS;
+
+    if (video.status !== "FAILED" && !isStuck) {
+      return NextResponse.json(
+        { error: "Video is still processing" },
         { status: 400 }
       );
     }

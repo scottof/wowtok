@@ -198,6 +198,7 @@
     "videoNotFound": "视频未找到",
     "backToDashboard": "返回控制面板",
     "generationFailed": "生成失败",
+    "generationStuck": "生成似乎卡住了。要重试吗？",
     "generatingVideo": "正在生成您的视频...",
     "generationProgress": "生成进度",
     "downloadVideo": "下载视频",
