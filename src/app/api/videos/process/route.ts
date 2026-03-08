@@ -16,6 +16,9 @@ function getBaseUrl() {
   return "http://localhost:3000";
 }
 
+const MAX_RETRIES = 2;
+const RETRY_DELAY_MS = 1000;
+
 function triggerNextStep(
   videoId: string,
   step: string,
@@ -23,17 +26,41 @@ function triggerNextStep(
 ) {
   const baseUrl = getBaseUrl();
   after(async () => {
+    let lastError: unknown;
+    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        if (attempt > 0) {
+          await new Promise((r) => setTimeout(r, RETRY_DELAY_MS * attempt));
+        }
+        const res = await fetch(`${baseUrl}/api/videos/process`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-process-secret": env.PROCESS_SECRET,
+          },
+          body: JSON.stringify({ videoId, step, sceneIndex }),
+        });
+        if (res.ok) return; // Success
+        lastError = new Error(`HTTP ${res.status}`);
+      } catch (e) {
+        lastError = e;
+      }
+    }
+    // All retries exhausted — mark the video as FAILED so it doesn't stay stuck
+    console.error(
+      `Pipeline chain broken: failed to trigger step "${step}" for video ${videoId} after ${MAX_RETRIES + 1} attempts:`,
+      lastError
+    );
     try {
-      await fetch(`${baseUrl}/api/videos/process`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-process-secret": env.PROCESS_SECRET,
+      await prisma.video.update({
+        where: { id: videoId },
+        data: {
+          status: "FAILED" as never,
+          errorMessage: `Pipeline stalled: could not trigger step "${step}". Please retry.`,
         },
-        body: JSON.stringify({ videoId, step, sceneIndex }),
       });
-    } catch (e) {
-      console.error("Failed to trigger next step:", e);
+    } catch (dbErr) {
+      console.error("Failed to mark video as FAILED:", dbErr);
     }
   });
 }
@@ -47,6 +74,17 @@ async function updateVideoStatus(
     where: { id: videoId },
     data: { status: status as never, ...data },
   });
+}
+
+/**
+ * Fetch fresh scene data from the database.
+ * Avoids stale reads when scenes are updated across chained requests.
+ */
+async function getFreshScenes(videoId: string): Promise<Scene[]> {
+  const video = await prisma.video.findUniqueOrThrow({
+    where: { id: videoId },
+  });
+  return (video.scenes as unknown as Scene[]) || [];
 }
 
 export async function POST(req: Request) {
@@ -82,11 +120,13 @@ export async function POST(req: Request) {
 
       case "image": {
         const idx = sceneIndex ?? 0;
-        const scenes = (video.scenes as unknown as Scene[]) || [];
 
         if (idx === 0) {
           await updateVideoStatus(videoId, "IMAGES");
         }
+
+        // Always read fresh scenes to avoid stale data from previous steps
+        const scenes = await getFreshScenes(videoId);
 
         const scene = scenes[idx];
         if (!scene) {
@@ -117,11 +157,13 @@ export async function POST(req: Request) {
 
       case "video": {
         const idx = sceneIndex ?? 0;
-        const scenes = (video.scenes as unknown as Scene[]) || [];
 
         if (idx === 0) {
           await updateVideoStatus(videoId, "VIDEO");
         }
+
+        // Always read fresh scenes to get imageUrls from the image step
+        const scenes = await getFreshScenes(videoId);
 
         const scene = scenes[idx];
         if (!scene || !scene.imageUrl) {
@@ -178,10 +220,10 @@ export async function POST(req: Request) {
         await updateVideoStatus(videoId, "COMPOSING");
 
         // Re-fetch video to get latest scenes with all URLs
+        const scenes = await getFreshScenes(videoId);
         const latestVideo = await prisma.video.findUniqueOrThrow({
           where: { id: videoId },
         });
-        const scenes = (latestVideo.scenes as unknown as Scene[]) || [];
 
         // MVP: Use first generated video clip as main video
         const finalVideoUrl = scenes[0]?.videoUrl || null;
