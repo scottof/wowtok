@@ -51,7 +51,7 @@ export function VideoCard({
       className="group overflow-hidden rounded-xl border border-border/60 bg-card transition-all hover:border-violet-200 hover:shadow-lg hover:shadow-violet-500/5"
     >
       {/* Thumbnail */}
-      <div className="relative aspect-[9/16] max-h-64 overflow-hidden bg-gradient-to-br from-muted to-muted/50">
+      <div className="relative h-52 w-full overflow-hidden bg-gradient-to-br from-muted to-muted/50">
         {thumbnailUrl ? (
           <img
             src={thumbnailUrl}
