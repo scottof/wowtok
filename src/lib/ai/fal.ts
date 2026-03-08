@@ -14,14 +14,13 @@ export async function generateImage(
   style: string
 ): Promise<string> {
   ensureConfig();
-  const result = await fal.subscribe("fal-ai/flux-pro/v1.1", {
+  const result = await fal.subscribe("fal-ai/flux-2-pro", {
     input: {
       prompt: `${visualDescription}. Style: ${style}. Vertical composition 9:16 aspect ratio, cinematic quality, highly detailed.`,
       image_size: {
         width: 1080,
         height: 1920,
       },
-      num_images: 1,
       enable_safety_checker: true,
     },
   });
@@ -39,10 +38,12 @@ export async function generateVideoFromImage(
   prompt: string
 ): Promise<string> {
   ensureConfig();
-  const result = await fal.subscribe("fal-ai/minimax/video-01-live/image-to-video", {
+  const result = await fal.subscribe("fal-ai/kling-video/v2.6/pro/image-to-video", {
     input: {
       prompt: `${prompt}. Smooth cinematic motion, gentle camera movement, atmospheric.`,
-      image_url: imageUrl,
+      start_image_url: imageUrl,
+      duration: "5",
+      generate_audio: false,
     },
     pollInterval: 3000,
   });
