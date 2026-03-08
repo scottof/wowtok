@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { Sidebar } from "@/components/dashboard/sidebar";
+import { MobileHeader } from "@/components/dashboard/mobile-header";
 
 export default async function DashboardLayout({
   children,
@@ -32,9 +33,12 @@ export default async function DashboardLayout({
   return (
     <div className="flex h-screen">
       <Sidebar />
-      <main className="flex-1 overflow-y-auto">
-        <div className="mx-auto max-w-5xl px-6 py-8">{children}</div>
-      </main>
+      <div className="flex flex-1 flex-col">
+        <MobileHeader />
+        <main className="flex-1 overflow-y-auto">
+          <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">{children}</div>
+        </main>
+      </div>
     </div>
   );
 }

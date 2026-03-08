@@ -154,7 +154,7 @@ export default function VideoDetailPage() {
         {/* Details */}
         <div>
           <div className="mb-6">
-            <h1 className="text-2xl font-bold">{video.title}</h1>
+            <h1 className="text-xl sm:text-2xl font-bold">{video.title}</h1>
             <div className="mt-2 flex items-center gap-2">
               <Badge variant="secondary" className="capitalize">
                 {video.theme}
@@ -199,7 +199,7 @@ export default function VideoDetailPage() {
 
           {/* Actions */}
           {video.status === "COMPLETED" && video.videoUrl && (
-            <div className="mb-6 flex gap-3">
+            <div className="mb-6 flex flex-wrap gap-3">
               <Button className="gradient-bg border-0 text-white hover:opacity-90" asChild>
                 <a href={video.videoUrl} download>
                   <Download className="mr-2 h-4 w-4" />

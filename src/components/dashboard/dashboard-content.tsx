@@ -44,14 +44,14 @@ export function DashboardContent({
 
   return (
     <div>
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">{t("myVideosTitle")}</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {t("myVideosSubtitle")}
           </p>
         </div>
-        <Button className="gradient-bg border-0 text-white hover:opacity-90" asChild>
+        <Button className="w-full sm:w-auto gradient-bg border-0 text-white hover:opacity-90" asChild>
           <Link href="/dashboard/create">
             <PlusCircle className="mr-2 h-4 w-4" />
             {t("createVideoButton")}

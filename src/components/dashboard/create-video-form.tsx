@@ -282,9 +282,9 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
       </div>
 
       {/* Step indicator */}
-      <div className="mb-8 flex items-center gap-2">
+      <div className="mb-8 flex items-center gap-2 overflow-x-auto">
         {steps.map((s, i) => (
-          <div key={s} className="flex items-center gap-2">
+          <div key={s} className="flex shrink-0 items-center gap-2">
             <div
               className={cn(
                 "flex h-8 w-8 items-center justify-center rounded-full text-xs font-medium transition-colors",
@@ -306,7 +306,7 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
               {s}
             </span>
             {i < steps.length - 1 && (
-              <div className="mx-1 h-px w-8 bg-border" />
+              <div className="mx-1 h-px w-4 sm:w-8 bg-border" />
             )}
           </div>
         ))}
