@@ -217,7 +217,17 @@
     "statusAddingVoice": "添加配音",
     "statusComposingShort": "合成中",
     "videosThisMonth": "本月视频",
-    "redirecting": "重定向中..."
+    "redirecting": "重定向中...",
+    "upgradeNow": "立即升级",
+    "upgradeForMore": "升级获取更多",
+    "limitReachedTitle": "已达到每月视频上限",
+    "limitReachedDesc": "升级到 {plan}，每月制作 {videos} 个视频并解锁高级功能。",
+    "upgradeTo": "升级到 {plan}",
+    "limitReachedCreateDesc": "您已使用本月 {limit} 个视频中的 {used} 个。升级您的计划以继续创作。",
+    "viewUpgradeOptions": "查看升级选项",
+    "unlockAllThemes": "想要访问所有主题？",
+    "upgradeToCreator": "升级到 Creator",
+    "unlockAllVoices": "想要访问所有高级语音？"
   },
   "Common": {
     "features": "功能",

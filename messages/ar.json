@@ -217,7 +217,17 @@
     "statusAddingVoice": "إضافة الصوت",
     "statusComposingShort": "تكوين",
     "videosThisMonth": "فيديوهات هذا الشهر",
-    "redirecting": "جاري التحويل..."
+    "redirecting": "جاري التحويل...",
+    "upgradeNow": "ترقية الآن",
+    "upgradeForMore": "ترقية للمزيد",
+    "limitReachedTitle": "تم الوصول إلى الحد الشهري للفيديوهات",
+    "limitReachedDesc": "قم بالترقية إلى {plan} للحصول على {videos} فيديو شهرياً وفتح الميزات المميزة.",
+    "upgradeTo": "الترقية إلى {plan}",
+    "limitReachedCreateDesc": "لقد استخدمت {used} من أصل {limit} فيديو هذا الشهر. قم بترقية خطتك لمواصلة الإنشاء.",
+    "viewUpgradeOptions": "عرض خيارات الترقية",
+    "unlockAllThemes": "تريد الوصول إلى جميع السمات؟",
+    "upgradeToCreator": "الترقية إلى Creator",
+    "unlockAllVoices": "تريد الوصول إلى جميع الأصوات المميزة؟"
   },
   "Common": {
     "features": "المميزات",

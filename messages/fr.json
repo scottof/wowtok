@@ -217,7 +217,17 @@
     "statusAddingVoice": "Ajout de la voix",
     "statusComposingShort": "Composition",
     "videosThisMonth": "Vidéos ce mois-ci",
-    "redirecting": "Redirection..."
+    "redirecting": "Redirection...",
+    "upgradeNow": "Passer au supérieur",
+    "upgradeForMore": "Améliorer pour plus",
+    "limitReachedTitle": "Limite mensuelle de vidéos atteinte",
+    "limitReachedDesc": "Passez à {plan} pour {videos} vidéos par mois et débloquez les fonctionnalités premium.",
+    "upgradeTo": "Passer à {plan}",
+    "limitReachedCreateDesc": "Vous avez utilisé vos {used} vidéos sur {limit} ce mois-ci. Améliorez votre forfait pour continuer à créer.",
+    "viewUpgradeOptions": "Voir les options de mise à niveau",
+    "unlockAllThemes": "Accéder à tous les thèmes ?",
+    "upgradeToCreator": "Passer à Creator",
+    "unlockAllVoices": "Accéder à toutes les voix premium ?"
   },
   "Common": {
     "features": "Fonctionnalites",

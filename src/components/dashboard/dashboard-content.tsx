@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { VideoCard } from "@/components/dashboard/video-card";
 import { UsageBar } from "@/components/dashboard/usage-bar";
@@ -20,18 +20,27 @@ interface VideoData {
 
 interface DashboardContentProps {
   hasSubscription: boolean;
+  plan: string | null;
   videos: VideoData[];
   used: number;
   limit: number;
 }
 
+const nextPlan: Record<string, { name: string; videos: number }> = {
+  STARTER: { name: "Creator", videos: 20 },
+  CREATOR: { name: "Pro", videos: 50 },
+};
+
 export function DashboardContent({
   hasSubscription,
+  plan,
   videos,
   used,
   limit,
 }: DashboardContentProps) {
   const t = useTranslations("Dashboard");
+  const isAtLimit = hasSubscription && limit > 0 && used >= limit;
+  const upgrade = plan ? nextPlan[plan] : null;
 
   return (
     <div>
@@ -54,6 +63,29 @@ export function DashboardContent({
       {hasSubscription && (
         <div className="mb-8">
           <UsageBar used={used} limit={limit} />
+        </div>
+      )}
+
+      {/* Limit reached upsell */}
+      {isAtLimit && upgrade && (
+        <div className="mb-8 rounded-xl border border-violet-200 bg-gradient-to-r from-violet-50 to-purple-50 p-6">
+          <div className="flex items-start gap-4">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-violet-100">
+              <Zap className="h-5 w-5 text-violet-600" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-semibold">{t("limitReachedTitle")}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {t("limitReachedDesc", { plan: upgrade.name, videos: upgrade.videos })}
+              </p>
+              <Button className="mt-3 gradient-bg border-0 text-white hover:opacity-90" size="sm" asChild>
+                <Link href="/pricing">
+                  <Zap className="mr-2 h-3 w-3" />
+                  {t("upgradeTo", { plan: upgrade.name })}
+                </Link>
+              </Button>
+            </div>
+          </div>
         </div>
       )}
 

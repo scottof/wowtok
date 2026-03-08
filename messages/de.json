@@ -217,7 +217,17 @@
     "statusAddingVoice": "Stimme wird hinzugefügt",
     "statusComposingShort": "Zusammensetzung",
     "videosThisMonth": "Videos diesen Monat",
-    "redirecting": "Weiterleitung..."
+    "redirecting": "Weiterleitung...",
+    "upgradeNow": "Jetzt upgraden",
+    "upgradeForMore": "Für mehr upgraden",
+    "limitReachedTitle": "Monatliches Videolimit erreicht",
+    "limitReachedDesc": "Wechsle zu {plan} für {videos} Videos pro Monat und schalte Premium-Funktionen frei.",
+    "upgradeTo": "Zu {plan} wechseln",
+    "limitReachedCreateDesc": "Du hast alle {used} von {limit} Videos diesen Monat verwendet. Upgrade deinen Plan, um weiterzumachen.",
+    "viewUpgradeOptions": "Upgrade-Optionen ansehen",
+    "unlockAllThemes": "Zugang zu allen Themen gewünscht?",
+    "upgradeToCreator": "Zu Creator wechseln",
+    "unlockAllVoices": "Zugang zu allen Premium-Stimmen gewünscht?"
   },
   "Common": {
     "features": "Funktionen",

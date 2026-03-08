@@ -27,6 +27,7 @@ export default async function DashboardPage() {
   return (
     <DashboardContent
       hasSubscription={!!dbUser?.subscription}
+      plan={dbUser?.subscription?.plan ?? null}
       videos={
         dbUser?.videos.map((v) => ({
           id: v.id,
