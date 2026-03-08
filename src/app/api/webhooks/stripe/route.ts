@@ -4,28 +4,8 @@ import Stripe from "stripe";
 import { stripe } from "@/lib/stripe/client";
 import { prisma } from "@/lib/prisma";
 import { getVideosLimit } from "@/lib/stripe/config";
+import { mapPriceToPlan, mapStatus } from "@/lib/stripe/mappers";
 import { env } from "@/lib/env";
-import type { Plan, SubStatus } from "@prisma/client";
-
-function mapPriceToPlan(priceId: string): Plan {
-  if (priceId === env.STRIPE_STARTER_PRICE_ID) return "STARTER";
-  if (priceId === env.STRIPE_CREATOR_PRICE_ID) return "CREATOR";
-  if (priceId === env.STRIPE_PRO_PRICE_ID) return "PRO";
-  return "STARTER";
-}
-
-function mapStatus(status: string): SubStatus {
-  switch (status) {
-    case "active":
-      return "ACTIVE";
-    case "past_due":
-      return "PAST_DUE";
-    case "canceled":
-      return "CANCELED";
-    default:
-      return "INCOMPLETE";
-  }
-}
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -59,7 +39,11 @@ export async function POST(req: Request) {
       const subscription = await stripe.subscriptions.retrieve(subscriptionId);
       const item = subscription.items.data[0];
       const priceId = item.price.id;
-      const plan = mapPriceToPlan(priceId);
+      const plan = mapPriceToPlan(priceId, {
+        starter: env.STRIPE_STARTER_PRICE_ID,
+        creator: env.STRIPE_CREATOR_PRICE_ID,
+        pro: env.STRIPE_PRO_PRICE_ID,
+      });
       const periodStart = new Date(item.current_period_start * 1000);
       const periodEnd = new Date(item.current_period_end * 1000);
 
@@ -106,7 +90,11 @@ export async function POST(req: Request) {
       const subscription = event.data.object as Stripe.Subscription;
       const updatedItem = subscription.items.data[0];
       const priceId = updatedItem.price.id;
-      const plan = mapPriceToPlan(priceId);
+      const plan = mapPriceToPlan(priceId, {
+        starter: env.STRIPE_STARTER_PRICE_ID,
+        creator: env.STRIPE_CREATOR_PRICE_ID,
+        pro: env.STRIPE_PRO_PRICE_ID,
+      });
 
       await prisma.subscription.updateMany({
         where: { stripeSubscriptionId: subscription.id },
