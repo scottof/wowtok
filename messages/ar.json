@@ -227,7 +227,10 @@
     "viewUpgradeOptions": "عرض خيارات الترقية",
     "unlockAllThemes": "تريد الوصول إلى جميع السمات؟",
     "upgradeToCreator": "الترقية إلى Creator",
-    "unlockAllVoices": "تريد الوصول إلى جميع الأصوات المميزة؟"
+    "unlockAllVoices": "تريد الوصول إلى جميع الأصوات المميزة؟",
+    "overlayDesc": "افتح المزيد من الفيديوهات والأصوات المميزة وجميع السمات مع خطة {plan}.",
+    "maybeLater": "ربما لاحقاً",
+    "maxPlanReached": "أنت على أعلى خطة. سيتم تجديد حدك الشهر القادم."
   },
   "Common": {
     "features": "المميزات",

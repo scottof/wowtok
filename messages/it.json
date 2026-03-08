@@ -227,7 +227,10 @@
     "viewUpgradeOptions": "Vedi opzioni di aggiornamento",
     "unlockAllThemes": "Vuoi accedere a tutti i temi?",
     "upgradeToCreator": "Passa a Creator",
-    "unlockAllVoices": "Vuoi accedere a tutte le voci premium?"
+    "unlockAllVoices": "Vuoi accedere a tutte le voci premium?",
+    "overlayDesc": "Sblocca più video, voci premium e tutti i temi con il piano {plan}.",
+    "maybeLater": "Forse più tardi",
+    "maxPlanReached": "Sei sul piano più alto. Il tuo limite si rinnova il prossimo mese."
   },
   "Common": {
     "features": "Funzionalita",

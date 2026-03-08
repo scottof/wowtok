@@ -227,7 +227,10 @@
     "viewUpgradeOptions": "Upgrade-Optionen ansehen",
     "unlockAllThemes": "Zugang zu allen Themen gewünscht?",
     "upgradeToCreator": "Zu Creator wechseln",
-    "unlockAllVoices": "Zugang zu allen Premium-Stimmen gewünscht?"
+    "unlockAllVoices": "Zugang zu allen Premium-Stimmen gewünscht?",
+    "overlayDesc": "Schalte mehr Videos, Premium-Stimmen und alle Themen mit dem {plan}-Plan frei.",
+    "maybeLater": "Vielleicht später",
+    "maxPlanReached": "Du bist auf dem höchsten Plan. Dein Limit erneuert sich nächsten Monat."
   },
   "Common": {
     "features": "Funktionen",

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import {
   Ghost,
   Sparkles,
@@ -19,12 +18,23 @@ import {
   Loader2,
   Wand2,
   Lock,
+  Check,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { videoThemes } from "@/config/themes";
+import { plans } from "@/lib/stripe/config";
+import { createCheckoutSessionByPlan } from "@/lib/stripe/actions";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
@@ -45,6 +55,11 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 const STARTER_THEME_LIMIT = 5;
 const STARTER_VOICE_LIMIT = 3;
 
+const NEXT_PLAN_MAP: Record<string, string> = {
+  STARTER: "CREATOR",
+  CREATOR: "PRO",
+};
+
 interface CreateVideoFormProps {
   plan: string;
   used: number;
@@ -62,9 +77,14 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
   const [voiceId, setVoiceId] = useState("adam");
   const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
+  const [showUpgrade, setShowUpgrade] = useState(false);
+  const [upgrading, setUpgrading] = useState(false);
 
   const isStarter = plan === "STARTER";
   const isAtLimit = limit > 0 && used >= limit;
+
+  const nextPlanId = NEXT_PLAN_MAP[plan];
+  const nextPlan = nextPlanId ? plans.find((p) => p.id === nextPlanId) : null;
 
   const steps = [
     t("stepTheme"),
@@ -143,10 +163,82 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
     }
   }
 
+  async function handleUpgrade() {
+    if (!nextPlanId) return;
+    setUpgrading(true);
+    try {
+      await createCheckoutSessionByPlan(nextPlanId);
+    } catch {
+      toast.error(t("somethingWrong"));
+      setUpgrading(false);
+    }
+  }
+
+  // Upgrade overlay
+  const upgradeOverlay = nextPlan ? (
+    <Dialog open={showUpgrade} onOpenChange={setShowUpgrade}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-bg">
+              <Zap className="h-4 w-4 text-white" />
+            </div>
+            {t("upgradeTo", { plan: nextPlan.name })}
+          </DialogTitle>
+          <DialogDescription>
+            {t("overlayDesc", { plan: nextPlan.name })}
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="my-2">
+          <div className="flex items-baseline gap-1 mb-4">
+            <span className="text-3xl font-bold">${nextPlan.price}</span>
+            <span className="text-sm text-muted-foreground">{t("perMonth")}</span>
+            <span className="ml-2 text-sm text-muted-foreground line-through">
+              ${nextPlan.originalPrice}
+            </span>
+          </div>
+
+          <ul className="space-y-2">
+            {nextPlan.features.map((feature) => (
+              <li key={feature} className="flex items-center gap-2 text-sm">
+                <Check className="h-4 w-4 shrink-0 text-violet-600" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="flex flex-col gap-2 pt-2">
+          <Button
+            onClick={handleUpgrade}
+            disabled={upgrading}
+            className="cursor-pointer gradient-bg border-0 text-white hover:opacity-90"
+          >
+            {upgrading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <Zap className="mr-2 h-4 w-4" />
+            )}
+            {t("upgradeTo", { plan: nextPlan.name })}
+          </Button>
+          <Button
+            variant="ghost"
+            className="cursor-pointer"
+            onClick={() => setShowUpgrade(false)}
+          >
+            {t("maybeLater")}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  ) : null;
+
   // Show limit-reached message instead of the wizard
   if (isAtLimit) {
     return (
       <div>
+        {upgradeOverlay}
         <div className="mb-8">
           <h1 className="text-2xl font-bold">{t("createTitle")}</h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -161,12 +253,19 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
           <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
             {t("limitReachedCreateDesc", { used, limit })}
           </p>
-          <Button className="mt-4 gradient-bg border-0 text-white hover:opacity-90" asChild>
-            <Link href="/pricing">
+          {nextPlan ? (
+            <Button
+              onClick={() => setShowUpgrade(true)}
+              className="mt-4 cursor-pointer gradient-bg border-0 text-white hover:opacity-90"
+            >
               <Zap className="mr-2 h-4 w-4" />
               {t("viewUpgradeOptions")}
-            </Link>
-          </Button>
+            </Button>
+          ) : (
+            <p className="mt-4 text-sm text-muted-foreground">
+              {t("maxPlanReached")}
+            </p>
+          )}
         </div>
       </div>
     );
@@ -174,6 +273,7 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
 
   return (
     <div>
+      {upgradeOverlay}
       <div className="mb-8">
         <h1 className="text-2xl font-bold">{t("createTitle")}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
@@ -225,12 +325,17 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
                 return (
                   <button
                     key={th.id}
-                    onClick={() => !isLocked && setTheme(th.id)}
-                    disabled={isLocked}
+                    onClick={() => {
+                      if (isLocked) {
+                        setShowUpgrade(true);
+                      } else {
+                        setTheme(th.id);
+                      }
+                    }}
                     className={cn(
                       "relative flex cursor-pointer items-start gap-3 rounded-xl border p-4 text-left transition-all",
                       isLocked
-                        ? "cursor-not-allowed border-border/40 opacity-60"
+                        ? "border-border/40 opacity-60 hover:border-violet-200 hover:opacity-80"
                         : theme === th.id
                           ? "border-violet-400 bg-violet-50 shadow-sm"
                           : "border-border/60 hover:border-violet-200"
@@ -267,9 +372,12 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
             {isStarter && (
               <p className="mt-3 text-center text-xs text-muted-foreground">
                 {t("unlockAllThemes")}{" "}
-                <Link href="/pricing" className="font-medium text-violet-600 underline hover:text-violet-700">
+                <button
+                  onClick={() => setShowUpgrade(true)}
+                  className="cursor-pointer font-medium text-violet-600 underline hover:text-violet-700"
+                >
                   {t("upgradeToCreator")}
-                </Link>
+                </button>
               </p>
             )}
           </div>
@@ -353,14 +461,16 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
                   <button
                     key={v.id}
                     onClick={() => {
-                      if (isLocked) return;
-                      setVoiceId(v.id);
+                      if (isLocked) {
+                        setShowUpgrade(true);
+                      } else {
+                        setVoiceId(v.id);
+                      }
                     }}
-                    disabled={isLocked}
                     className={cn(
                       "relative flex cursor-pointer items-center gap-3 rounded-xl border p-4 text-left transition-all",
                       isLocked
-                        ? "cursor-not-allowed border-border/40 opacity-60"
+                        ? "border-border/40 opacity-60 hover:border-violet-200 hover:opacity-80"
                         : voiceId === v.id
                           ? "border-violet-400 bg-violet-50 shadow-sm"
                           : "border-border/60 hover:border-violet-200"
@@ -399,9 +509,12 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
             {isStarter && (
               <p className="mt-3 text-center text-xs text-muted-foreground">
                 {t("unlockAllVoices")}{" "}
-                <Link href="/pricing" className="font-medium text-violet-600 underline hover:text-violet-700">
+                <button
+                  onClick={() => setShowUpgrade(true)}
+                  className="cursor-pointer font-medium text-violet-600 underline hover:text-violet-700"
+                >
                   {t("upgradeToCreator")}
-                </Link>
+                </button>
               </p>
             )}
           </div>

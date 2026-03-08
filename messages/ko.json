@@ -227,7 +227,10 @@
     "viewUpgradeOptions": "업그레이드 옵션 보기",
     "unlockAllThemes": "모든 테마를 이용하고 싶으신가요?",
     "upgradeToCreator": "Creator로 업그레이드",
-    "unlockAllVoices": "모든 프리미엄 음성을 이용하고 싶으신가요?"
+    "unlockAllVoices": "모든 프리미엄 음성을 이용하고 싶으신가요?",
+    "overlayDesc": "{plan} 플랜으로 더 많은 영상, 프리미엄 음성 및 모든 테마를 이용하세요.",
+    "maybeLater": "나중에",
+    "maxPlanReached": "최고 플랜을 이용 중입니다. 한도는 다음 달에 초기화됩니다."
   },
   "Common": {
     "features": "기능",

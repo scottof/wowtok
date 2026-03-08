@@ -227,7 +227,10 @@
     "viewUpgradeOptions": "Voir les options de mise à niveau",
     "unlockAllThemes": "Accéder à tous les thèmes ?",
     "upgradeToCreator": "Passer à Creator",
-    "unlockAllVoices": "Accéder à toutes les voix premium ?"
+    "unlockAllVoices": "Accéder à toutes les voix premium ?",
+    "overlayDesc": "Débloquez plus de vidéos, des voix premium et tous les thèmes avec le forfait {plan}.",
+    "maybeLater": "Peut-être plus tard",
+    "maxPlanReached": "Vous êtes sur le forfait le plus élevé. Votre limite se renouvelle le mois prochain."
   },
   "Common": {
     "features": "Fonctionnalites",

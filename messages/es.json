@@ -227,7 +227,10 @@
     "viewUpgradeOptions": "Ver opciones de mejora",
     "unlockAllThemes": "¿Quieres acceso a todos los temas?",
     "upgradeToCreator": "Mejorar a Creator",
-    "unlockAllVoices": "¿Quieres acceso a todas las voces premium?"
+    "unlockAllVoices": "¿Quieres acceso a todas las voces premium?",
+    "overlayDesc": "Desbloquea más videos, voces premium y todos los temas con el plan {plan}.",
+    "maybeLater": "Quizás más tarde",
+    "maxPlanReached": "Estás en el plan más alto. Tu límite se renueva el próximo mes."
   },
   "Common": {
     "features": "Funciones",
