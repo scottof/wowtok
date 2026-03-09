@@ -2,7 +2,12 @@ import { NextResponse } from "next/server";
 import { after } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateScenes } from "@/lib/ai/openai";
-import { generateImage, generateVideoFromImage } from "@/lib/ai/fal";
+import {
+  generateImage,
+  generateVideoFromImage,
+  mergeVideos,
+  mergeAudioVideo,
+} from "@/lib/ai/fal";
 import { generateVoiceover } from "@/lib/ai/elevenlabs";
 import { getTheme } from "@/config/themes";
 import { env } from "@/lib/env";
@@ -212,6 +217,15 @@ export async function POST(req: Request) {
             upsert: true,
           });
 
+        // Save the public URL so we can use it in compose and let users download
+        const { data: audioUrlData } = supabase.storage
+          .from("media")
+          .getPublicUrl(audioPath);
+        await prisma.video.update({
+          where: { id: videoId },
+          data: { voiceoverUrl: audioUrlData.publicUrl },
+        });
+
         triggerNextStep(videoId, "compose");
         break;
       }
@@ -219,23 +233,43 @@ export async function POST(req: Request) {
       case "compose": {
         await updateVideoStatus(videoId, "COMPOSING");
 
-        // Re-fetch video to get latest scenes with all URLs
+        // Get fresh scenes and video record
         const scenes = await getFreshScenes(videoId);
         const latestVideo = await prisma.video.findUniqueOrThrow({
           where: { id: videoId },
         });
 
-        // MVP: Use first generated video clip as main video
-        const finalVideoUrl = scenes[0]?.videoUrl || null;
+        // Collect all scene video URLs (in order)
+        const clipUrls = scenes
+          .sort((a, b) => a.index - b.index)
+          .map((s) => s.videoUrl)
+          .filter((url): url is string => !!url);
+
+        if (clipUrls.length === 0) {
+          throw new Error("No video clips to compose");
+        }
+
+        // Step 1: Concatenate all scene clips into one video (FREE via FFmpeg API)
+        let finalVideoUrl: string;
+        if (clipUrls.length === 1) {
+          finalVideoUrl = clipUrls[0];
+        } else {
+          finalVideoUrl = await mergeVideos(clipUrls);
+        }
+
+        // Step 2: Merge voiceover audio with the concatenated video (FREE via FFmpeg API)
+        const voiceoverUrl = latestVideo.voiceoverUrl;
+        if (voiceoverUrl) {
+          finalVideoUrl = await mergeAudioVideo(finalVideoUrl, voiceoverUrl);
+        }
+
         const thumbnailUrl = scenes[0]?.imageUrl || null;
-        const estimatedDuration = Math.ceil(
-          latestVideo.narratorText.length / 15
-        );
+        const actualDuration = clipUrls.length * 5; // Each Kling clip is 5 seconds
 
         await updateVideoStatus(videoId, "COMPLETED", {
           videoUrl: finalVideoUrl,
           thumbnailUrl,
-          duration: estimatedDuration,
+          duration: actualDuration,
         });
         break;
       }

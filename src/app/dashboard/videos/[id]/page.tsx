@@ -10,6 +10,7 @@ import {
   AlertCircle,
   CheckCircle2,
   Clock,
+  Volume2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -26,6 +27,7 @@ interface VideoData {
   narratorText: string;
   status: VideoStatus;
   videoUrl: string | null;
+  voiceoverUrl: string | null;
   thumbnailUrl: string | null;
   duration: number | null;
   errorMessage: string | null;
@@ -218,6 +220,14 @@ export default function VideoDetailPage() {
                   {t("downloadVideo")}
                 </a>
               </Button>
+              {video.voiceoverUrl && (
+                <Button variant="outline" asChild>
+                  <a href={video.voiceoverUrl} download>
+                    <Volume2 className="mr-2 h-4 w-4" />
+                    {t("downloadVoiceover")}
+                  </a>
+                </Button>
+              )}
             </div>
           )}
 

@@ -202,6 +202,7 @@
     "generatingVideo": "جاري إنشاء فيديوك...",
     "generationProgress": "تقدم الإنشاء",
     "downloadVideo": "تحميل الفيديو",
+    "downloadVoiceover": "تحميل التعليق الصوتي",
     "retryGeneration": "إعادة المحاولة",
     "prompt": "الوصف",
     "narration": "السرد",

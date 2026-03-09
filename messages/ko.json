@@ -202,6 +202,7 @@
     "generatingVideo": "영상을 생성하고 있습니다...",
     "generationProgress": "생성 진행률",
     "downloadVideo": "영상 다운로드",
+    "downloadVoiceover": "음성 다운로드",
     "retryGeneration": "생성 재시도",
     "prompt": "프롬프트",
     "narration": "내레이션",

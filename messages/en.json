@@ -202,6 +202,7 @@
     "generatingVideo": "Generating your video...",
     "generationProgress": "Generation progress",
     "downloadVideo": "Download Video",
+    "downloadVoiceover": "Download Voiceover",
     "retryGeneration": "Retry Generation",
     "prompt": "Prompt",
     "narration": "Narration",

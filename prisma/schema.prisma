@@ -72,8 +72,9 @@ model Video {
   status       VideoStatus @default(PENDING)
   scenes       Json?
   voiceId      String?
-  videoUrl     String?
-  thumbnailUrl String?
+  videoUrl      String?
+  voiceoverUrl  String?
+  thumbnailUrl  String?
   duration     Int?
   errorMessage String?
   createdAt    DateTime    @default(now())

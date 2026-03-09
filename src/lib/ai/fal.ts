@@ -55,3 +55,45 @@ export async function generateVideoFromImage(
 
   return data.video.url;
 }
+
+export async function mergeVideos(videoUrls: string[]): Promise<string> {
+  ensureConfig();
+  const result = await fal.subscribe("fal-ai/ffmpeg-api/merge-videos", {
+    input: {
+      video_urls: videoUrls,
+      resolution: {
+        width: 1080,
+        height: 1920,
+      },
+    },
+    pollInterval: 3000,
+  });
+
+  const data = result.data as { video: { url: string } };
+  if (!data.video?.url) {
+    throw new Error("Failed to merge videos");
+  }
+
+  return data.video.url;
+}
+
+export async function mergeAudioVideo(
+  videoUrl: string,
+  audioUrl: string
+): Promise<string> {
+  ensureConfig();
+  const result = await fal.subscribe("fal-ai/ffmpeg-api/merge-audio-video", {
+    input: {
+      video_url: videoUrl,
+      audio_url: audioUrl,
+    },
+    pollInterval: 3000,
+  });
+
+  const data = result.data as { video: { url: string } };
+  if (!data.video?.url) {
+    throw new Error("Failed to merge audio and video");
+  }
+
+  return data.video.url;
+}

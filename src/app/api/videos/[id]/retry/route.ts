@@ -69,6 +69,7 @@ export async function POST(
         status: "PENDING",
         scenes: Prisma.DbNull,
         videoUrl: null,
+        voiceoverUrl: null,
         thumbnailUrl: null,
         duration: null,
         errorMessage: null,
