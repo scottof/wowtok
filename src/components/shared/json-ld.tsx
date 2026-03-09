@@ -32,7 +32,7 @@ export function ProductJsonLd() {
       {
         "@type": "Offer",
         name: "Starter",
-        price: "19",
+        price: "29",
         priceCurrency: "USD",
         priceValidUntil: "2027-12-31",
         description: "5 AI videos per month, 3 standard AI voices, 720p output",

@@ -14,7 +14,7 @@ describe("stripe/config", () => {
       const pro = plans.find((p) => p.id === "PRO")!;
 
       expect(starter.videosPerMonth).toBe(5);
-      expect(starter.price).toBe(19);
+      expect(starter.price).toBe(29);
 
       expect(creator.videosPerMonth).toBe(20);
       expect(creator.price).toBe(59);

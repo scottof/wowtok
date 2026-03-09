@@ -7,8 +7,8 @@ export const plans: PricingPlan[] = [
   {
     id: "STARTER",
     name: "Starter",
-    price: 19,
-    originalPrice: 39,
+    price: 29,
+    originalPrice: 49,
     stripePriceId: process.env.STRIPE_STARTER_PRICE_ID || "",
     description: "Perfect for getting started with AI videos",
     videosPerMonth: 5,
