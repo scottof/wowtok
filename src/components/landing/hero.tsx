@@ -1,10 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Play } from "lucide-react";
+import {
+  ArrowRight,
+  Play,
+  Ghost,
+  Sparkles,
+  Laugh,
+  Rocket,
+  Theater,
+  Search,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+
+const mockThemes = [
+  { icon: Ghost, name: "Horror", selected: true },
+  { icon: Sparkles, name: "Fantasy", selected: false },
+  { icon: Laugh, name: "Comedy", selected: false },
+  { icon: Rocket, name: "Sci-Fi", selected: false },
+  { icon: Theater, name: "Drama", selected: false },
+  { icon: Search, name: "Mystery", selected: false },
+];
 
 export function Hero() {
   const t = useTranslations("Hero");
@@ -60,24 +78,105 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Video preview mockup */}
+        {/* Dashboard mockup */}
         <motion.div
-          className="mx-auto mt-16 max-w-4xl"
+          className="mx-auto mt-16 max-w-3xl"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="relative rounded-2xl border border-border/60 bg-muted/30 p-2 shadow-2xl shadow-violet-500/5">
-            <div className="aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-violet-100 to-indigo-100">
-              <div className="flex h-full items-center justify-center">
-                <div className="text-center">
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white/80 shadow-lg">
-                    <Play className="h-7 w-7 fill-violet-600 text-violet-600" />
+          <div className="relative rounded-2xl border border-border/60 bg-card p-5 shadow-2xl shadow-violet-500/10">
+            {/* Window chrome */}
+            <div className="mb-4 flex items-center gap-2">
+              <span className="h-3 w-3 rounded-full bg-red-400" />
+              <span className="h-3 w-3 rounded-full bg-yellow-400" />
+              <span className="h-3 w-3 rounded-full bg-green-400" />
+              <span className="ml-3 text-sm font-medium text-muted-foreground">
+                Create New Video
+              </span>
+            </div>
+
+            {/* Step indicator */}
+            <div className="mb-5 flex items-center gap-1.5">
+              {["Theme", "Prompt", "Narration", "Voice", "Review"].map(
+                (step, i) => (
+                  <div key={step} className="flex items-center gap-1.5">
+                    <div
+                      className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold ${
+                        i === 0
+                          ? "gradient-bg text-white"
+                          : "bg-muted text-muted-foreground"
+                      }`}
+                    >
+                      {i + 1}
+                    </div>
+                    <span
+                      className={`hidden text-xs sm:inline ${
+                        i === 0
+                          ? "font-medium text-foreground"
+                          : "text-muted-foreground"
+                      }`}
+                    >
+                      {step}
+                    </span>
+                    {i < 4 && (
+                      <div className="mx-1 hidden h-px w-4 bg-border sm:block" />
+                    )}
                   </div>
-                  <p className="text-sm font-medium text-violet-900/60">
-                    {t("videoPreview")}
-                  </p>
-                </div>
+                ),
+              )}
+            </div>
+
+            {/* Choose theme label */}
+            <p className="mb-3 text-sm font-medium">Choose your theme</p>
+
+            {/* Theme grid */}
+            <div className="grid grid-cols-3 gap-2">
+              {mockThemes.map((theme) => {
+                const Icon = theme.icon;
+                return (
+                  <div
+                    key={theme.name}
+                    className={`rounded-lg border p-3 text-center transition-colors ${
+                      theme.selected
+                        ? "border-violet-400 bg-violet-50 shadow-sm dark:bg-violet-950/30"
+                        : "border-border/60 bg-muted/30"
+                    }`}
+                  >
+                    <Icon
+                      className={`mx-auto h-5 w-5 ${
+                        theme.selected
+                          ? "text-violet-600"
+                          : "text-muted-foreground"
+                      }`}
+                    />
+                    <p
+                      className={`mt-1.5 text-xs font-medium ${
+                        theme.selected ? "text-violet-900 dark:text-violet-100" : ""
+                      }`}
+                    >
+                      {theme.name}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Prompt input preview */}
+            <div className="mt-4 rounded-lg border border-border/60 bg-muted/30 p-3">
+              <p className="mb-1 text-xs text-muted-foreground">
+                What&apos;s your video about?
+              </p>
+              <p className="text-sm text-foreground/80">
+                A haunted lighthouse on a foggy night...
+              </p>
+            </div>
+
+            {/* Next button */}
+            <div className="mt-4 flex justify-end">
+              <div className="gradient-bg rounded-lg px-5 py-2 text-sm font-medium text-white">
+                Next
+                <ArrowRight className="ml-1.5 inline h-3.5 w-3.5" />
               </div>
             </div>
           </div>
