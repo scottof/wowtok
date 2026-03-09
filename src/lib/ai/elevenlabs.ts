@@ -48,7 +48,7 @@ export async function generateVoiceover(
   return Buffer.from(arrayBuffer);
 }
 
-interface Alignment {
+export interface Alignment {
   characters: string[];
   character_start_times_seconds: number[];
   character_end_times_seconds: number[];
@@ -108,7 +108,7 @@ export async function generateVoiceoverWithTimestamps(
  * Convert character-level alignment data to SRT subtitle format.
  * Groups characters into words based on spaces.
  */
-function alignmentToSrt(alignment: Alignment): string {
+export function alignmentToSrt(alignment: Alignment): string {
   const { characters, character_start_times_seconds, character_end_times_seconds } = alignment;
 
   // Group characters into words
