@@ -78,6 +78,28 @@ async function updateVideoStatus(
 }
 
 /**
+ * Retry a single async operation with exponential backoff.
+ * Used for individual image/video generations that may transiently fail.
+ */
+async function withRetry<T>(
+  fn: () => Promise<T>,
+  label: string,
+  retries = 2
+): Promise<T> {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      return await fn();
+    } catch (e) {
+      if (attempt === retries) throw e;
+      const delay = 2000 * (attempt + 1); // 2s, 4s
+      console.warn(`${label} attempt ${attempt + 1} failed, retrying in ${delay}ms...`);
+      await new Promise((r) => setTimeout(r, delay));
+    }
+  }
+  throw new Error(`${label} failed after ${retries + 1} attempts`);
+}
+
+/**
  * Fetch fresh scene data from the database.
  * Avoids stale reads when scenes are updated across chained requests.
  */
@@ -125,9 +147,14 @@ export async function POST(req: Request) {
         const themeConfig = getTheme(video.theme);
         const style = themeConfig?.style || "cinematic, high quality";
 
-        // Generate ALL images in parallel — eliminates per-scene HTTP chaining
+        // Generate ALL images in parallel with per-image retry
         const imageResults = await Promise.allSettled(
-          scenes.map((scene) => generateImage(scene.visualDescription, style))
+          scenes.map((scene, i) =>
+            withRetry(
+              () => generateImage(scene.visualDescription, style),
+              `Image scene ${i}`
+            )
+          )
         );
 
         for (let i = 0; i < scenes.length; i++) {
@@ -152,12 +179,19 @@ export async function POST(req: Request) {
         await updateVideoStatus(videoId, "VIDEO");
         const scenes = await getFreshScenes(videoId);
 
-        // Generate ALL video clips in parallel — eliminates per-scene HTTP chaining
+        // Generate ALL video clips in parallel with per-clip retry
         const videoResults = await Promise.allSettled(
           scenes
             .filter((scene) => !!scene.imageUrl)
-            .map((scene) =>
-              generateVideoFromImage(scene.imageUrl!, scene.visualDescription)
+            .map((scene, i) =>
+              withRetry(
+                () =>
+                  generateVideoFromImage(
+                    scene.imageUrl!,
+                    scene.visualDescription
+                  ),
+                `Video scene ${i}`
+              )
             )
         );
 

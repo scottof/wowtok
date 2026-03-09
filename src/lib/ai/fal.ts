@@ -14,23 +14,34 @@ export async function generateImage(
   style: string
 ): Promise<string> {
   ensureConfig();
-  const result = await fal.subscribe("fal-ai/flux-2-pro", {
-    input: {
-      prompt: `${visualDescription}. Style: ${style}. Vertical composition 9:16 aspect ratio, cinematic quality, highly detailed.`,
-      image_size: {
-        width: 1080,
-        height: 1920,
+  try {
+    const result = await fal.subscribe("fal-ai/flux-pro/v1.1", {
+      input: {
+        prompt: `${visualDescription}. Style: ${style}. Vertical composition 9:16 aspect ratio, cinematic quality, highly detailed.`,
+        image_size: {
+          width: 1080,
+          height: 1920,
+        },
+        num_images: 1,
+        enable_safety_checker: true,
       },
-      enable_safety_checker: true,
-    },
-  });
+    });
 
-  const data = result.data as { images: { url: string }[] };
-  if (!data.images?.[0]?.url) {
-    throw new Error("No image generated");
+    const data = result.data as { images: { url: string }[] };
+    if (!data.images?.[0]?.url) {
+      throw new Error("No image generated");
+    }
+
+    return data.images[0].url;
+  } catch (error: unknown) {
+    const e = error as { message?: string; body?: unknown; status?: number };
+    console.error("[FAL] Image generation error:", {
+      message: e.message,
+      status: e.status,
+      body: JSON.stringify(e.body || {}).substring(0, 500),
+    });
+    throw error;
   }
-
-  return data.images[0].url;
 }
 
 export async function generateVideoFromImage(
