@@ -7,6 +7,7 @@ import {
   generateVideoFromImage,
   mergeVideos,
   mergeAudioVideo,
+  uploadAudioToFal,
 } from "@/lib/ai/fal";
 import { generateVoiceover } from "@/lib/ai/elevenlabs";
 import { getTheme } from "@/config/themes";
@@ -224,28 +225,12 @@ export async function POST(req: Request) {
           video.voiceId || "adam"
         );
 
-        // Upload audio to Supabase Storage
-        const { createClient } = await import("@supabase/supabase-js");
-        const supabase = createClient(
-          env.NEXT_PUBLIC_SUPABASE_URL,
-          env.SUPABASE_SERVICE_ROLE_KEY
-        );
+        // Upload audio to FAL.ai storage (publicly accessible, FAL APIs can consume directly)
+        const voiceoverFileUrl = await uploadAudioToFal(audioBuffer);
 
-        const audioPath = `videos/${videoId}/voiceover.mp3`;
-        await supabase.storage
-          .from("media")
-          .upload(audioPath, audioBuffer, {
-            contentType: "audio/mpeg",
-            upsert: true,
-          });
-
-        // Save the public URL so we can use it in compose and let users download
-        const { data: audioUrlData } = supabase.storage
-          .from("media")
-          .getPublicUrl(audioPath);
         await prisma.video.update({
           where: { id: videoId },
-          data: { voiceoverUrl: audioUrlData.publicUrl },
+          data: { voiceoverUrl: voiceoverFileUrl },
         });
 
         triggerNextStep(videoId, "compose");

@@ -88,6 +88,17 @@ export async function mergeVideos(videoUrls: string[]): Promise<string> {
   return data.video.url;
 }
 
+/**
+ * Upload an audio buffer to FAL.ai storage.
+ * Returns a publicly accessible URL that FAL.ai APIs can consume directly.
+ */
+export async function uploadAudioToFal(audioBuffer: Buffer): Promise<string> {
+  ensureConfig();
+  const blob = new Blob([new Uint8Array(audioBuffer)], { type: "audio/mpeg" });
+  const url = await fal.storage.upload(blob);
+  return url;
+}
+
 export async function mergeAudioVideo(
   videoUrl: string,
   audioUrl: string
