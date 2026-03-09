@@ -13,7 +13,7 @@ import { getTheme } from "@/config/themes";
 import { env } from "@/lib/env";
 import type { Scene } from "@/types";
 
-export const maxDuration = 60;
+export const maxDuration = 300;
 
 function getBaseUrl() {
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
@@ -24,11 +24,7 @@ function getBaseUrl() {
 const MAX_RETRIES = 2;
 const RETRY_DELAY_MS = 1000;
 
-function triggerNextStep(
-  videoId: string,
-  step: string,
-  sceneIndex?: number
-) {
+function triggerNextStep(videoId: string, step: string) {
   const baseUrl = getBaseUrl();
   after(async () => {
     let lastError: unknown;
@@ -43,7 +39,7 @@ function triggerNextStep(
             "Content-Type": "application/json",
             "x-process-secret": env.PROCESS_SECRET,
           },
-          body: JSON.stringify({ videoId, step, sceneIndex }),
+          body: JSON.stringify({ videoId, step }),
         });
         if (res.ok) return; // Success
         lastError = new Error(`HTTP ${res.status}`);
@@ -99,7 +95,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { videoId, step, sceneIndex } = await req.json();
+  const { videoId, step } = await req.json();
 
   const video = await prisma.video.findUnique({ where: { id: videoId } });
   if (!video || video.status === "COMPLETED" || video.status === "FAILED") {
@@ -118,80 +114,72 @@ export async function POST(req: Request) {
         await updateVideoStatus(videoId, "SCENES", {
           scenes: JSON.parse(JSON.stringify(scenes)),
         });
-        // Start generating images one by one
-        triggerNextStep(videoId, "image", 0);
+        triggerNextStep(videoId, "images");
         break;
       }
 
-      case "image": {
-        const idx = sceneIndex ?? 0;
-
-        if (idx === 0) {
-          await updateVideoStatus(videoId, "IMAGES");
-        }
-
-        // Always read fresh scenes to avoid stale data from previous steps
+      case "images": {
+        await updateVideoStatus(videoId, "IMAGES");
         const scenes = await getFreshScenes(videoId);
-
-        const scene = scenes[idx];
-        if (!scene) {
-          // All images done, start video generation
-          triggerNextStep(videoId, "video", 0);
-          break;
-        }
 
         const themeConfig = getTheme(video.theme);
         const style = themeConfig?.style || "cinematic, high quality";
-        const imageUrl = await generateImage(scene.visualDescription, style);
 
-        // Update this scene's imageUrl
-        scenes[idx] = { ...scene, imageUrl };
+        // Generate ALL images in parallel — eliminates per-scene HTTP chaining
+        const imageResults = await Promise.allSettled(
+          scenes.map((scene) => generateImage(scene.visualDescription, style))
+        );
+
+        for (let i = 0; i < scenes.length; i++) {
+          const result = imageResults[i];
+          if (result.status === "fulfilled") {
+            scenes[i] = { ...scenes[i], imageUrl: result.value };
+          } else {
+            throw new Error(
+              `Image generation failed for scene ${i}: ${result.reason}`
+            );
+          }
+        }
+
         await updateVideoStatus(videoId, "IMAGES", {
           scenes: JSON.parse(JSON.stringify(scenes)),
         });
-
-        if (idx + 1 < scenes.length) {
-          // More images to generate
-          triggerNextStep(videoId, "image", idx + 1);
-        } else {
-          // All images done, start video clips
-          triggerNextStep(videoId, "video", 0);
-        }
+        triggerNextStep(videoId, "videos");
         break;
       }
 
-      case "video": {
-        const idx = sceneIndex ?? 0;
-
-        if (idx === 0) {
-          await updateVideoStatus(videoId, "VIDEO");
-        }
-
-        // Always read fresh scenes to get imageUrls from the image step
+      case "videos": {
+        await updateVideoStatus(videoId, "VIDEO");
         const scenes = await getFreshScenes(videoId);
 
-        const scene = scenes[idx];
-        if (!scene || !scene.imageUrl) {
-          // All videos done, start voiceover
-          triggerNextStep(videoId, "voiceover");
-          break;
-        }
-
-        const videoUrl = await generateVideoFromImage(
-          scene.imageUrl,
-          scene.visualDescription
+        // Generate ALL video clips in parallel — eliminates per-scene HTTP chaining
+        const videoResults = await Promise.allSettled(
+          scenes
+            .filter((scene) => !!scene.imageUrl)
+            .map((scene) =>
+              generateVideoFromImage(scene.imageUrl!, scene.visualDescription)
+            )
         );
 
-        scenes[idx] = { ...scene, videoUrl };
+        const scenesWithImages = scenes.filter((s) => !!s.imageUrl);
+        for (let i = 0; i < scenesWithImages.length; i++) {
+          const result = videoResults[i];
+          const sceneIdx = scenes.findIndex(
+            (s) => s.index === scenesWithImages[i].index
+          );
+          if (result.status === "fulfilled") {
+            scenes[sceneIdx] = { ...scenes[sceneIdx], videoUrl: result.value };
+          } else {
+            throw new Error(
+              `Video generation failed for scene ${sceneIdx}: ${result.reason}`
+            );
+          }
+        }
+
         await updateVideoStatus(videoId, "VIDEO", {
           scenes: JSON.parse(JSON.stringify(scenes)),
         });
-
-        if (idx + 1 < scenes.length) {
-          triggerNextStep(videoId, "video", idx + 1);
-        } else {
-          triggerNextStep(videoId, "voiceover");
-        }
+        triggerNextStep(videoId, "voiceover");
         break;
       }
 
