@@ -70,6 +70,7 @@ export async function POST(
         scenes: Prisma.DbNull,
         videoUrl: null,
         voiceoverUrl: null,
+        subtitles: null,
         thumbnailUrl: null,
         duration: null,
         errorMessage: null,

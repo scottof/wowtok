@@ -446,6 +446,11 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
                 {narratorText.length} {t("characters")} &middot; ~
                 {Math.ceil(narratorText.length / 15)} {t("seconds")}
               </p>
+              {narratorText.length > 0 && narratorText.length < 200 && (
+                <p className="mt-1 text-xs text-amber-600">
+                  ⚠ {t("shortNarrationWarning")}
+                </p>
+              )}
             </div>
           </div>
         )}

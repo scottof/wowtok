@@ -9,7 +9,7 @@ import {
   mergeAudioVideo,
   uploadAudioToFal,
 } from "@/lib/ai/fal";
-import { generateVoiceover } from "@/lib/ai/elevenlabs";
+import { generateVoiceoverWithTimestamps } from "@/lib/ai/elevenlabs";
 import { getTheme } from "@/config/themes";
 import { env } from "@/lib/env";
 import type { Scene } from "@/types";
@@ -220,7 +220,7 @@ export async function POST(req: Request) {
 
       case "voiceover": {
         await updateVideoStatus(videoId, "VOICEOVER");
-        const audioBuffer = await generateVoiceover(
+        const { audioBuffer, srt } = await generateVoiceoverWithTimestamps(
           video.narratorText,
           video.voiceId || "adam"
         );
@@ -230,7 +230,7 @@ export async function POST(req: Request) {
 
         await prisma.video.update({
           where: { id: videoId },
-          data: { voiceoverUrl: voiceoverFileUrl },
+          data: { voiceoverUrl: voiceoverFileUrl, subtitles: srt },
         });
 
         triggerNextStep(videoId, "compose");

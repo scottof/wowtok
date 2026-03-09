@@ -20,7 +20,7 @@ export async function generateScenes(
     messages: [
       {
         role: "system",
-        content: `You are a video scene director. Break narration text into 4-6 scenes for a TikTok video.
+        content: `You are a video scene director. Break narration text into 5-6 scenes for a TikTok video.
 For each scene, provide:
 1. The narration text segment for that scene
 2. A detailed visual description for AI image generation
@@ -30,11 +30,13 @@ Style guide: ${style}
 Return valid JSON array with objects: { "index": number, "narration": "text for this scene", "visualDescription": "detailed visual description for image generation" }
 
 Rules:
-- Each scene should be 4-8 seconds when read aloud (roughly 10-20 words)
+- ALWAYS create at least 5 scenes, maximum 6
+- If the narration text is short, distribute it across 5 scenes with brief narration per scene and expand the visual descriptions to be more detailed and cinematic
+- Each scene should be 3-8 seconds when read aloud
 - Visual descriptions should be detailed, cinematic, and match the theme
 - Include specific details: lighting, colors, camera angle, mood, subjects
 - Make each scene visually distinct
-- Total scenes: 4-6`,
+- Total scenes: 5-6 (never fewer than 5)`,
       },
       {
         role: "user",
@@ -78,12 +80,13 @@ export async function generateScript(
 Theme style: ${themeConfig?.description || theme}
 
 Rules:
-- Write 150-400 characters of narration text
+- Write 300-600 characters of narration text (6-8 sentences)
 - Make it engaging and hook the viewer in the first sentence
 - Match the theme's tone (horror = eerie, comedy = witty, etc.)
 - Write in second person or storytelling voice
 - No stage directions, just the narrator's spoken text
-- Make it suitable for a 30-60 second TikTok video`,
+- Make it suitable for a 25-35 second TikTok video
+- Each sentence should paint a vivid picture that can become a visual scene`,
       },
       {
         role: "user",

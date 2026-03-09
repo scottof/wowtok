@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   Clock,
   Volume2,
+  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -28,6 +29,7 @@ interface VideoData {
   status: VideoStatus;
   videoUrl: string | null;
   voiceoverUrl: string | null;
+  subtitles: string | null;
   thumbnailUrl: string | null;
   duration: number | null;
   errorMessage: string | null;
@@ -226,6 +228,23 @@ export default function VideoDetailPage() {
                     <Volume2 className="mr-2 h-4 w-4" />
                     {t("downloadVoiceover")}
                   </a>
+                </Button>
+              )}
+              {video.subtitles && (
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    const blob = new Blob([video.subtitles!], { type: "text/srt" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `${video.title.replace(/[^a-zA-Z0-9]/g, "_")}.srt`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                >
+                  <FileText className="mr-2 h-4 w-4" />
+                  {t("downloadSubtitles")}
                 </Button>
               )}
             </div>

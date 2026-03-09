@@ -74,6 +74,7 @@ model Video {
   voiceId      String?
   videoUrl      String?
   voiceoverUrl  String?
+  subtitles     String?   @db.Text
   thumbnailUrl  String?
   duration     Int?
   errorMessage String?
