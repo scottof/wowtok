@@ -16,13 +16,21 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
 const mockThemes = [
-  { icon: Ghost, name: "Horror", selected: true },
-  { icon: Sparkles, name: "Fantasy", selected: false },
-  { icon: Laugh, name: "Comedy", selected: false },
-  { icon: Rocket, name: "Sci-Fi", selected: false },
-  { icon: Theater, name: "Drama", selected: false },
-  { icon: Search, name: "Mystery", selected: false },
+  { icon: Ghost, key: "mockupThemeHorror" as const, selected: true },
+  { icon: Sparkles, key: "mockupThemeFantasy" as const, selected: false },
+  { icon: Laugh, key: "mockupThemeComedy" as const, selected: false },
+  { icon: Rocket, key: "mockupThemeSciFi" as const, selected: false },
+  { icon: Theater, key: "mockupThemeDrama" as const, selected: false },
+  { icon: Search, key: "mockupThemeMystery" as const, selected: false },
 ];
+
+const stepKeys = [
+  "mockupStepTheme",
+  "mockupStepPrompt",
+  "mockupStepNarration",
+  "mockupStepVoice",
+  "mockupStepReview",
+] as const;
 
 export function Hero() {
   const t = useTranslations("Hero");
@@ -92,43 +100,41 @@ export function Hero() {
               <span className="h-3 w-3 rounded-full bg-yellow-400" />
               <span className="h-3 w-3 rounded-full bg-green-400" />
               <span className="ml-3 text-sm font-medium text-muted-foreground">
-                Create New Video
+                {t("mockupTitle")}
               </span>
             </div>
 
             {/* Step indicator */}
             <div className="mb-5 flex items-center gap-1.5">
-              {["Theme", "Prompt", "Narration", "Voice", "Review"].map(
-                (step, i) => (
-                  <div key={step} className="flex items-center gap-1.5">
-                    <div
-                      className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold ${
-                        i === 0
-                          ? "gradient-bg text-white"
-                          : "bg-muted text-muted-foreground"
-                      }`}
-                    >
-                      {i + 1}
-                    </div>
-                    <span
-                      className={`hidden text-xs sm:inline ${
-                        i === 0
-                          ? "font-medium text-foreground"
-                          : "text-muted-foreground"
-                      }`}
-                    >
-                      {step}
-                    </span>
-                    {i < 4 && (
-                      <div className="mx-1 hidden h-px w-4 bg-border sm:block" />
-                    )}
+              {stepKeys.map((stepKey, i) => (
+                <div key={stepKey} className="flex items-center gap-1.5">
+                  <div
+                    className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold ${
+                      i === 0
+                        ? "gradient-bg text-white"
+                        : "bg-muted text-muted-foreground"
+                    }`}
+                  >
+                    {i + 1}
                   </div>
-                ),
-              )}
+                  <span
+                    className={`hidden text-xs sm:inline ${
+                      i === 0
+                        ? "font-medium text-foreground"
+                        : "text-muted-foreground"
+                    }`}
+                  >
+                    {t(stepKey)}
+                  </span>
+                  {i < 4 && (
+                    <div className="mx-1 hidden h-px w-4 bg-border sm:block" />
+                  )}
+                </div>
+              ))}
             </div>
 
             {/* Choose theme label */}
-            <p className="mb-3 text-sm font-medium">Choose your theme</p>
+            <p className="mb-3 text-sm font-medium">{t("mockupChooseTheme")}</p>
 
             {/* Theme grid */}
             <div className="grid grid-cols-3 gap-2">
@@ -136,7 +142,7 @@ export function Hero() {
                 const Icon = theme.icon;
                 return (
                   <div
-                    key={theme.name}
+                    key={theme.key}
                     className={`rounded-lg border p-3 text-center transition-colors ${
                       theme.selected
                         ? "border-violet-400 bg-violet-50 shadow-sm dark:bg-violet-950/30"
@@ -155,7 +161,7 @@ export function Hero() {
                         theme.selected ? "text-violet-900 dark:text-violet-100" : ""
                       }`}
                     >
-                      {theme.name}
+                      {t(theme.key)}
                     </p>
                   </div>
                 );
@@ -165,17 +171,17 @@ export function Hero() {
             {/* Prompt input preview */}
             <div className="mt-4 rounded-lg border border-border/60 bg-muted/30 p-3">
               <p className="mb-1 text-xs text-muted-foreground">
-                What&apos;s your video about?
+                {t("mockupPromptLabel")}
               </p>
               <p className="text-sm text-foreground/80">
-                A haunted lighthouse on a foggy night...
+                {t("mockupPromptExample")}
               </p>
             </div>
 
             {/* Next button */}
             <div className="mt-4 flex justify-end">
               <div className="gradient-bg rounded-lg px-5 py-2 text-sm font-medium text-white">
-                Next
+                {t("mockupNext")}
                 <ArrowRight className="ml-1.5 inline h-3.5 w-3.5" />
               </div>
             </div>
