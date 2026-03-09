@@ -67,7 +67,12 @@ export async function generateVideoFromImage(
   return data.video.url;
 }
 
-export async function mergeVideos(videoUrls: string[]): Promise<string> {
+export interface MergeResult {
+  url: string;
+  duration: number;
+}
+
+export async function mergeVideos(videoUrls: string[]): Promise<MergeResult> {
   ensureConfig();
   const result = await fal.subscribe("fal-ai/ffmpeg-api/merge-videos", {
     input: {
@@ -80,12 +85,18 @@ export async function mergeVideos(videoUrls: string[]): Promise<string> {
     pollInterval: 3000,
   });
 
-  const data = result.data as { video: { url: string } };
+  const data = result.data as {
+    video: { url: string };
+    metadata?: { total_duration?: number };
+  };
   if (!data.video?.url) {
     throw new Error("Failed to merge videos");
   }
 
-  return data.video.url;
+  return {
+    url: data.video.url,
+    duration: Math.round(data.metadata?.total_duration || videoUrls.length * 5),
+  };
 }
 
 /**
@@ -102,7 +113,7 @@ export async function uploadAudioToFal(audioBuffer: Buffer): Promise<string> {
 export async function mergeAudioVideo(
   videoUrl: string,
   audioUrl: string
-): Promise<string> {
+): Promise<MergeResult> {
   ensureConfig();
   const result = await fal.subscribe("fal-ai/ffmpeg-api/merge-audio-video", {
     input: {
@@ -112,10 +123,16 @@ export async function mergeAudioVideo(
     pollInterval: 3000,
   });
 
-  const data = result.data as { video: { url: string } };
+  const data = result.data as {
+    video: { url: string };
+    metadata?: { total_duration?: number };
+  };
   if (!data.video?.url) {
     throw new Error("Failed to merge audio and video");
   }
 
-  return data.video.url;
+  return {
+    url: data.video.url,
+    duration: Math.round(data.metadata?.total_duration || 0),
+  };
 }

@@ -177,8 +177,7 @@ export default function VideoDetailPage() {
               </Badge>
               {video.duration && (
                 <span className="text-sm text-muted-foreground">
-                  {Math.floor(video.duration / 60)}:
-                  {String(video.duration % 60).padStart(2, "0")}
+                  {video.duration}s
                 </span>
               )}
             </div>
@@ -233,6 +232,7 @@ export default function VideoDetailPage() {
               {video.subtitles && (
                 <Button
                   variant="outline"
+                  className="cursor-pointer"
                   onClick={() => {
                     const blob = new Blob([video.subtitles!], { type: "text/srt" });
                     const url = URL.createObjectURL(blob);

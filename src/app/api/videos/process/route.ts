@@ -201,19 +201,24 @@ export async function POST(req: Request) {
 
     // Concatenate all scene clips into one video (FREE via FFmpeg API)
     let finalVideoUrl: string;
+    let actualDuration = clipUrls.length * 5; // fallback estimate
+
     if (clipUrls.length === 1) {
       finalVideoUrl = clipUrls[0];
     } else {
-      finalVideoUrl = await mergeVideos(clipUrls);
+      const merged = await mergeVideos(clipUrls);
+      finalVideoUrl = merged.url;
+      if (merged.duration > 0) actualDuration = merged.duration;
     }
 
     // Merge voiceover audio with the concatenated video (FREE via FFmpeg API)
     if (voiceoverUrl) {
-      finalVideoUrl = await mergeAudioVideo(finalVideoUrl, voiceoverUrl);
+      const withAudio = await mergeAudioVideo(finalVideoUrl, voiceoverUrl);
+      finalVideoUrl = withAudio.url;
+      if (withAudio.duration > 0) actualDuration = withAudio.duration;
     }
 
     const thumbnailUrl = scenes[0]?.imageUrl || null;
-    const actualDuration = clipUrls.length * 5; // Each Kling clip is 5 seconds
 
     await updateVideoStatus(videoId, "COMPLETED", {
       videoUrl: finalVideoUrl,
