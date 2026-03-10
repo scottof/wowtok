@@ -82,7 +82,7 @@ export function PlanSelectionDialog({
               <div className="flex items-baseline gap-1 mt-1">
                 <span className="text-2xl font-bold">${p.price}</span>
                 <span className="text-xs text-muted-foreground">
-                  /{t("perMonth")}
+                  {t("perMonth")}
                 </span>
               </div>
               {p.originalPrice && (
