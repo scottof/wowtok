@@ -16,7 +16,6 @@ import {
   ArrowLeft,
   ArrowRight,
   Loader2,
-  Wand2,
   Lock,
   Check,
   X,
@@ -76,7 +75,6 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
   const [narratorText, setNarratorText] = useState("");
   const [voiceId, setVoiceId] = useState("adam");
   const [loading, setLoading] = useState(false);
-  const [generating, setGenerating] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [upgrading, setUpgrading] = useState(false);
 
@@ -115,26 +113,6 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
         return voiceId !== "";
       default:
         return true;
-    }
-  }
-
-  async function handleGenerateScript() {
-    setGenerating(true);
-    try {
-      const res = await fetch("/api/videos/generate-script", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ theme, prompt }),
-      });
-      const data = await res.json();
-      if (data.script) {
-        setNarratorText(data.script);
-        toast.success(t("scriptGenerated"));
-      }
-    } catch {
-      toast.error(t("failedScript"));
-    } finally {
-      setGenerating(false);
     }
   }
 
@@ -415,22 +393,7 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
         {/* Step 2: Narration */}
         {step === 2 && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold">{t("narrationText")}</h2>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleGenerateScript}
-                disabled={generating}
-              >
-                {generating ? (
-                  <Loader2 className="mr-2 h-3 w-3 animate-spin" />
-                ) : (
-                  <Wand2 className="mr-2 h-3 w-3" />
-                )}
-                {t("autoGenerate")}
-              </Button>
-            </div>
+            <h2 className="text-lg font-semibold">{t("narrationText")}</h2>
             <div>
               <Label htmlFor="narration">
                 {t("narratorLabel")}
