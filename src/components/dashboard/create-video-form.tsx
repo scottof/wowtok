@@ -525,15 +525,18 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
 
       {/* Navigation */}
       <div className="mt-6 flex items-center justify-between">
-        <Button
-          variant="outline"
-          className="cursor-pointer"
-          onClick={() => setStep(step - 1)}
-          disabled={step === 0}
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          {t("back")}
-        </Button>
+        {step > 0 ? (
+          <Button
+            variant="outline"
+            className="cursor-pointer"
+            onClick={() => setStep(step - 1)}
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            {t("back")}
+          </Button>
+        ) : (
+          <div />
+        )}
 
         {step < steps.length - 1 ? (
           <Button
