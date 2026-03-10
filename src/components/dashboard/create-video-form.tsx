@@ -148,7 +148,14 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
     setUpgrading(true);
     try {
       await createCheckoutSessionByPlan(nextPlanId);
-    } catch {
+    } catch (err) {
+      // Next.js redirect() throws a NEXT_REDIRECT "error" — don't show toast for that
+      if (typeof err === "object" && err !== null && "digest" in err) {
+        const digest = (err as { digest?: string }).digest;
+        if (typeof digest === "string" && digest.startsWith("NEXT_REDIRECT")) {
+          return;
+        }
+      }
       toast.error(t("somethingWrong"));
       setUpgrading(false);
     }
