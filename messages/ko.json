@@ -171,6 +171,7 @@
     "characters": "글자",
     "seconds": "초",
     "shortNarrationWarning": "최적의 TikTok 영상을 위해 300자 이상의 내레이션을 권장합니다.",
+    "maxNarrationWarning": "최대 600자에 도달했습니다.",
     "chooseVoice": "음성을 선택하세요",
     "reviewGenerate": "검토 및 생성",
     "theme": "테마",

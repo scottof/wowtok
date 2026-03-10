@@ -171,6 +171,7 @@
     "characters": "Zeichen",
     "seconds": "Sekunden",
     "shortNarrationWarning": "Für optimale TikTok-Videos empfehlen wir mindestens 300 Zeichen Erzähltext.",
+    "maxNarrationWarning": "Maximal 600 Zeichen erreicht.",
     "chooseVoice": "Wähle eine Stimme",
     "reviewGenerate": "Überprüfen und generieren",
     "theme": "Thema",

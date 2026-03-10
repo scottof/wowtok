@@ -108,7 +108,7 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
       case 1:
         return title.trim() !== "" && prompt.trim() !== "";
       case 2:
-        return narratorText.trim() !== "";
+        return narratorText.trim() !== "" && narratorText.length <= 600;
       case 3:
         return voiceId !== "";
       default:
@@ -402,16 +402,22 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
                 id="narration"
                 placeholder={t("narratorPlaceholder")}
                 value={narratorText}
-                onChange={(e) => setNarratorText(e.target.value)}
+                onChange={(e) => setNarratorText(e.target.value.slice(0, 600))}
+                maxLength={600}
                 className="mt-1.5 min-h-[200px]"
               />
               <p className="mt-1.5 text-xs text-muted-foreground">
-                {narratorText.length} {t("characters")} &middot; ~
+                {narratorText.length}/600 {t("characters")} &middot; ~
                 {Math.ceil(narratorText.length / 15)} {t("seconds")}
               </p>
               {narratorText.length > 0 && narratorText.length < 200 && (
                 <p className="mt-1 text-xs text-amber-600">
                   ⚠ {t("shortNarrationWarning")}
+                </p>
+              )}
+              {narratorText.length >= 600 && (
+                <p className="mt-1 text-xs text-destructive">
+                  {t("maxNarrationWarning")}
                 </p>
               )}
             </div>

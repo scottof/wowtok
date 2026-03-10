@@ -171,6 +171,7 @@
     "characters": "字符",
     "seconds": "秒",
     "shortNarrationWarning": "为获得最佳TikTok视频效果，建议旁白文本至少300个字符。",
+    "maxNarrationWarning": "已达到600字符上限。",
     "chooseVoice": "选择配音",
     "reviewGenerate": "审核并生成",
     "theme": "主题",

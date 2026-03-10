@@ -171,6 +171,7 @@
     "characters": "characters",
     "seconds": "seconds",
     "shortNarrationWarning": "For optimal TikTok videos, we recommend at least 300 characters of narration.",
+    "maxNarrationWarning": "Maximum 600 characters reached.",
     "chooseVoice": "Choose a voice",
     "reviewGenerate": "Review & generate",
     "theme": "Theme",

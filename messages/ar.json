@@ -171,6 +171,7 @@
     "characters": "حرف",
     "seconds": "ثواني",
     "shortNarrationWarning": "لفيديوهات تيك توك مثالية، نوصي بكتابة 300 حرف على الأقل من النص السردي.",
+    "maxNarrationWarning": "تم الوصول إلى الحد الأقصى 600 حرف.",
     "chooseVoice": "اختر صوتاً",
     "reviewGenerate": "مراجعة وإنشاء",
     "theme": "الموضوع",
