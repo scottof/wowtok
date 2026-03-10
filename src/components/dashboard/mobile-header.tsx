@@ -22,23 +22,33 @@ import {
   SheetFooter,
 } from "@/components/ui/sheet";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
+import { PlanSelectionDialog } from "@/components/dashboard/plan-selection-dialog";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
-const linkKeys = [
-  { href: "/dashboard", labelKey: "myVideos", icon: LayoutDashboard },
-  { href: "/dashboard/create", labelKey: "createVideo", icon: PlusCircle },
-  { href: "/dashboard/billing", labelKey: "billing", icon: CreditCard },
-  { href: "/dashboard/support", labelKey: "support", icon: LifeBuoy },
-  { href: "/dashboard/settings", labelKey: "settings", icon: Settings },
+const allLinks = [
+  { href: "/dashboard", labelKey: "myVideos", icon: LayoutDashboard, requiresSub: false },
+  { href: "/dashboard/create", labelKey: "createVideo", icon: PlusCircle, requiresSub: false },
+  { href: "/dashboard/billing", labelKey: "billing", icon: CreditCard, requiresSub: false },
+  { href: "/dashboard/support", labelKey: "support", icon: LifeBuoy, requiresSub: true },
+  { href: "/dashboard/settings", labelKey: "settings", icon: Settings, requiresSub: false },
 ] as const;
 
-export function MobileHeader() {
+interface MobileHeaderProps {
+  hasSubscription: boolean;
+}
+
+export function MobileHeader({ hasSubscription }: MobileHeaderProps) {
   const [open, setOpen] = useState(false);
+  const [showPlanDialog, setShowPlanDialog] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations("Dashboard");
+
+  const linkKeys = allLinks.filter(
+    (link) => !link.requiresSub || hasSubscription
+  );
 
   async function handleSignOut() {
     setOpen(false);
@@ -76,6 +86,29 @@ export function MobileHeader() {
                 link.href === "/dashboard"
                   ? pathname === "/dashboard"
                   : pathname.startsWith(link.href);
+
+              // Intercept Create Video click for unsubscribed users
+              if (link.href === "/dashboard/create" && !hasSubscription) {
+                return (
+                  <button
+                    key={link.href}
+                    onClick={() => {
+                      setOpen(false);
+                      setShowPlanDialog(true);
+                    }}
+                    className={cn(
+                      "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors cursor-pointer",
+                      isActive
+                        ? "bg-accent font-medium text-foreground"
+                        : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
+                    )}
+                  >
+                    <link.icon className="h-4 w-4" />
+                    {t(link.labelKey)}
+                  </button>
+                );
+              }
+
               return (
                 <Link
                   key={link.href}
@@ -111,6 +144,11 @@ export function MobileHeader() {
           </SheetFooter>
         </SheetContent>
       </Sheet>
+
+      <PlanSelectionDialog
+        open={showPlanDialog}
+        onOpenChange={setShowPlanDialog}
+      />
     </>
   );
 }

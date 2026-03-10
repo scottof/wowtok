@@ -18,8 +18,8 @@ export default async function DashboardLayout({
     redirect("/login");
   }
 
-  // Ensure user exists in our database
-  await prisma.user.upsert({
+  // Ensure user exists in our database and fetch subscription
+  const dbUser = await prisma.user.upsert({
     where: { supabaseId: user.id },
     update: {},
     create: {
@@ -28,13 +28,17 @@ export default async function DashboardLayout({
       name: user.user_metadata?.full_name || user.user_metadata?.name,
       avatarUrl: user.user_metadata?.avatar_url,
     },
+    include: { subscription: true },
   });
+
+  const hasSubscription =
+    !!dbUser.subscription && dbUser.subscription.status === "ACTIVE";
 
   return (
     <div className="flex h-screen">
-      <Sidebar />
+      <Sidebar hasSubscription={hasSubscription} />
       <div className="flex flex-1 flex-col">
-        <MobileHeader />
+        <MobileHeader hasSubscription={hasSubscription} />
         <main className="flex-1 overflow-y-auto">
           <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">{children}</div>
         </main>

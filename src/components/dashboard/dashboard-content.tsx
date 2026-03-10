@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { PlusCircle, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { VideoCard } from "@/components/dashboard/video-card";
 import { UsageBar } from "@/components/dashboard/usage-bar";
+import { PlanSelectionDialog } from "@/components/dashboard/plan-selection-dialog";
 import { useTranslations } from "next-intl";
 import type { VideoStatus } from "@/types";
 
@@ -39,6 +41,7 @@ export function DashboardContent({
   limit,
 }: DashboardContentProps) {
   const t = useTranslations("Dashboard");
+  const [showPlanDialog, setShowPlanDialog] = useState(false);
   const isAtLimit = hasSubscription && limit > 0 && used >= limit;
   const upgrade = plan ? nextPlan[plan] : null;
 
@@ -51,12 +54,22 @@ export function DashboardContent({
             {t("myVideosSubtitle")}
           </p>
         </div>
-        <Button className="w-full sm:w-auto gradient-bg border-0 text-white hover:opacity-90" asChild>
-          <Link href="/dashboard/create">
+        {hasSubscription ? (
+          <Button className="w-full sm:w-auto gradient-bg border-0 text-white hover:opacity-90" asChild>
+            <Link href="/dashboard/create">
+              <PlusCircle className="mr-2 h-4 w-4" />
+              {t("createVideoButton")}
+            </Link>
+          </Button>
+        ) : (
+          <Button
+            className="w-full sm:w-auto gradient-bg border-0 text-white hover:opacity-90 cursor-pointer"
+            onClick={() => setShowPlanDialog(true)}
+          >
             <PlusCircle className="mr-2 h-4 w-4" />
             {t("createVideoButton")}
-          </Link>
-        </Button>
+          </Button>
+        )}
       </div>
 
       {/* Usage bar */}
@@ -69,7 +82,7 @@ export function DashboardContent({
       {/* Limit reached upsell */}
       {isAtLimit && upgrade && (
         <div className="mb-8 rounded-xl border border-violet-200 bg-gradient-to-r from-violet-50 to-purple-50 p-6">
-          <div className="flex items-start gap-4">
+          <div className="flex flex-col sm:flex-row items-start gap-4">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-violet-100">
               <Zap className="h-5 w-5 text-violet-600" />
             </div>
@@ -96,8 +109,12 @@ export function DashboardContent({
           <p className="mt-1 text-sm text-muted-foreground">
             {t("noSubscriptionDesc")}
           </p>
-          <Button className="mt-4 gradient-bg border-0 text-white hover:opacity-90" size="sm" asChild>
-            <Link href="/pricing">{t("viewPlans")}</Link>
+          <Button
+            className="mt-4 gradient-bg border-0 text-white hover:opacity-90 cursor-pointer"
+            size="sm"
+            onClick={() => setShowPlanDialog(true)}
+          >
+            {t("viewPlans")}
           </Button>
         </div>
       )}
@@ -125,11 +142,27 @@ export function DashboardContent({
           <p className="mt-1 text-sm text-muted-foreground">
             {t("noVideosDesc")}
           </p>
-          <Button variant="outline" size="sm" className="mt-4" asChild>
-            <Link href="/dashboard/create">{t("createFirst")}</Link>
-          </Button>
+          {hasSubscription ? (
+            <Button variant="outline" size="sm" className="mt-4" asChild>
+              <Link href="/dashboard/create">{t("createFirst")}</Link>
+            </Button>
+          ) : (
+            <Button
+              variant="outline"
+              size="sm"
+              className="mt-4 cursor-pointer"
+              onClick={() => setShowPlanDialog(true)}
+            >
+              {t("createFirst")}
+            </Button>
+          )}
         </div>
       )}
+
+      <PlanSelectionDialog
+        open={showPlanDialog}
+        onOpenChange={setShowPlanDialog}
+      />
     </div>
   );
 }

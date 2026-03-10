@@ -1,11 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { CreditCard, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { createPortalSession } from "@/lib/stripe/actions";
-import Link from "next/link";
+import { PlanSelectionDialog } from "@/components/dashboard/plan-selection-dialog";
 
 interface BillingContentProps {
   subscription: {
@@ -23,6 +24,7 @@ interface BillingContentProps {
 
 export function BillingContent({ subscription, plan }: BillingContentProps) {
   const t = useTranslations("Dashboard");
+  const [showPlanDialog, setShowPlanDialog] = useState(false);
 
   return (
     <div>
@@ -91,14 +93,19 @@ export function BillingContent({ subscription, plan }: BillingContentProps) {
             {t("choosePlan")}
           </p>
           <Button
-            className="mt-4 gradient-bg border-0 text-white hover:opacity-90"
+            className="mt-4 gradient-bg border-0 text-white hover:opacity-90 cursor-pointer"
             size="sm"
-            asChild
+            onClick={() => setShowPlanDialog(true)}
           >
-            <Link href="/pricing">{t("viewPlans")}</Link>
+            {t("viewPlans")}
           </Button>
         </div>
       )}
+
+      <PlanSelectionDialog
+        open={showPlanDialog}
+        onOpenChange={setShowPlanDialog}
+      />
     </div>
   );
 }
