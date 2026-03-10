@@ -35,7 +35,7 @@ export function ProductJsonLd() {
         price: "29",
         priceCurrency: "USD",
         priceValidUntil: "2027-12-31",
-        description: "5 AI videos per month, 3 standard AI voices, 720p output",
+        description: "3 AI videos per month, 3 standard AI voices, 720p output",
       },
       {
         "@type": "Offer",
@@ -43,7 +43,7 @@ export function ProductJsonLd() {
         price: "59",
         priceCurrency: "USD",
         priceValidUntil: "2027-12-31",
-        description: "20 AI videos per month, 10+ premium AI voices, 1080p output, no watermark",
+        description: "10 AI videos per month, 10+ premium AI voices, 1080p output, no watermark",
       },
       {
         "@type": "Offer",
@@ -51,7 +51,7 @@ export function ProductJsonLd() {
         price: "149",
         priceCurrency: "USD",
         priceValidUntil: "2027-12-31",
-        description: "50 AI videos per month, all voices + voice cloning, API access",
+        description: "25 AI videos per month, all voices + voice cloning, API access",
       },
     ],
     aggregateRating: {

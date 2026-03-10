@@ -13,13 +13,13 @@ describe("stripe/config", () => {
       const creator = plans.find((p) => p.id === "CREATOR")!;
       const pro = plans.find((p) => p.id === "PRO")!;
 
-      expect(starter.videosPerMonth).toBe(5);
+      expect(starter.videosPerMonth).toBe(3);
       expect(starter.price).toBe(29);
 
-      expect(creator.videosPerMonth).toBe(20);
+      expect(creator.videosPerMonth).toBe(10);
       expect(creator.price).toBe(59);
 
-      expect(pro.videosPerMonth).toBe(50);
+      expect(pro.videosPerMonth).toBe(25);
       expect(pro.price).toBe(149);
     });
   });
@@ -39,9 +39,9 @@ describe("stripe/config", () => {
 
   describe("getVideosLimit", () => {
     it("returns the correct limit for each plan", () => {
-      expect(getVideosLimit("STARTER")).toBe(5);
-      expect(getVideosLimit("CREATOR")).toBe(20);
-      expect(getVideosLimit("PRO")).toBe(50);
+      expect(getVideosLimit("STARTER")).toBe(3);
+      expect(getVideosLimit("CREATOR")).toBe(10);
+      expect(getVideosLimit("PRO")).toBe(25);
     });
 
     it("returns 0 for an unknown plan", () => {
