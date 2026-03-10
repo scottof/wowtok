@@ -13,7 +13,7 @@
     "titleHighlight": "TikTok viral",
     "titleEnd": "en quelques minutes",
     "description": "Choisissez un theme, ecrivez votre prompt et laissez l'IA creer une video complete avec narration. Pret a publier sur TikTok en minutes, pas en heures.",
-    "cta": "Commencez a creer gratuitement",
+    "cta": "Commencer",
     "secondaryCta": "Voir comment ca marche",
     "videoPreview": "Voir WowTok en action",
     "mockupTitle": "Creer une nouvelle video",
@@ -36,8 +36,8 @@
   "Features": {
     "title": "Tout ce qu'il faut pour devenir viral",
     "subtitle": "Un pipeline video IA complet, de l'idee au contenu pret pour TikTok.",
-    "aiScript": "Generation de scripts par IA",
-    "aiScriptDesc": "Decrivez votre idee et l'IA ecrit un script convaincant avec un decoupage automatique des scenes.",
+    "aiScript": "Découpage Intelligent des Scènes",
+    "aiScriptDesc": "Écrivez votre narration et l'IA la découpe automatiquement en scènes parfaitement synchronisées avec des visuels.",
     "themes": "Plus de 10 styles thematiques",
     "themesDesc": "Horreur, fantaisie, science-fiction, comedie et plus. Chaque theme dispose de styles visuels selectionnes.",
     "voices": "Voix IA premium",
@@ -62,7 +62,7 @@
   "Pricing": {
     "badge": "Offre de lancement limitee — jusqu'a 40% de reduction",
     "title": "Des tarifs simples et transparents",
-    "subtitle": "Commencez gratuitement, passez a la vitesse superieure quand vous etes pret. Annulez a tout moment.",
+    "subtitle": "Tarification simple et transparente. Annulez à tout moment.",
     "mostPopular": "Le plus populaire",
     "save": "ECONOMISEZ {discount}%",
     "perMonth": "/mois",
@@ -92,8 +92,8 @@
   },
   "CTA": {
     "title": "Pret a creer votre premiere video IA?",
-    "subtitle": "Rejoignez des milliers de createurs qui utilisent WowTok pour produire du contenu viral pour TikTok. Commencez avec une video gratuite — pas de carte bancaire requise.",
-    "button": "Commencer gratuitement"
+    "subtitle": "Rejoignez des milliers de créateurs qui utilisent WowTok pour produire du contenu viral sur TikTok.",
+    "button": "Commencer"
   },
   "Footer": {
     "tagline": "Creez de superbes videos TikTok avec l'IA en quelques minutes.",
@@ -134,7 +134,7 @@
   },
   "PricingPage": {
     "title": "Tarifs",
-    "description": "Des tarifs simples et transparents pour WowTok. Commencez gratuitement, passez a un plan superieur quand vous etes pret. Annulez a tout moment."
+    "description": "Tarification simple et transparente pour WowTok. Annulez à tout moment."
   },
   "Dashboard": {
     "myVideos": "Mes Vidéos",
@@ -254,7 +254,21 @@
     "maxPlanReached": "Vous êtes sur le forfait le plus élevé. Votre limite se renouvelle le mois prochain.",
     "choosePlanTitle": "Choisissez un plan pour commencer",
     "choosePlanDesc": "Abonnez-vous pour créer des vidéos TikTok avec l'IA.",
-    "selectPlan": "Sélectionner"
+    "selectPlan": "Sélectionner",
+    "support": "Support",
+    "supportTitle": "Support",
+    "supportSubtitle": "Obtenez l'aide de notre équipe",
+    "contactUs": "Nous contacter",
+    "supportLabel": "Support",
+    "messageSent": "Message envoyé !",
+    "messageSentDesc": "Nous vous répondrons dès que possible.",
+    "sendAnother": "Envoyer un autre message",
+    "supportEmail": "Votre email",
+    "supportSubject": "Sujet",
+    "supportSubjectPlaceholder": "De quoi avez-vous besoin ?",
+    "supportMessage": "Message",
+    "supportMessagePlaceholder": "Décrivez votre problème ou question...",
+    "sendMessage": "Envoyer le message"
   },
   "Common": {
     "features": "Fonctionnalites",

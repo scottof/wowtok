@@ -8,6 +8,7 @@ import {
   CreditCard,
   Settings,
   LogOut,
+  LifeBuoy,
 } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,7 @@ const linkKeys = [
   { href: "/dashboard", labelKey: "myVideos", icon: LayoutDashboard },
   { href: "/dashboard/create", labelKey: "createVideo", icon: PlusCircle },
   { href: "/dashboard/billing", labelKey: "billing", icon: CreditCard },
+  { href: "/dashboard/support", labelKey: "support", icon: LifeBuoy },
   { href: "/dashboard/settings", labelKey: "settings", icon: Settings },
 ] as const;
 

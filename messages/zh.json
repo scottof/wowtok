@@ -13,7 +13,7 @@
     "titleHighlight": "爆款TikTok",
     "titleEnd": "只需几分钟",
     "description": "选择主题，输入提示词，让AI创建带有配音的完整视频。几分钟内即可发布到TikTok，而不是几小时。",
-    "cta": "免费开始创作",
+    "cta": "立即开始",
     "secondaryCta": "了解使用方法",
     "videoPreview": "观看WowTok演示",
     "mockupTitle": "创建新视频",
@@ -36,8 +36,8 @@
   "Features": {
     "title": "打造爆款所需的一切",
     "subtitle": "完整的AI视频流水线，从创意到TikTok就绪的内容。",
-    "aiScript": "AI脚本生成",
-    "aiScriptDesc": "描述你的想法，AI会自动编写引人入胜的脚本并进行场景分解。",
+    "aiScript": "智能场景分割",
+    "aiScriptDesc": "编写旁白，AI自动将其分割为完美同步的场景，并匹配视觉效果。",
     "themes": "10+主题风格",
     "themesDesc": "恐怖、奇幻、科幻、喜剧等。每个主题都配有精选的视觉风格。",
     "voices": "高级AI配音",
@@ -62,7 +62,7 @@
   "Pricing": {
     "badge": "限时上线优惠 — 最高40%折扣",
     "title": "简单透明的定价",
-    "subtitle": "免费开始，准备好后再升级。随时取消。",
+    "subtitle": "简单透明的定价。随时取消。",
     "mostPopular": "最受欢迎",
     "save": "节省{discount}%",
     "perMonth": "/月",
@@ -92,8 +92,8 @@
   },
   "CTA": {
     "title": "准备创建你的第一个AI视频了吗？",
-    "subtitle": "加入数千名使用WowTok制作TikTok爆款内容的创作者。免费视频开始 — 无需信用卡。",
-    "button": "免费开始"
+    "subtitle": "加入数千名使用WowTok制作病毒式TikTok内容的创作者。",
+    "button": "立即开始"
   },
   "Footer": {
     "tagline": "用AI在几分钟内创建精彩的TikTok视频。",
@@ -134,7 +134,7 @@
   },
   "PricingPage": {
     "title": "定价",
-    "description": "WowTok的简单透明定价。免费开始，准备好后再升级。随时取消。"
+    "description": "WowTok简单透明的定价。随时取消。"
   },
   "Dashboard": {
     "myVideos": "我的视频",
@@ -254,7 +254,21 @@
     "maxPlanReached": "您已在最高计划。限额将在下个月重置。",
     "choosePlanTitle": "选择一个计划开始",
     "choosePlanDesc": "订阅计划，开始创建AI驱动的TikTok视频。",
-    "selectPlan": "选择"
+    "selectPlan": "选择",
+    "support": "支持",
+    "supportTitle": "支持",
+    "supportSubtitle": "获取我们团队的帮助",
+    "contactUs": "联系我们",
+    "supportLabel": "支持",
+    "messageSent": "消息已发送！",
+    "messageSentDesc": "我们会尽快回复您。",
+    "sendAnother": "发送另一条消息",
+    "supportEmail": "您的邮箱",
+    "supportSubject": "主题",
+    "supportSubjectPlaceholder": "您需要什么帮助？",
+    "supportMessage": "消息",
+    "supportMessagePlaceholder": "描述您的问题...",
+    "sendMessage": "发送消息"
   },
   "Common": {
     "features": "功能",

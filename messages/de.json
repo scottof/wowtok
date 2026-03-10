@@ -13,7 +13,7 @@
     "titleHighlight": "viralen TikTok",
     "titleEnd": "in Minuten",
     "description": "Wahle ein Thema, schreibe deinen Prompt und lass die KI ein komplettes Video mit Sprachkommentar erstellen. In Minuten auf TikTok veroffentlichen, nicht Stunden.",
-    "cta": "Kostenlos erstellen starten",
+    "cta": "Jetzt starten",
     "secondaryCta": "So funktioniert's",
     "videoPreview": "WowTok in Aktion sehen",
     "mockupTitle": "Neues Video erstellen",
@@ -36,8 +36,8 @@
   "Features": {
     "title": "Alles was du brauchst, um viral zu gehen",
     "subtitle": "Eine komplette KI-Video-Pipeline, von der Idee bis zum TikTok-fertigen Inhalt.",
-    "aiScript": "KI-Skriptgenerierung",
-    "aiScriptDesc": "Beschreibe deine Idee und die KI schreibt ein uberzeugendes Skript mit automatischer Szenenaufteilung.",
+    "aiScript": "Intelligente Szenenaufteilung",
+    "aiScriptDesc": "Schreiben Sie Ihre Erzählung und die KI teilt sie automatisch in perfekt getimte Szenen mit passenden Bildern auf.",
     "themes": "Uber 10 thematische Stile",
     "themesDesc": "Horror, Fantasy, Sci-Fi, Komodie und mehr. Jedes Thema kommt mit kuratierten visuellen Stilen.",
     "voices": "Premium-KI-Stimmen",
@@ -62,7 +62,7 @@
   "Pricing": {
     "badge": "Limitiertes Einfuhrungsangebot — bis zu 40% Rabatt",
     "title": "Einfache, transparente Preise",
-    "subtitle": "Starte kostenlos, upgrade wenn du bereit bist. Jederzeit kundbar.",
+    "subtitle": "Einfache, transparente Preise. Jederzeit kündbar.",
     "mostPopular": "Am beliebtesten",
     "save": "{discount}% SPAREN",
     "perMonth": "/Monat",
@@ -92,8 +92,8 @@
   },
   "CTA": {
     "title": "Bereit, dein erstes KI-Video zu erstellen?",
-    "subtitle": "Schliesse dich Tausenden von Creatorn an, die WowTok nutzen, um virale TikTok-Inhalte zu produzieren. Starte mit einem kostenlosen Video — keine Kreditkarte notig.",
-    "button": "Kostenlos starten"
+    "subtitle": "Schließen Sie sich Tausenden von Erstellern an, die WowTok nutzen, um virale TikTok-Inhalte zu produzieren.",
+    "button": "Jetzt starten"
   },
   "Footer": {
     "tagline": "Erstelle beeindruckende TikTok-Videos mit KI in Minuten.",
@@ -134,7 +134,7 @@
   },
   "PricingPage": {
     "title": "Preise",
-    "description": "Einfache, transparente Preise fur WowTok. Starte kostenlos, upgrade wenn du bereit bist. Jederzeit kundbar."
+    "description": "Einfache, transparente Preise für WowTok. Jederzeit kündbar."
   },
   "Dashboard": {
     "myVideos": "Meine Videos",
@@ -254,7 +254,21 @@
     "maxPlanReached": "Du bist auf dem höchsten Plan. Dein Limit erneuert sich nächsten Monat.",
     "choosePlanTitle": "Wählen Sie einen Plan",
     "choosePlanDesc": "Abonnieren Sie einen Plan, um KI-gestützte TikTok-Videos zu erstellen.",
-    "selectPlan": "Auswählen"
+    "selectPlan": "Auswählen",
+    "support": "Support",
+    "supportTitle": "Support",
+    "supportSubtitle": "Erhalten Sie Hilfe von unserem Team",
+    "contactUs": "Kontaktieren Sie uns",
+    "supportLabel": "Support",
+    "messageSent": "Nachricht gesendet!",
+    "messageSentDesc": "Wir melden uns so schnell wie möglich bei Ihnen.",
+    "sendAnother": "Weitere Nachricht senden",
+    "supportEmail": "Ihre E-Mail",
+    "supportSubject": "Betreff",
+    "supportSubjectPlaceholder": "Wobei brauchen Sie Hilfe?",
+    "supportMessage": "Nachricht",
+    "supportMessagePlaceholder": "Beschreiben Sie Ihr Problem oder Ihre Frage...",
+    "sendMessage": "Nachricht senden"
   },
   "Common": {
     "features": "Funktionen",

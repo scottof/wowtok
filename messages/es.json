@@ -13,7 +13,7 @@
     "titleHighlight": "TikTok viral",
     "titleEnd": "en minutos",
     "description": "Elige un tema, escribe tu prompt y deja que la IA cree un video completo con narracion. Listo para publicar en TikTok en minutos, no horas.",
-    "cta": "Empieza a crear gratis",
+    "cta": "Empezar",
     "secondaryCta": "Ver como funciona",
     "videoPreview": "Mira WowTok en accion",
     "mockupTitle": "Crear nuevo video",
@@ -36,8 +36,8 @@
   "Features": {
     "title": "Todo lo que necesitas para hacerte viral",
     "subtitle": "Un pipeline completo de video con IA, desde la idea hasta contenido listo para TikTok.",
-    "aiScript": "Generacion de guiones con IA",
-    "aiScriptDesc": "Describe tu idea y la IA escribe un guion convincente con desgloses de escenas automaticamente.",
+    "aiScript": "División Inteligente de Escenas",
+    "aiScriptDesc": "Escribe tu narración y la IA la divide automáticamente en escenas perfectamente sincronizadas con efectos visuales.",
     "themes": "Mas de 10 estilos tematicos",
     "themesDesc": "Terror, fantasia, ciencia ficcion, comedia y mas. Cada tema incluye estilos visuales seleccionados.",
     "voices": "Voces IA premium",
@@ -62,7 +62,7 @@
   "Pricing": {
     "badge": "Oferta de lanzamiento limitada — hasta 40% de descuento",
     "title": "Precios simples y transparentes",
-    "subtitle": "Empieza gratis, mejora cuando estes listo. Cancela en cualquier momento.",
+    "subtitle": "Precios simples y transparentes. Cancela en cualquier momento.",
     "mostPopular": "Mas popular",
     "save": "AHORRA {discount}%",
     "perMonth": "/mes",
@@ -92,8 +92,8 @@
   },
   "CTA": {
     "title": "Listo para crear tu primer video con IA?",
-    "subtitle": "Unete a miles de creadores que usan WowTok para producir contenido viral para TikTok. Comienza con un video gratis — sin tarjeta de credito.",
-    "button": "Comenzar gratis"
+    "subtitle": "Únete a miles de creadores que usan WowTok para producir contenido viral en TikTok.",
+    "button": "Empezar"
   },
   "Footer": {
     "tagline": "Crea videos increibles para TikTok con IA en minutos.",
@@ -134,7 +134,7 @@
   },
   "PricingPage": {
     "title": "Precios",
-    "description": "Precios simples y transparentes para WowTok. Empieza gratis, mejora cuando estes listo. Cancela en cualquier momento."
+    "description": "Precios simples y transparentes para WowTok. Cancela en cualquier momento."
   },
   "Dashboard": {
     "myVideos": "Mis Videos",
@@ -254,7 +254,21 @@
     "maxPlanReached": "Estás en el plan más alto. Tu límite se renueva el próximo mes.",
     "choosePlanTitle": "Elige un plan para empezar",
     "choosePlanDesc": "Suscríbete a un plan para empezar a crear videos de TikTok con IA.",
-    "selectPlan": "Seleccionar"
+    "selectPlan": "Seleccionar",
+    "support": "Soporte",
+    "supportTitle": "Soporte",
+    "supportSubtitle": "Obtén ayuda de nuestro equipo",
+    "contactUs": "Contáctanos",
+    "supportLabel": "Soporte",
+    "messageSent": "¡Mensaje enviado!",
+    "messageSentDesc": "Te responderemos lo antes posible.",
+    "sendAnother": "Enviar otro mensaje",
+    "supportEmail": "Tu email",
+    "supportSubject": "Asunto",
+    "supportSubjectPlaceholder": "¿En qué necesitas ayuda?",
+    "supportMessage": "Mensaje",
+    "supportMessagePlaceholder": "Describe tu problema o pregunta...",
+    "sendMessage": "Enviar mensaje"
   },
   "Common": {
     "features": "Funciones",

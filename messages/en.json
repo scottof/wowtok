@@ -13,7 +13,7 @@
     "titleHighlight": "viral TikTok",
     "titleEnd": "in minutes",
     "description": "Choose a theme, write your prompt, and let AI create a complete video with voiceover. Ready to post on TikTok in minutes, not hours.",
-    "cta": "Start creating free",
+    "cta": "Get started",
     "secondaryCta": "See how it works",
     "videoPreview": "See WowTok in action",
     "mockupTitle": "Create New Video",
@@ -36,8 +36,8 @@
   "Features": {
     "title": "Everything you need to go viral",
     "subtitle": "A complete AI video pipeline, from idea to TikTok-ready content.",
-    "aiScript": "AI Script Generation",
-    "aiScriptDesc": "Describe your idea and AI writes a compelling script with scene breakdowns automatically.",
+    "aiScript": "Smart Scene Splitting",
+    "aiScriptDesc": "Write your narration and AI automatically splits it into perfectly timed scenes with matching visuals.",
     "themes": "10+ Themed Styles",
     "themesDesc": "Horror, fantasy, sci-fi, comedy and more. Each theme comes with curated visual styles.",
     "voices": "Premium AI Voices",
@@ -62,7 +62,7 @@
   "Pricing": {
     "badge": "Limited launch offer — up to 40% off",
     "title": "Simple, transparent pricing",
-    "subtitle": "Start free, upgrade when you're ready. Cancel anytime.",
+    "subtitle": "Simple, transparent pricing. Cancel anytime.",
     "mostPopular": "Most popular",
     "save": "SAVE {discount}%",
     "perMonth": "/month",
@@ -92,8 +92,8 @@
   },
   "CTA": {
     "title": "Ready to create your first AI video?",
-    "subtitle": "Join thousands of creators using WowTok to produce viral TikTok content. Start with a free video — no credit card needed.",
-    "button": "Get started for free"
+    "subtitle": "Join thousands of creators using WowTok to produce viral TikTok content.",
+    "button": "Get started"
   },
   "Footer": {
     "tagline": "Create stunning TikTok videos with AI in minutes.",
@@ -134,7 +134,7 @@
   },
   "PricingPage": {
     "title": "Pricing",
-    "description": "Simple, transparent pricing for WowTok. Start free, upgrade when you're ready. Cancel anytime."
+    "description": "Simple, transparent pricing for WowTok. Cancel anytime."
   },
   "Dashboard": {
     "myVideos": "My Videos",
@@ -254,7 +254,21 @@
     "maxPlanReached": "You're on the highest plan. Your limit resets next month.",
     "choosePlanTitle": "Choose a plan to get started",
     "choosePlanDesc": "Subscribe to a plan to start creating AI-powered TikTok videos.",
-    "selectPlan": "Select"
+    "selectPlan": "Select",
+    "support": "Support",
+    "supportTitle": "Support",
+    "supportSubtitle": "Get help from our team",
+    "contactUs": "Contact us",
+    "supportLabel": "Support",
+    "messageSent": "Message sent!",
+    "messageSentDesc": "We'll get back to you as soon as possible.",
+    "sendAnother": "Send another message",
+    "supportEmail": "Your email",
+    "supportSubject": "Subject",
+    "supportSubjectPlaceholder": "What do you need help with?",
+    "supportMessage": "Message",
+    "supportMessagePlaceholder": "Describe your issue or question...",
+    "sendMessage": "Send message"
   },
   "Common": {
     "features": "Features",

@@ -51,7 +51,7 @@ export function ProductJsonLd() {
         price: "149",
         priceCurrency: "USD",
         priceValidUntil: "2027-12-31",
-        description: "25 AI videos per month, all voices + voice cloning, API access",
+        description: "25 AI videos per month, all premium voices, batch generation",
       },
     ],
     aggregateRating: {

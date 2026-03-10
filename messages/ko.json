@@ -13,7 +13,7 @@
     "titleHighlight": "바이럴 TikTok",
     "titleEnd": "까지 몇 분이면 완성",
     "description": "테마를 선택하고, 프롬프트를 작성하면 AI가 내레이션이 포함된 완성된 영상을 만들어 줍니다. 몇 시간이 아닌 몇 분 만에 TikTok에 게시할 준비 완료.",
-    "cta": "무료로 만들기 시작",
+    "cta": "시작하기",
     "secondaryCta": "사용 방법 보기",
     "videoPreview": "WowTok 체험하기",
     "mockupTitle": "새 영상 만들기",
@@ -36,8 +36,8 @@
   "Features": {
     "title": "바이럴이 되기 위한 모든 것",
     "subtitle": "아이디어에서 TikTok 콘텐츠까지, 완전한 AI 영상 파이프라인.",
-    "aiScript": "AI 스크립트 생성",
-    "aiScriptDesc": "아이디어를 설명하면 AI가 장면 분할이 포함된 매력적인 스크립트를 자동으로 작성합니다.",
+    "aiScript": "스마트 장면 분할",
+    "aiScriptDesc": "내레이션을 작성하면 AI가 자동으로 완벽하게 타이밍된 장면으로 분할하고 시각 효과를 매칭합니다.",
     "themes": "10가지 이상의 테마 스타일",
     "themesDesc": "호러, 판타지, SF, 코미디 등 다양한 테마. 각 테마에는 엄선된 비주얼 스타일이 포함됩니다.",
     "voices": "프리미엄 AI 보이스",
@@ -62,7 +62,7 @@
   "Pricing": {
     "badge": "한정 런칭 혜택 — 최대 40% 할인",
     "title": "심플하고 투명한 요금제",
-    "subtitle": "무료로 시작하고, 준비되면 업그레이드하세요. 언제든지 취소 가능.",
+    "subtitle": "간단하고 투명한 가격. 언제든지 취소 가능.",
     "mostPopular": "가장 인기",
     "save": "{discount}% 절약",
     "perMonth": "/월",
@@ -92,8 +92,8 @@
   },
   "CTA": {
     "title": "첫 AI 영상을 만들 준비가 되셨나요?",
-    "subtitle": "WowTok을 사용하여 바이럴 TikTok 콘텐츠를 제작하는 수천 명의 크리에이터에 합류하세요. 무료 영상으로 시작 — 신용카드 불필요.",
-    "button": "무료로 시작하기"
+    "subtitle": "WowTok을 사용하여 바이럴 TikTok 콘텐츠를 제작하는 수천 명의 크리에이터와 함께하세요.",
+    "button": "시작하기"
   },
   "Footer": {
     "tagline": "AI로 몇 분 만에 멋진 TikTok 영상을 만드세요.",
@@ -134,7 +134,7 @@
   },
   "PricingPage": {
     "title": "요금제",
-    "description": "WowTok의 심플하고 투명한 요금제. 무료로 시작하고, 준비되면 업그레이드하세요. 언제든지 취소 가능."
+    "description": "WowTok의 간단하고 투명한 가격. 언제든지 취소 가능."
   },
   "Dashboard": {
     "myVideos": "내 영상",
@@ -254,7 +254,21 @@
     "maxPlanReached": "최고 플랜을 이용 중입니다. 한도는 다음 달에 초기화됩니다.",
     "choosePlanTitle": "플랜을 선택하세요",
     "choosePlanDesc": "AI 기반 TikTok 영상 제작을 시작하려면 플랜을 구독하세요.",
-    "selectPlan": "선택"
+    "selectPlan": "선택",
+    "support": "지원",
+    "supportTitle": "지원",
+    "supportSubtitle": "팀에서 도움을 받으세요",
+    "contactUs": "문의하기",
+    "supportLabel": "지원",
+    "messageSent": "메시지가 전송되었습니다!",
+    "messageSentDesc": "가능한 빨리 답변드리겠습니다.",
+    "sendAnother": "다른 메시지 보내기",
+    "supportEmail": "이메일",
+    "supportSubject": "제목",
+    "supportSubjectPlaceholder": "어떤 도움이 필요하신가요?",
+    "supportMessage": "메시지",
+    "supportMessagePlaceholder": "문제나 질문을 설명해 주세요...",
+    "sendMessage": "메시지 보내기"
   },
   "Common": {
     "features": "기능",
