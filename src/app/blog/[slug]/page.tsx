@@ -20,7 +20,7 @@ const posts: Record<string, BlogPost> = {
     slug: "how-to-create-viral-tiktok-videos-with-ai",
     title: "How to Create Viral TikTok Videos with AI in 2026",
     excerpt:
-      "Learn how AI is transforming content creation and how you can use Promptok to generate engaging TikTok videos from simple text prompts.",
+      "Learn how AI is transforming content creation and how you can use WowTok to generate engaging TikTok videos from simple text prompts.",
     date: "2026-02-15",
     readTime: "5 min read",
     content: `AI-powered video creation has revolutionized how content creators approach TikTok. What once required hours of filming, editing, and post-production can now be accomplished in minutes with the right tools.
@@ -29,9 +29,9 @@ const posts: Record<string, BlogPost> = {
 
 The landscape of content creation has shifted dramatically. Creators no longer need expensive equipment or advanced editing skills to produce compelling short-form video content. AI models can now generate realistic images, animate them into video clips, and even produce natural-sounding voiceovers.
 
-## How Promptok Changes the Game
+## How WowTok Changes the Game
 
-Promptok streamlines the entire process into three simple steps:
+WowTok streamlines the entire process into three simple steps:
 
 1. **Choose your theme** — Select from horror, fantasy, comedy, sci-fi, and more. Each theme applies a curated visual style to your content.
 
@@ -184,7 +184,7 @@ export default async function BlogPostPage({
           <div className="mt-12 rounded-xl gradient-bg p-8 text-center text-white">
             <h3 className="text-xl font-bold">Ready to create AI videos?</h3>
             <p className="mt-2 text-white/80">
-              Start generating TikTok videos with Promptok today.
+              Start generating TikTok videos with WowTok today.
             </p>
             <Button
               className="mt-4 bg-white text-violet-700 hover:bg-white/90"

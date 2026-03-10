@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Privacy Policy for Promptok. Learn how we collect, use, and protect your personal information.",
+    "Privacy Policy for WowTok. Learn how we collect, use, and protect your personal information.",
 };
 
 export default function PrivacyPage() {
@@ -117,10 +117,10 @@ export default function PrivacyPage() {
           <p>
             To exercise these rights, contact us at{" "}
             <a
-              href="mailto:hello@promptok.ai"
+              href="mailto:hello@wowtok.com"
               className="text-foreground underline"
             >
-              hello@promptok.ai
+              hello@wowtok.com
             </a>
             .
           </p>
@@ -159,10 +159,10 @@ export default function PrivacyPage() {
           <p>
             For privacy-related questions or requests, contact us at{" "}
             <a
-              href="mailto:hello@promptok.ai"
+              href="mailto:hello@wowtok.com"
               className="text-foreground underline"
             >
-              hello@promptok.ai
+              hello@wowtok.com
             </a>
             .
           </p>

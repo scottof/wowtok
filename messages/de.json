@@ -15,7 +15,7 @@
     "description": "Wahle ein Thema, schreibe deinen Prompt und lass die KI ein komplettes Video mit Sprachkommentar erstellen. In Minuten auf TikTok veroffentlichen, nicht Stunden.",
     "cta": "Kostenlos erstellen starten",
     "secondaryCta": "So funktioniert's",
-    "videoPreview": "Promptok in Aktion sehen",
+    "videoPreview": "WowTok in Aktion sehen",
     "mockupTitle": "Neues Video erstellen",
     "mockupStepTheme": "Thema",
     "mockupStepPrompt": "Prompt",
@@ -76,9 +76,9 @@
   },
   "FAQ": {
     "title": "Haufig gestellte Fragen",
-    "subtitle": "Alles, was du uber Promptok wissen musst.",
-    "q1": "Was ist Promptok?",
-    "a1": "Promptok ist eine KI-gestutzte Plattform, die komplette TikTok-fertige Videos aus einfachen Textprompts generiert. Wahle ein Thema, schreibe was du willst, und die KI erstellt ein Video mit generierten Szenen, Sprachkommentar und Untertiteln.",
+    "subtitle": "Alles, was du uber WowTok wissen musst.",
+    "q1": "Was ist WowTok?",
+    "a1": "WowTok ist eine KI-gestutzte Plattform, die komplette TikTok-fertige Videos aus einfachen Textprompts generiert. Wahle ein Thema, schreibe was du willst, und die KI erstellt ein Video mit generierten Szenen, Sprachkommentar und Untertiteln.",
     "q2": "Wie funktioniert die KI-Videogenerierung?",
     "a2": "Unsere Pipeline nutzt mehrere spezialisierte KI-Modelle: Eines zerlegt dein Skript in Szenen, ein weiteres erzeugt die Visuals für jede Szene, ein drittes animiert sie zu Videoclips und ein viertes erstellt den Voiceover. Alles wird zu einem finalen vertikalen 9:16-Video zusammengesetzt.",
     "q3": "Wie lange dauert die Videogenerierung?",
@@ -88,11 +88,11 @@
     "q5": "Kann ich mein Abonnement jederzeit kundigen?",
     "a5": "Ja, du kannst jederzeit uber dein Dashboard kundigen. Du behaltst den Zugang bis zum Ende deines Abrechnungszeitraums. Ohne Fragen.",
     "q6": "Gehoren die Videos, die ich erstelle, mir?",
-    "a6": "Ja, du hast alle kommerziellen Rechte an allen auf Promptok generierten Videos. Nutze sie auf jeder Plattform fur jeden Zweck."
+    "a6": "Ja, du hast alle kommerziellen Rechte an allen auf WowTok generierten Videos. Nutze sie auf jeder Plattform fur jeden Zweck."
   },
   "CTA": {
     "title": "Bereit, dein erstes KI-Video zu erstellen?",
-    "subtitle": "Schliesse dich Tausenden von Creatorn an, die Promptok nutzen, um virale TikTok-Inhalte zu produzieren. Starte mit einem kostenlosen Video — keine Kreditkarte notig.",
+    "subtitle": "Schliesse dich Tausenden von Creatorn an, die WowTok nutzen, um virale TikTok-Inhalte zu produzieren. Starte mit einem kostenlosen Video — keine Kreditkarte notig.",
     "button": "Kostenlos starten"
   },
   "Footer": {
@@ -105,11 +105,11 @@
     "contact": "Kontakt",
     "privacy": "Datenschutzrichtlinie",
     "terms": "Nutzungsbedingungen",
-    "copyright": "© {year} Promptok. Alle Rechte vorbehalten."
+    "copyright": "© {year} WowTok. Alle Rechte vorbehalten."
   },
   "Auth": {
     "loginTitle": "Willkommen zuruck",
-    "loginSubtitle": "Melde dich bei deinem Promptok-Konto an",
+    "loginSubtitle": "Melde dich bei deinem WowTok-Konto an",
     "signupTitle": "Konto erstellen",
     "signupSubtitle": "Starte in Minuten mit KI-Videos",
     "continueWithGoogle": "Weiter mit Google",
@@ -134,7 +134,7 @@
   },
   "PricingPage": {
     "title": "Preise",
-    "description": "Einfache, transparente Preise fur Promptok. Starte kostenlos, upgrade wenn du bereit bist. Jederzeit kundbar."
+    "description": "Einfache, transparente Preise fur WowTok. Starte kostenlos, upgrade wenn du bereit bist. Jederzeit kundbar."
   },
   "Dashboard": {
     "myVideos": "Meine Videos",

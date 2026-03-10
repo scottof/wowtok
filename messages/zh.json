@@ -15,7 +15,7 @@
     "description": "选择主题，输入提示词，让AI创建带有配音的完整视频。几分钟内即可发布到TikTok，而不是几小时。",
     "cta": "免费开始创作",
     "secondaryCta": "了解使用方法",
-    "videoPreview": "观看Promptok演示",
+    "videoPreview": "观看WowTok演示",
     "mockupTitle": "创建新视频",
     "mockupStepTheme": "主题",
     "mockupStepPrompt": "提示词",
@@ -76,9 +76,9 @@
   },
   "FAQ": {
     "title": "常见问题",
-    "subtitle": "关于Promptok你需要知道的一切。",
-    "q1": "什么是Promptok？",
-    "a1": "Promptok是一个AI驱动的平台，可以从简单的文本提示生成完整的TikTok就绪视频。你选择主题，写下想要的内容，AI就会创建包含生成场景、配音旁白和字幕的视频。",
+    "subtitle": "关于WowTok你需要知道的一切。",
+    "q1": "什么是WowTok？",
+    "a1": "WowTok是一个AI驱动的平台，可以从简单的文本提示生成完整的TikTok就绪视频。你选择主题，写下想要的内容，AI就会创建包含生成场景、配音旁白和字幕的视频。",
     "q2": "AI视频生成是如何工作的？",
     "a2": "我们的流程使用多个专业AI模型：一个将您的脚本分解为场景，另一个为每个场景生成视觉效果，第三个将它们制作成视频片段，第四个创建旁白。所有内容被组装成最终的9:16竖版视频。",
     "q3": "生成视频需要多长时间？",
@@ -88,11 +88,11 @@
     "q5": "我可以随时取消订阅吗？",
     "a5": "是的，你可以随时从控制面板取消。你将保留访问权限直到计费周期结束。无需任何理由。",
     "q6": "我创建的视频归我所有吗？",
-    "a6": "是的，你对在Promptok上生成的所有视频拥有完全的商业权利。可以在任何平台上用于任何目的。"
+    "a6": "是的，你对在WowTok上生成的所有视频拥有完全的商业权利。可以在任何平台上用于任何目的。"
   },
   "CTA": {
     "title": "准备创建你的第一个AI视频了吗？",
-    "subtitle": "加入数千名使用Promptok制作TikTok爆款内容的创作者。免费视频开始 — 无需信用卡。",
+    "subtitle": "加入数千名使用WowTok制作TikTok爆款内容的创作者。免费视频开始 — 无需信用卡。",
     "button": "免费开始"
   },
   "Footer": {
@@ -105,11 +105,11 @@
     "contact": "联系我们",
     "privacy": "隐私政策",
     "terms": "服务条款",
-    "copyright": "© {year} Promptok. 保留所有权利。"
+    "copyright": "© {year} WowTok. 保留所有权利。"
   },
   "Auth": {
     "loginTitle": "欢迎回来",
-    "loginSubtitle": "登录你的Promptok账户",
+    "loginSubtitle": "登录你的WowTok账户",
     "signupTitle": "创建账户",
     "signupSubtitle": "几分钟内开始创建AI视频",
     "continueWithGoogle": "使用Google继续",
@@ -134,7 +134,7 @@
   },
   "PricingPage": {
     "title": "定价",
-    "description": "Promptok的简单透明定价。免费开始，准备好后再升级。随时取消。"
+    "description": "WowTok的简单透明定价。免费开始，准备好后再升级。随时取消。"
   },
   "Dashboard": {
     "myVideos": "我的视频",

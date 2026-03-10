@@ -14,7 +14,7 @@ const posts = [
     slug: "how-to-create-viral-tiktok-videos-with-ai",
     title: "How to Create Viral TikTok Videos with AI in 2026",
     excerpt:
-      "Learn how AI is transforming content creation and how you can use Promptok to generate engaging TikTok videos from simple text prompts.",
+      "Learn how AI is transforming content creation and how you can use WowTok to generate engaging TikTok videos from simple text prompts.",
     date: "2026-02-15",
     readTime: "5 min read",
   },

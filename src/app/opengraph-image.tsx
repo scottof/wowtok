@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Promptok — AI TikTok Video Generator";
+export const alt = "WowTok — AI TikTok Video Generator";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -51,7 +51,7 @@ export default function Image() {
               color: "white",
             }}
           >
-            Promptok
+            WowTok
           </span>
         </div>
         <div

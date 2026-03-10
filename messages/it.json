@@ -15,7 +15,7 @@
     "description": "Scegli un tema, scrivi il tuo prompt e lascia che l'IA crei un video completo con narrazione. Pronto da pubblicare su TikTok in minuti, non ore.",
     "cta": "Inizia a creare gratis",
     "secondaryCta": "Scopri come funziona",
-    "videoPreview": "Guarda Promptok in azione",
+    "videoPreview": "Guarda WowTok in azione",
     "mockupTitle": "Crea nuovo video",
     "mockupStepTheme": "Tema",
     "mockupStepPrompt": "Prompt",
@@ -76,9 +76,9 @@
   },
   "FAQ": {
     "title": "Domande frequenti",
-    "subtitle": "Tutto quello che devi sapere su Promptok.",
-    "q1": "Cos'e Promptok?",
-    "a1": "Promptok e una piattaforma alimentata dall'IA che genera video completi pronti per TikTok da semplici prompt di testo. Scegli un tema, scrivi cosa vuoi, e l'IA crea un video con scene generate, narrazione vocale e sottotitoli.",
+    "subtitle": "Tutto quello che devi sapere su WowTok.",
+    "q1": "Cos'e WowTok?",
+    "a1": "WowTok e una piattaforma alimentata dall'IA che genera video completi pronti per TikTok da semplici prompt di testo. Scegli un tema, scrivi cosa vuoi, e l'IA crea un video con scene generate, narrazione vocale e sottotitoli.",
     "q2": "Come funziona la generazione video con IA?",
     "a2": "La nostra pipeline utilizza diversi modelli IA specializzati: uno suddivide il tuo script in scene, un altro genera i contenuti visivi per ogni scena, un terzo li anima in clip video e un quarto crea la voce narrante. Tutto viene assemblato in un video verticale finale 9:16.",
     "q3": "Quanto tempo ci vuole per generare un video?",
@@ -88,11 +88,11 @@
     "q5": "Posso cancellare il mio abbonamento in qualsiasi momento?",
     "a5": "Si, puoi cancellare in qualsiasi momento dalla tua dashboard. Manterrai l'accesso fino alla fine del periodo di fatturazione. Senza domande.",
     "q6": "Sono proprietario dei video che creo?",
-    "a6": "Si, hai tutti i diritti commerciali su tutti i video generati su Promptok. Usali su qualsiasi piattaforma per qualsiasi scopo."
+    "a6": "Si, hai tutti i diritti commerciali su tutti i video generati su WowTok. Usali su qualsiasi piattaforma per qualsiasi scopo."
   },
   "CTA": {
     "title": "Pronto a creare il tuo primo video con IA?",
-    "subtitle": "Unisciti a migliaia di creatori che usano Promptok per produrre contenuti virali per TikTok. Inizia con un video gratuito — nessuna carta di credito necessaria.",
+    "subtitle": "Unisciti a migliaia di creatori che usano WowTok per produrre contenuti virali per TikTok. Inizia con un video gratuito — nessuna carta di credito necessaria.",
     "button": "Inizia gratis"
   },
   "Footer": {
@@ -105,11 +105,11 @@
     "contact": "Contatti",
     "privacy": "Informativa sulla privacy",
     "terms": "Termini di servizio",
-    "copyright": "© {year} Promptok. Tutti i diritti riservati."
+    "copyright": "© {year} WowTok. Tutti i diritti riservati."
   },
   "Auth": {
     "loginTitle": "Bentornato",
-    "loginSubtitle": "Accedi al tuo account Promptok",
+    "loginSubtitle": "Accedi al tuo account WowTok",
     "signupTitle": "Crea il tuo account",
     "signupSubtitle": "Inizia a creare video IA in pochi minuti",
     "continueWithGoogle": "Continua con Google",
@@ -134,7 +134,7 @@
   },
   "PricingPage": {
     "title": "Prezzi",
-    "description": "Prezzi semplici e trasparenti per Promptok. Inizia gratis, passa a un piano superiore quando vuoi. Cancella in qualsiasi momento."
+    "description": "Prezzi semplici e trasparenti per WowTok. Inizia gratis, passa a un piano superiore quando vuoi. Cancella in qualsiasi momento."
   },
   "Dashboard": {
     "myVideos": "I Miei Video",

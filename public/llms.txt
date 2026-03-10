@@ -1,10 +1,10 @@
-# Promptok — AI TikTok Video Generator
+# WowTok — AI TikTok Video Generator
 
-> Promptok is an AI-powered platform that generates TikTok-ready videos from simple text prompts.
+> WowTok is an AI-powered platform that generates TikTok-ready videos from simple text prompts.
 
-## What is Promptok?
+## What is WowTok?
 
-Promptok lets content creators generate complete TikTok videos using AI. Users choose a theme (horror, fantasy, comedy, sci-fi, etc.), provide a prompt describing their video idea, and write or auto-generate narration text. The platform then uses AI to create a full video with generated scenes, AI voiceover, and captions — ready to post on TikTok, Instagram Reels, or YouTube Shorts.
+WowTok lets content creators generate complete TikTok videos using AI. Users choose a theme (horror, fantasy, comedy, sci-fi, etc.), provide a prompt describing their video idea, and write or auto-generate narration text. The platform then uses AI to create a full video with generated scenes, AI voiceover, and captions — ready to post on TikTok, Instagram Reels, or YouTube Shorts.
 
 ## How it works
 
@@ -37,10 +37,10 @@ Built with Next.js, powered by multiple specialized AI models for script generat
 
 ## Links
 
-- Website: https://promptok.ai
-- Pricing: https://promptok.ai/pricing
-- Login: https://promptok.ai/login
-- Sign up: https://promptok.ai/signup
-- Blog: https://promptok.ai/blog
-- Terms of Service: https://promptok.ai/terms
-- Privacy Policy: https://promptok.ai/privacy
+- Website: https://wowtok.com
+- Pricing: https://wowtok.com/pricing
+- Login: https://wowtok.com/login
+- Sign up: https://wowtok.com/signup
+- Blog: https://wowtok.com/blog
+- Terms of Service: https://wowtok.com/terms
+- Privacy Policy: https://wowtok.com/privacy

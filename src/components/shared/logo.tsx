@@ -17,7 +17,7 @@ export function Logo({ className, href = "/" }: { className?: string; href?: str
           <polygon points="6 3 20 12 6 21 6 3" />
         </svg>
       </div>
-      <span className="text-lg font-semibold tracking-tight">Promptok</span>
+      <span className="text-lg font-semibold tracking-tight">WowTok</span>
     </Link>
   );
 }

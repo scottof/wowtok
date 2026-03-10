@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Simple, transparent pricing for Promptok. Start free, upgrade when you're ready. Cancel anytime.",
+    "Simple, transparent pricing for WowTok. Start free, upgrade when you're ready. Cancel anytime.",
 };
 
 export default async function PricingPage() {

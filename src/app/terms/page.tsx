@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "Terms of Service for Promptok. Read our terms and conditions for using our AI video generation platform.",
+    "Terms of Service for WowTok. Read our terms and conditions for using our AI video generation platform.",
 };
 
 export default function TermsPage() {
@@ -21,14 +21,14 @@ export default function TermsPage() {
         <div className="prose prose-sm mt-8 max-w-none text-muted-foreground [&_h2]:mt-8 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-foreground [&_p]:mt-3 [&_ul]:mt-2 [&_ul]:list-disc [&_ul]:pl-6">
           <h2>1. Acceptance of Terms</h2>
           <p>
-            By accessing or using Promptok (&quot;Service&quot;), you agree to be
+            By accessing or using WowTok (&quot;Service&quot;), you agree to be
             bound by these Terms of Service. If you do not agree, do not use the
             Service.
           </p>
 
           <h2>2. Description of Service</h2>
           <p>
-            Promptok is an AI-powered platform that generates short-form videos
+            WowTok is an AI-powered platform that generates short-form videos
             from text prompts. The Service includes AI script generation, image
             generation, video rendering, voiceover synthesis, and video
             composition.
@@ -115,7 +115,7 @@ export default function TermsPage() {
 
           <h2>9. Limitation of Liability</h2>
           <p>
-            To the maximum extent permitted by law, Promptok shall not be liable
+            To the maximum extent permitted by law, WowTok shall not be liable
             for any indirect, incidental, special, consequential, or punitive
             damages arising from your use of the Service. Our total liability
             shall not exceed the amount you paid in the twelve months preceding
@@ -141,10 +141,10 @@ export default function TermsPage() {
           <p>
             For questions about these Terms, contact us at{" "}
             <a
-              href="mailto:hello@promptok.ai"
+              href="mailto:hello@wowtok.com"
               className="text-foreground underline"
             >
-              hello@promptok.ai
+              hello@wowtok.com
             </a>
             .
           </p>

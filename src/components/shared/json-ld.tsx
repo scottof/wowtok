@@ -72,9 +72,9 @@ export function ProductJsonLd() {
 export function FAQJsonLd() {
   const faqs = [
     {
-      question: "What is Promptok?",
+      question: "What is WowTok?",
       answer:
-        "Promptok is an AI-powered platform that generates complete TikTok-ready videos from simple text prompts. Choose a theme, write your prompt, and AI creates a video with scenes, voiceover, and captions.",
+        "WowTok is an AI-powered platform that generates complete TikTok-ready videos from simple text prompts. Choose a theme, write your prompt, and AI creates a video with scenes, voiceover, and captions.",
     },
     {
       question: "How does the AI video generation work?",
@@ -99,7 +99,7 @@ export function FAQJsonLd() {
     {
       question: "Do I own the videos I create?",
       answer:
-        "Yes, you have full commercial rights to all videos generated on Promptok.",
+        "Yes, you have full commercial rights to all videos generated on WowTok.",
     },
   ];
 

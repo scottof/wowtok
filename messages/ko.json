@@ -15,7 +15,7 @@
     "description": "테마를 선택하고, 프롬프트를 작성하면 AI가 내레이션이 포함된 완성된 영상을 만들어 줍니다. 몇 시간이 아닌 몇 분 만에 TikTok에 게시할 준비 완료.",
     "cta": "무료로 만들기 시작",
     "secondaryCta": "사용 방법 보기",
-    "videoPreview": "Promptok 체험하기",
+    "videoPreview": "WowTok 체험하기",
     "mockupTitle": "새 영상 만들기",
     "mockupStepTheme": "테마",
     "mockupStepPrompt": "프롬프트",
@@ -76,9 +76,9 @@
   },
   "FAQ": {
     "title": "자주 묻는 질문",
-    "subtitle": "Promptok에 대해 알아야 할 모든 것.",
-    "q1": "Promptok이란 무엇인가요?",
-    "a1": "Promptok은 간단한 텍스트 프롬프트로 TikTok에 바로 올릴 수 있는 완성된 영상을 생성하는 AI 기반 플랫폼입니다. 테마를 선택하고, 원하는 내용을 작성하면 AI가 생성된 장면, 음성 내레이션, 자막이 포함된 영상을 만들어 줍니다.",
+    "subtitle": "WowTok에 대해 알아야 할 모든 것.",
+    "q1": "WowTok이란 무엇인가요?",
+    "a1": "WowTok은 간단한 텍스트 프롬프트로 TikTok에 바로 올릴 수 있는 완성된 영상을 생성하는 AI 기반 플랫폼입니다. 테마를 선택하고, 원하는 내용을 작성하면 AI가 생성된 장면, 음성 내레이션, 자막이 포함된 영상을 만들어 줍니다.",
     "q2": "AI 영상 생성은 어떻게 작동하나요?",
     "a2": "우리의 파이프라인은 여러 전문 AI 모델을 사용합니다: 하나는 스크립트를 장면으로 분해하고, 다른 하나는 각 장면의 비주얼을 생성하고, 세 번째는 비디오 클립으로 애니메이션화하고, 네 번째는 내레이션을 만듭니다. 모든 것이 최종 9:16 세로 비디오로 조립됩니다.",
     "q3": "영상 생성에 얼마나 걸리나요?",
@@ -88,11 +88,11 @@
     "q5": "언제든지 구독을 취소할 수 있나요?",
     "a5": "네, 대시보드에서 언제든지 취소할 수 있습니다. 결제 기간이 끝날 때까지 액세스가 유지됩니다. 별도의 질문 없이.",
     "q6": "제가 만든 영상의 소유권은 제게 있나요?",
-    "a6": "네, Promptok에서 생성된 모든 영상에 대한 전체 상업적 권리를 보유합니다. 어떤 플랫폼에서든 어떤 목적으로든 사용하세요."
+    "a6": "네, WowTok에서 생성된 모든 영상에 대한 전체 상업적 권리를 보유합니다. 어떤 플랫폼에서든 어떤 목적으로든 사용하세요."
   },
   "CTA": {
     "title": "첫 AI 영상을 만들 준비가 되셨나요?",
-    "subtitle": "Promptok을 사용하여 바이럴 TikTok 콘텐츠를 제작하는 수천 명의 크리에이터에 합류하세요. 무료 영상으로 시작 — 신용카드 불필요.",
+    "subtitle": "WowTok을 사용하여 바이럴 TikTok 콘텐츠를 제작하는 수천 명의 크리에이터에 합류하세요. 무료 영상으로 시작 — 신용카드 불필요.",
     "button": "무료로 시작하기"
   },
   "Footer": {
@@ -105,11 +105,11 @@
     "contact": "연락처",
     "privacy": "개인정보 보호정책",
     "terms": "이용약관",
-    "copyright": "© {year} Promptok. All rights reserved."
+    "copyright": "© {year} WowTok. All rights reserved."
   },
   "Auth": {
     "loginTitle": "다시 오신 것을 환영합니다",
-    "loginSubtitle": "Promptok 계정에 로그인하세요",
+    "loginSubtitle": "WowTok 계정에 로그인하세요",
     "signupTitle": "계정 만들기",
     "signupSubtitle": "몇 분 만에 AI 영상 만들기 시작",
     "continueWithGoogle": "Google로 계속하기",
@@ -134,7 +134,7 @@
   },
   "PricingPage": {
     "title": "요금제",
-    "description": "Promptok의 심플하고 투명한 요금제. 무료로 시작하고, 준비되면 업그레이드하세요. 언제든지 취소 가능."
+    "description": "WowTok의 심플하고 투명한 요금제. 무료로 시작하고, 준비되면 업그레이드하세요. 언제든지 취소 가능."
   },
   "Dashboard": {
     "myVideos": "내 영상",

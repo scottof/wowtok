@@ -1,4 +1,4 @@
-# Promptok
+# WowTok
 
 AI-powered TikTok video generator. Create stunning short-form videos from simple text prompts.
 
