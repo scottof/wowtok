@@ -251,7 +251,10 @@
     "unlockAllVoices": "Zugang zu allen Premium-Stimmen gewünscht?",
     "overlayDesc": "Schalte mehr Videos, Premium-Stimmen und alle Themen mit dem {plan}-Plan frei.",
     "maybeLater": "Vielleicht später",
-    "maxPlanReached": "Du bist auf dem höchsten Plan. Dein Limit erneuert sich nächsten Monat."
+    "maxPlanReached": "Du bist auf dem höchsten Plan. Dein Limit erneuert sich nächsten Monat.",
+    "choosePlanTitle": "Wählen Sie einen Plan",
+    "choosePlanDesc": "Abonnieren Sie einen Plan, um KI-gestützte TikTok-Videos zu erstellen.",
+    "selectPlan": "Auswählen"
   },
   "Common": {
     "features": "Funktionen",

@@ -251,7 +251,10 @@
     "unlockAllVoices": "Want access to all premium voices?",
     "overlayDesc": "Unlock more videos, premium voices, and all themes with the {plan} plan.",
     "maybeLater": "Maybe later",
-    "maxPlanReached": "You're on the highest plan. Your limit resets next month."
+    "maxPlanReached": "You're on the highest plan. Your limit resets next month.",
+    "choosePlanTitle": "Choose a plan to get started",
+    "choosePlanDesc": "Subscribe to a plan to start creating AI-powered TikTok videos.",
+    "selectPlan": "Select"
   },
   "Common": {
     "features": "Features",

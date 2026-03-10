@@ -14,6 +14,8 @@ export default async function CreateVideoPage() {
     include: { subscription: true },
   });
 
+  const hasSubscription =
+    !!dbUser?.subscription && dbUser.subscription.status === "ACTIVE";
   const plan = dbUser?.subscription?.plan ?? "STARTER";
 
   const now = new Date();
@@ -25,5 +27,5 @@ export default async function CreateVideoPage() {
   const used = usage?.videosGenerated ?? 0;
   const limit = usage?.videosLimit ?? (dbUser?.subscription ? getVideosLimit(dbUser.subscription.plan) : 0);
 
-  return <CreateVideoForm plan={plan} used={used} limit={limit} />;
+  return <CreateVideoForm plan={plan} used={used} limit={limit} hasSubscription={hasSubscription} />;
 }

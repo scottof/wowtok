@@ -251,7 +251,10 @@
     "unlockAllVoices": "想要访问所有高级语音？",
     "overlayDesc": "使用 {plan} 计划解锁更多视频、高级语音和所有主题。",
     "maybeLater": "以后再说",
-    "maxPlanReached": "您已在最高计划。限额将在下个月重置。"
+    "maxPlanReached": "您已在最高计划。限额将在下个月重置。",
+    "choosePlanTitle": "选择一个计划开始",
+    "choosePlanDesc": "订阅计划，开始创建AI驱动的TikTok视频。",
+    "selectPlan": "选择"
   },
   "Common": {
     "features": "功能",

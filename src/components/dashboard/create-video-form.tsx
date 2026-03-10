@@ -63,9 +63,10 @@ interface CreateVideoFormProps {
   plan: string;
   used: number;
   limit: number;
+  hasSubscription: boolean;
 }
 
-export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
+export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVideoFormProps) {
   const router = useRouter();
   const t = useTranslations("Dashboard");
   const [step, setStep] = useState(0);
@@ -77,6 +78,8 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
   const [loading, setLoading] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [upgrading, setUpgrading] = useState(false);
+  const [showPlanSelection, setShowPlanSelection] = useState(!hasSubscription);
+  const [selectingPlan, setSelectingPlan] = useState<string | null>(null);
 
   const isStarter = plan === "STARTER";
   const isAtLimit = limit > 0 && used >= limit;
@@ -152,6 +155,86 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
     }
   }
 
+  async function handleSelectPlan(planId: string) {
+    setSelectingPlan(planId);
+    try {
+      await createCheckoutSessionByPlan(planId);
+    } catch {
+      toast.error(t("somethingWrong"));
+      setSelectingPlan(null);
+    }
+  }
+
+  // Plan selection overlay for users without subscription
+  const planSelectionOverlay = (
+    <Dialog open={showPlanSelection} onOpenChange={() => {}}>
+      <DialogContent className="sm:max-w-2xl [&>button]:hidden" onPointerDownOutside={(e) => e.preventDefault()}>
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-bg">
+              <Zap className="h-4 w-4 text-white" />
+            </div>
+            {t("choosePlanTitle")}
+          </DialogTitle>
+          <DialogDescription>
+            {t("choosePlanDesc")}
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="grid gap-4 sm:grid-cols-3 my-2">
+          {plans.map((p) => (
+            <div
+              key={p.id}
+              className={cn(
+                "rounded-xl border p-4 flex flex-col",
+                p.highlighted && "border-violet-400 ring-2 ring-violet-100"
+              )}
+            >
+              <h3 className="font-semibold">{p.name}</h3>
+              <div className="flex items-baseline gap-1 mt-1">
+                <span className="text-2xl font-bold">${p.price}</span>
+                <span className="text-xs text-muted-foreground">/{t("perMonth")}</span>
+              </div>
+              {p.originalPrice && (
+                <span className="text-xs text-muted-foreground line-through">
+                  ${p.originalPrice}
+                </span>
+              )}
+              <p className="text-xs text-muted-foreground mt-2">
+                {p.videosPerMonth} {t("videosPerMonth")}
+              </p>
+              <ul className="mt-3 space-y-1.5 flex-1">
+                {p.features.slice(1, 4).map((f) => (
+                  <li key={f} className="flex items-start gap-1.5 text-xs">
+                    <Check className="h-3 w-3 shrink-0 text-violet-600 mt-0.5" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Button
+                onClick={() => handleSelectPlan(p.id)}
+                disabled={selectingPlan !== null}
+                className={cn(
+                  "mt-4 w-full cursor-pointer",
+                  p.highlighted
+                    ? "gradient-bg border-0 text-white hover:opacity-90"
+                    : ""
+                )}
+                variant={p.highlighted ? "default" : "outline"}
+                size="sm"
+              >
+                {selectingPlan === p.id ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : null}
+                {t("selectPlan")}
+              </Button>
+            </div>
+          ))}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+
   // Upgrade overlay
   const upgradeOverlay = nextPlan ? (
     <Dialog open={showUpgrade} onOpenChange={setShowUpgrade}>
@@ -217,6 +300,7 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
     return (
       <div>
         {upgradeOverlay}
+        {!hasSubscription && planSelectionOverlay}
         <div className="mb-8">
           <h1 className="text-2xl font-bold">{t("createTitle")}</h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -252,6 +336,7 @@ export function CreateVideoForm({ plan, used, limit }: CreateVideoFormProps) {
   return (
     <div>
       {upgradeOverlay}
+      {!hasSubscription && planSelectionOverlay}
       <div className="mb-8">
         <h1 className="text-2xl font-bold">{t("createTitle")}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
