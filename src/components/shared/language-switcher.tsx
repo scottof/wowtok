@@ -45,7 +45,7 @@ export function LanguageSwitcher({ direction = "up" }: LanguageSwitcherProps) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 rounded-md border border-border/60 px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        className="flex cursor-pointer items-center gap-1.5 rounded-md border border-border/60 px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         disabled={isPending}
       >
         <span>{localeFlags[locale]}</span>
@@ -59,7 +59,7 @@ export function LanguageSwitcher({ direction = "up" }: LanguageSwitcherProps) {
             <button
               key={l}
               onClick={() => handleSelect(l)}
-              className={`flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors hover:bg-muted ${
+              className={`flex w-full cursor-pointer items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors hover:bg-muted ${
                 l === locale
                   ? "font-medium text-foreground"
                   : "text-muted-foreground"
