@@ -11,6 +11,22 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "tiktok-algorithm-2026-how-ai-content-ranks",
+    title: "TikTok Algorithm in 2026: How AI-Generated Content Ranks Higher",
+    excerpt:
+      "Understand how the TikTok algorithm evaluates AI-generated videos and learn strategies to boost your content's visibility and reach.",
+    date: "2026-03-13",
+    readTime: "5 min read",
+  },
+  {
+    slug: "automate-tiktok-content-pipeline-with-ai",
+    title: "How to Automate Your TikTok Content Pipeline with AI",
+    excerpt:
+      "Build a consistent posting schedule without burnout. Learn how AI tools can help you plan, create, and publish TikTok videos at scale.",
+    date: "2026-03-13",
+    readTime: "6 min read",
+  },
+  {
     slug: "how-to-create-viral-tiktok-videos-with-ai",
     title: "How to Create Viral TikTok Videos with AI in 2026",
     excerpt:

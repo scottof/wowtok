@@ -16,6 +16,78 @@ interface BlogPost {
 }
 
 const posts: Record<string, BlogPost> = {
+  "tiktok-algorithm-2026-how-ai-content-ranks": {
+    slug: "tiktok-algorithm-2026-how-ai-content-ranks",
+    title: "TikTok Algorithm in 2026: How AI-Generated Content Ranks Higher",
+    excerpt:
+      "Understand how the TikTok algorithm evaluates AI-generated videos and learn strategies to boost your content's visibility and reach.",
+    date: "2026-03-13",
+    readTime: "5 min read",
+    content: `The TikTok algorithm has evolved significantly, and AI-generated content is now a major part of the platform. Understanding how the algorithm works in 2026 is essential for creators who want to maximize their reach.
+
+## How TikTok Evaluates Content
+
+TikTok's recommendation engine focuses on several key signals: watch time, completion rate, shares, comments, and saves. The algorithm does not distinguish between AI-generated and manually produced content — it only cares about viewer engagement.
+
+## Why AI Videos Perform Well
+
+AI-generated videos often achieve high completion rates because they maintain consistent pacing and visual quality. Tools like WowTok structure content with strong hooks, clear narratives, and engaging visuals — exactly what the algorithm rewards.
+
+## Optimization Strategies for AI Content
+
+**Post at peak hours.** Analyze your audience's active times and schedule content accordingly. Consistency matters more than volume.
+
+**Use trending sounds and hashtags.** Even with AI-generated visuals, pairing your content with trending audio can significantly boost discoverability.
+
+**Optimize your captions.** AI-generated captions should be accurate and well-timed. Viewers who watch with sound off rely on captions, and good subtitles increase watch time.
+
+**Test different themes.** Use AI to quickly produce variations of your content across different themes. Analyze which themes resonate most with your audience and double down on what works.
+
+## The Role of Consistency
+
+The algorithm favors creators who post regularly. With AI tools, you can maintain a daily posting schedule without sacrificing quality. This signals to TikTok that you are an active creator worth promoting.
+
+Leverage AI to stay ahead of the algorithm and grow your audience faster than ever.`,
+  },
+  "automate-tiktok-content-pipeline-with-ai": {
+    slug: "automate-tiktok-content-pipeline-with-ai",
+    title: "How to Automate Your TikTok Content Pipeline with AI",
+    excerpt:
+      "Build a consistent posting schedule without burnout. Learn how AI tools can help you plan, create, and publish TikTok videos at scale.",
+    date: "2026-03-13",
+    readTime: "6 min read",
+    content: `Creating TikTok content consistently is one of the biggest challenges for creators. Between brainstorming ideas, filming, editing, and posting, it can quickly become overwhelming. AI changes this equation entirely.
+
+## The Content Pipeline Problem
+
+Most creators struggle with consistency. They post actively for a few weeks, run out of ideas or energy, and disappear for months. The TikTok algorithm penalizes this inconsistency, making it harder to regain momentum.
+
+## Building an AI-Powered Workflow
+
+With AI video generation tools like WowTok, you can build a sustainable content pipeline in four steps:
+
+**1. Batch your ideas.** Spend one session brainstorming 10-20 video concepts. Write simple prompts describing each video — you do not need full scripts.
+
+**2. Generate in bulk.** Use AI to create multiple videos in a single session. What would take days of filming and editing can be done in hours.
+
+**3. Review and refine.** Watch your generated videos and make adjustments. Select the best ones for posting and save others for later.
+
+**4. Schedule your posts.** Spread your content across the week. Posting 1-2 videos per day is more effective than posting 7 videos in one day.
+
+## Scaling Without Losing Quality
+
+The key advantage of AI is that quality remains consistent regardless of volume. Every video maintains professional-level visuals, smooth narration, and proper pacing. You do not need to choose between quantity and quality.
+
+## Choosing the Right Themes for Scale
+
+When producing content at scale, pick 2-3 core themes that define your brand. This helps the algorithm understand your niche and recommend your content to the right audience. Rotate between themes to keep your feed fresh while maintaining consistency.
+
+## Measuring and Iterating
+
+Track which videos perform best and identify patterns. AI makes it easy to iterate — you can quickly generate new versions of successful content with different angles, hooks, or themes.
+
+Stop burning out and start building a content machine that works for you.`,
+  },
   "how-to-create-viral-tiktok-videos-with-ai": {
     slug: "how-to-create-viral-tiktok-videos-with-ai",
     title: "How to Create Viral TikTok Videos with AI in 2026",
