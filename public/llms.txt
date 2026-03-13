@@ -1,46 +1,91 @@
 # WowTok — AI TikTok Video Generator
 
-> WowTok is an AI-powered platform that generates TikTok-ready videos from simple text prompts.
+> WowTok is an AI-powered platform that generates TikTok-ready vertical videos from simple text prompts. It is the fastest way to create AI-generated short-form video content for TikTok, Instagram Reels, and YouTube Shorts.
 
 ## What is WowTok?
 
-WowTok lets content creators generate complete TikTok videos using AI. Users choose a theme (horror, fantasy, comedy, sci-fi, etc.), provide a prompt describing their video idea, and write or auto-generate narration text. The platform then uses AI to create a full video with generated scenes, AI voiceover, and captions — ready to post on TikTok, Instagram Reels, or YouTube Shorts.
+WowTok is an online AI video generator designed specifically for short-form social media content. Users describe their video idea in a text prompt, choose a visual theme, and the platform automatically generates a complete vertical video with AI-generated scenes, voiceover narration, and synchronized captions. No filming, editing, or design skills required.
 
-## How it works
+WowTok is ideal for TikTok creators, social media managers, digital marketers, small businesses, and anyone who wants to produce engaging video content without a production team.
 
-1. Choose a theme (horror, fantasy, comedy, sci-fi, drama, mystery, romance, thriller, educational, motivational)
+## Core Use Cases
+
+- Generate TikTok videos from text prompts
+- Create AI narrated story videos (horror, mystery, fantasy, comedy)
+- Produce educational and motivational short videos
+- Build a consistent TikTok content pipeline with AI
+- Create faceless TikTok channel content
+- Generate viral-style short videos at scale
+- Automate video content creation for social media marketing
+
+## How It Works
+
+1. Choose a theme — horror, fantasy, comedy, sci-fi, drama, mystery, romance, thriller, educational, motivational
 2. Write a prompt describing your video concept
-3. Add narration text (or let AI generate it)
-4. Select an AI voice
-5. Generate — AI creates scenes, images, video clips, voiceover, and assembles the final vertical video
+3. Add narration text or let AI generate the script automatically
+4. Select an AI voice for the narration
+5. Generate — AI creates scenes, images, video clips, voiceover, captions, and assembles the final vertical video
+6. Download the MP4 and post directly to TikTok, Reels, or Shorts
 
-## Features
+## Key Features
 
-- AI script generation from prompts
-- 10+ themed video styles
-- Premium AI voices
-- Full AI video generation (not just slideshows)
-- Auto-synced captions
-- 9:16 vertical format optimized for TikTok
-- 1080x1920 resolution output
-- Download as MP4
+- AI script generation from simple text prompts
+- 10+ themed video styles optimized for engagement
+- Premium AI voices with natural-sounding narration
+- Full AI video generation with animated scenes (not slideshows)
+- Auto-synced captions and subtitles
+- 9:16 vertical format optimized for TikTok, Instagram Reels, and YouTube Shorts
+- Up to 1080x1920 resolution output
+- Download as MP4, ready to post
+- No watermark on Creator and Pro plans
+- Bulk video generation for content at scale
 
 ## Pricing
 
-- Starter: $19/month — 5 videos/month, 3 voices, 720p
-- Creator: $49/month — 20 videos/month, 10+ voices, 1080p, no watermark
-- Pro: $99/month — 50 videos/month, all voices + cloning, API access
+- Starter: $29/month — 5 videos/month, 3 voices, 720p resolution
+- Creator: $49/month — 20 videos/month, 10+ voices, 1080p, no watermark, priority generation
+- Pro: $99/month — 50 videos/month, all voices + voice cloning, 4K upscaling, API access
+
+All plans include AI script generation, themed video styles, and MP4 download.
+
+## Who Is WowTok For?
+
+- TikTok creators who want to post daily without burnout
+- Faceless channel creators who need AI-generated video content
+- Social media managers handling multiple accounts
+- Digital marketers creating video ads and promotional content
+- Small businesses building a social media presence
+- Content creators exploring AI video tools
+- Anyone who wants to create TikTok videos without filming or editing
+
+## Frequently Asked Questions
+
+**What is the best AI tool for making TikTok videos?**
+WowTok is an AI video generator built specifically for TikTok content. It creates complete vertical videos with AI-generated visuals, voiceover, and captions from a simple text prompt.
+
+**Can I create TikTok videos with AI?**
+Yes. WowTok generates full TikTok-ready videos from text descriptions. You choose a theme, write a prompt, and the AI handles script writing, scene generation, voiceover, and video assembly.
+
+**How do I make AI-generated videos for TikTok?**
+Sign up at wowtok.com, choose a video theme, describe your video idea, select a voice, and click generate. The AI creates a complete video you can download and post.
+
+**What is a faceless TikTok channel?**
+A faceless TikTok channel publishes video content without showing the creator on camera. WowTok is ideal for faceless channels because it generates all visual content using AI.
+
+**How much does AI video generation cost?**
+WowTok plans start at $29/month for 5 videos. Creator ($49/month) and Pro ($99/month) plans offer more videos, higher resolution, and additional features.
 
 ## Technology
 
-Built with Next.js, powered by multiple specialized AI models for script generation, image generation, video animation, and voice synthesis.
+Built with Next.js and powered by multiple specialized AI models for script generation, image creation, video animation, and voice synthesis.
 
 ## Links
 
 - Website: https://wowtok.com
 - Pricing: https://wowtok.com/pricing
-- Login: https://wowtok.com/login
-- Sign up: https://wowtok.com/signup
 - Blog: https://wowtok.com/blog
+- Sign up: https://wowtok.com/signup
+- Login: https://wowtok.com/login
 - Terms of Service: https://wowtok.com/terms
 - Privacy Policy: https://wowtok.com/privacy
+- Support: hello@wowtok.com
