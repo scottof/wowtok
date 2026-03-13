@@ -73,7 +73,7 @@ export default function SignupPage() {
 
         <Button
           variant="outline"
-          className="mb-6 w-full"
+          className="mb-6 w-full cursor-pointer"
           onClick={handleGoogleSignup}
         >
           <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
@@ -186,7 +186,7 @@ export default function SignupPage() {
             <p className="text-sm text-destructive">{error}</p>
           )}
 
-          <Button type="submit" className="w-full" disabled={loading || !agreed}>
+          <Button type="submit" className="w-full cursor-pointer" disabled={loading || !agreed}>
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {t("signupButton")}
           </Button>

@@ -68,7 +68,7 @@ function LoginForm() {
 
       <Button
         variant="outline"
-        className="mb-6 w-full"
+        className="mb-6 w-full cursor-pointer"
         onClick={handleGoogleLogin}
       >
         <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
@@ -147,7 +147,7 @@ function LoginForm() {
           <p className="text-sm text-destructive">{error}</p>
         )}
 
-        <Button type="submit" className="w-full" disabled={loading}>
+        <Button type="submit" className="w-full cursor-pointer" disabled={loading}>
           {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {t("loginButton")}
         </Button>
