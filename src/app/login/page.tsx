@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/shared/logo";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 function LoginForm() {
@@ -165,7 +165,13 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-6">
+    <div className="relative flex min-h-screen items-center justify-center px-6">
+      <Link
+        href="/"
+        className="absolute left-6 top-6 flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <ArrowLeft className="h-4 w-4" />
+      </Link>
       <Suspense>
         <LoginForm />
       </Suspense>
