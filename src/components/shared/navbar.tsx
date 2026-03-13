@@ -26,15 +26,30 @@ export function Navbar() {
 
         {/* Desktop links */}
         <div className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isHash = link.href.startsWith("/#");
+            return isHash ? (
+              <button
+                key={link.href}
+                onClick={() =>
+                  document
+                    .getElementById(link.href.slice(2))
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="cursor-pointer text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </button>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Desktop CTA */}
@@ -62,16 +77,32 @@ export function Navbar() {
       {mobileOpen && (
         <div className="border-t border-border/40 bg-background px-6 py-4 md:hidden">
           <div className="flex flex-col gap-3">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isHash = link.href.startsWith("/#");
+              return isHash ? (
+                <button
+                  key={link.href}
+                  onClick={() => {
+                    document
+                      .getElementById(link.href.slice(2))
+                      ?.scrollIntoView({ behavior: "smooth" });
+                    setMobileOpen(false);
+                  }}
+                  className="cursor-pointer py-2 text-left text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {link.label}
+                </button>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
             <div className="flex flex-col gap-2 pt-3">
               <LanguageSwitcher direction="down" />
               <Button variant="outline" size="sm" asChild>

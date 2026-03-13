@@ -78,10 +78,14 @@ export function Hero() {
             <Button
               size="lg"
               variant="outline"
-              className="w-full sm:w-auto"
-              asChild
+              className="w-full cursor-pointer sm:w-auto"
+              onClick={() =>
+                document
+                  .getElementById("how-it-works")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
             >
-              <Link href="/#how-it-works">{t("secondaryCta")}</Link>
+              {t("secondaryCta")}
             </Button>
           </div>
         </motion.div>
