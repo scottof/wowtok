@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./logo";
@@ -11,6 +12,8 @@ import { useTranslations } from "next-intl";
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const t = useTranslations("Nav");
+  const pathname = usePathname();
+  const router = useRouter();
 
   const navLinks = [
     { href: "/#features", label: t("features") },
@@ -18,6 +21,18 @@ export function Navbar() {
     { href: "/pricing", label: t("pricing") },
     { href: "/#faq", label: t("faq") },
   ];
+
+  // Check if we're on the landing page (could be / or /en, /es, etc.)
+  const isLandingPage = pathname === "/" || /^\/[a-z]{2}$/.test(pathname);
+
+  function handleHashClick(href: string) {
+    const id = href.slice(2);
+    if (isLandingPage) {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push(href);
+    }
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl">
@@ -31,11 +46,7 @@ export function Navbar() {
             return isHash ? (
               <button
                 key={link.href}
-                onClick={() =>
-                  document
-                    .getElementById(link.href.slice(2))
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
+                onClick={() => handleHashClick(link.href)}
                 className="cursor-pointer text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
@@ -83,9 +94,7 @@ export function Navbar() {
                 <button
                   key={link.href}
                   onClick={() => {
-                    document
-                      .getElementById(link.href.slice(2))
-                      ?.scrollIntoView({ behavior: "smooth" });
+                    handleHashClick(link.href);
                     setMobileOpen(false);
                   }}
                   className="cursor-pointer py-2 text-left text-sm text-muted-foreground transition-colors hover:text-foreground"
