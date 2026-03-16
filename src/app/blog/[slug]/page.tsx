@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
 import { Button } from "@/components/ui/button";
+import { BlogCtaButton } from "@/components/blog/cta-button";
 import { getPostsByLocale, getPostBySlug } from "@/data/blog";
 import { getUserLocale } from "@/i18n/locale";
 import { getTranslations } from "next-intl/server";
@@ -156,12 +157,7 @@ export default async function BlogPostPage({
           <div className="mt-12 rounded-xl gradient-bg p-8 text-center text-white">
             <h3 className="text-xl font-bold">{t("ctaTitle")}</h3>
             <p className="mt-2 text-white/80">{t("ctaDescription")}</p>
-            <Button
-              className="mt-4 bg-white text-violet-700 hover:bg-white/90"
-              asChild
-            >
-              <Link href="/signup">{t("ctaButton")}</Link>
-            </Button>
+            <BlogCtaButton slug={slug} label={t("ctaButton")} />
           </div>
         </article>
       </main>

@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/shared/logo";
 import { ArrowLeft, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { trackEvent } from "@/lib/analytics";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -43,11 +44,13 @@ export default function SignupPage() {
       return;
     }
 
+    trackEvent("sign_up", { method: "email" });
     router.push("/dashboard");
     router.refresh();
   }
 
   async function handleGoogleSignup() {
+    trackEvent("sign_up", { method: "google" });
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: "google",

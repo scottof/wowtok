@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select";
 import { Send } from "lucide-react";
 import { toast } from "sonner";
+import { trackEvent } from "@/lib/analytics";
 
 interface FeedbackModalProps {
   open: boolean;
@@ -48,6 +49,7 @@ export function FeedbackModal({ open, onOpenChange }: FeedbackModalProps) {
         }),
       });
       if (!res.ok) throw new Error();
+      trackEvent("submit_feedback", { category });
       toast.success(t("thankYou"));
       setCategory("");
       setMessage("");

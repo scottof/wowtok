@@ -21,7 +21,7 @@ const postModules: Record<string, () => Promise<{ posts: BlogPost[] }>> = {
 export async function getPostsByLocale(locale: string): Promise<BlogPost[]> {
   const loader = postModules[locale] || postModules.en;
   const { posts } = await loader();
-  return posts;
+  return [...posts].sort((a, b) => b.date.localeCompare(a.date));
 }
 
 export async function getPostBySlug(

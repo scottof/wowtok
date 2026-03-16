@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { PlusCircle, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { VideoCard } from "@/components/dashboard/video-card";
 import { UsageBar } from "@/components/dashboard/usage-bar";
 import { PlanSelectionDialog } from "@/components/dashboard/plan-selection-dialog";
 import { useTranslations } from "next-intl";
+import { trackEvent } from "@/lib/analytics";
 import type { VideoStatus } from "@/types";
 
 interface VideoData {
@@ -26,6 +27,7 @@ interface DashboardContentProps {
   videos: VideoData[];
   used: number;
   limit: number;
+  purchaseCompleted?: boolean;
 }
 
 const nextPlan: Record<string, { name: string; videos: number }> = {
@@ -39,9 +41,16 @@ export function DashboardContent({
   videos,
   used,
   limit,
+  purchaseCompleted,
 }: DashboardContentProps) {
   const t = useTranslations("Dashboard");
   const [showPlanDialog, setShowPlanDialog] = useState(false);
+
+  useEffect(() => {
+    if (purchaseCompleted && plan) {
+      trackEvent("purchase", { plan });
+    }
+  }, [purchaseCompleted, plan]);
   const isAtLimit = hasSubscription && limit > 0 && used >= limit;
   const upgrade = plan ? nextPlan[plan] : null;
 

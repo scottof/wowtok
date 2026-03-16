@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { VideoFeedbackWidget } from "@/components/dashboard/video-feedback-widget";
+import { trackEvent } from "@/lib/analytics";
 
 interface VideoData {
   id: string;
@@ -217,14 +218,14 @@ export default function VideoDetailPage() {
           {video.status === "COMPLETED" && video.videoUrl && (
             <div className="mb-6 flex flex-wrap gap-3">
               <Button className="gradient-bg border-0 text-white hover:opacity-90" asChild>
-                <a href={video.videoUrl} download>
+                <a href={video.videoUrl} download onClick={() => trackEvent("download_video", { theme: video.theme })}>
                   <Download className="mr-2 h-4 w-4" />
                   {t("downloadVideo")}
                 </a>
               </Button>
               {video.voiceoverUrl && (
                 <Button variant="outline" asChild>
-                  <a href={video.voiceoverUrl} download>
+                  <a href={video.voiceoverUrl} download onClick={() => trackEvent("download_voiceover")}>
                     <Volume2 className="mr-2 h-4 w-4" />
                     {t("downloadVoiceover")}
                   </a>
@@ -235,6 +236,7 @@ export default function VideoDetailPage() {
                   variant="outline"
                   className="cursor-pointer"
                   onClick={() => {
+                    trackEvent("download_subtitles");
                     const blob = new Blob([video.subtitles!], { type: "text/srt" });
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement("a");

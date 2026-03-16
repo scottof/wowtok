@@ -50,6 +50,7 @@ export default async function DashboardPage({
 
   return (
     <DashboardContent
+      purchaseCompleted={success === "true" && !!dbUser?.subscription && dbUser.subscription.status === "ACTIVE"}
       hasSubscription={!!dbUser?.subscription && dbUser.subscription.status === "ACTIVE"}
       plan={dbUser?.subscription?.plan ?? null}
       videos={

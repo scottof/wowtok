@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 interface PricingCardsProps {
   isLoggedIn?: boolean;
@@ -21,6 +22,8 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
   function handleSubscribe(planId: string) {
+    trackEvent("select_plan", { plan: planId, source: "pricing_page" });
+    trackEvent("begin_checkout", { plan: planId });
     setLoadingPlan(planId);
     startTransition(async () => {
       try {

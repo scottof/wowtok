@@ -15,6 +15,7 @@ import { createCheckoutSessionByPlan } from "@/lib/stripe/actions";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { trackEvent } from "@/lib/analytics";
 
 interface PlanSelectionDialogProps {
   open: boolean;
@@ -32,6 +33,7 @@ export function PlanSelectionDialog({
   const [selectingPlan, setSelectingPlan] = useState<string | null>(null);
 
   async function handleSelectPlan(planId: string) {
+    trackEvent("select_plan", { plan: planId, source: "dialog" });
     setSelectingPlan(planId);
     try {
       await createCheckoutSessionByPlan(planId);

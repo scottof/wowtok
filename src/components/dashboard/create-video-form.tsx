@@ -37,6 +37,7 @@ import { PlanSelectionDialog } from "@/components/dashboard/plan-selection-dialo
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { trackEvent } from "@/lib/analytics";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Ghost,
@@ -135,6 +136,7 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
       }
 
       const data = await res.json();
+      trackEvent("generate_video", { theme, voice: voiceId });
       toast.success(t("videoStarted"));
       router.push(`/dashboard/videos/${data.videoId}`);
     } catch {

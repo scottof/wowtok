@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/shared/logo";
 import { ArrowLeft, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { trackEvent } from "@/lib/analytics";
 
 function LoginForm() {
   const router = useRouter();
@@ -39,11 +40,13 @@ function LoginForm() {
       return;
     }
 
+    trackEvent("login", { method: "email" });
     router.push(redirect);
     router.refresh();
   }
 
   async function handleGoogleLogin() {
+    trackEvent("login", { method: "google" });
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: "google",
