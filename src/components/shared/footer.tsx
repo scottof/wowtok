@@ -1,12 +1,26 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { Logo } from "./logo";
 import { useTranslations } from "next-intl";
 
 export function Footer() {
   const t = useTranslations("Footer");
   const tNav = useTranslations("Nav");
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const isLandingPage = pathname === "/" || /^\/[a-z]{2}$/.test(pathname);
+
+  function handleHashClick(e: React.MouseEvent, href: string) {
+    const id = href.slice(2);
+    if (isLandingPage) {
+      e.preventDefault();
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }
+    // On non-landing pages, let the Link navigate normally to /#section
+  }
 
   const footerLinks = {
     [t("product")]: [
@@ -39,16 +53,20 @@ export function Footer() {
             <div key={title}>
               <p className="mb-3 text-sm font-medium">{title}</p>
               <ul className="space-y-2">
-                {links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {links.map((link) => {
+                  const isHash = link.href.startsWith("/#");
+                  return (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        onClick={isHash ? (e: React.MouseEvent) => handleHashClick(e, link.href) : undefined}
+                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
