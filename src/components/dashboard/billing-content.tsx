@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { createPortalSession } from "@/lib/stripe/actions";
 import { PlanSelectionDialog } from "@/components/dashboard/plan-selection-dialog";
+import { CancellationSurveyModal } from "@/components/dashboard/cancellation-survey-modal";
 
 interface BillingContentProps {
   subscription: {
@@ -25,6 +26,15 @@ interface BillingContentProps {
 export function BillingContent({ subscription, plan }: BillingContentProps) {
   const t = useTranslations("Dashboard");
   const [showPlanDialog, setShowPlanDialog] = useState(false);
+  const [showSurvey, setShowSurvey] = useState(false);
+
+  function handleManageClick() {
+    setShowSurvey(true);
+  }
+
+  async function handleContinueToPortal() {
+    await createPortalSession();
+  }
 
   return (
     <div>
@@ -78,12 +88,14 @@ export function BillingContent({ subscription, plan }: BillingContentProps) {
           </div>
 
           {/* Manage subscription */}
-          <form action={createPortalSession}>
-            <Button variant="outline" className="cursor-pointer">
-              <ExternalLink className="mr-2 h-4 w-4" />
-              {t("manageSubscription")}
-            </Button>
-          </form>
+          <Button
+            variant="outline"
+            className="cursor-pointer"
+            onClick={handleManageClick}
+          >
+            <ExternalLink className="mr-2 h-4 w-4" />
+            {t("manageSubscription")}
+          </Button>
         </div>
       ) : (
         <div className="rounded-xl border border-dashed border-border/60 py-12 text-center">
@@ -105,6 +117,12 @@ export function BillingContent({ subscription, plan }: BillingContentProps) {
       <PlanSelectionDialog
         open={showPlanDialog}
         onOpenChange={setShowPlanDialog}
+      />
+
+      <CancellationSurveyModal
+        open={showSurvey}
+        onOpenChange={setShowSurvey}
+        onContinue={handleContinueToPortal}
       />
     </div>
   );

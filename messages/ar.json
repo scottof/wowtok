@@ -287,5 +287,31 @@
     "next": "التالي",
     "pageOf": "صفحة {current} من {total}",
     "readMore": "اقرأ المزيد"
+  },
+  "Feedback": {
+    "feedback": "ملاحظات",
+    "rateVideo": "كيف كان هذا الفيديو؟",
+    "commentPlaceholder": "أي تعليقات إضافية؟ (اختياري)",
+    "submit": "إرسال",
+    "submitAndContinue": "إرسال ومتابعة",
+    "thankYou": "شكراً لملاحظاتك!",
+    "submitError": "فشل إرسال الملاحظات. يرجى المحاولة مرة أخرى.",
+    "skip": "تخطي",
+    "cancellationTitle": "قبل أن تغادر...",
+    "cancellationDescription": "نود معرفة سبب تفكيرك في إجراء تغييرات على اشتراكك.",
+    "cancellationCommentPlaceholder": "هل هناك شيء آخر تود مشاركته؟ (اختياري)",
+    "reason_tooExpensive": "مكلف جداً",
+    "reason_notUsingEnough": "لا أستخدمه بما يكفي",
+    "reason_foundAlternative": "وجدت بديلاً",
+    "reason_missingFeatures": "ميزات مفقودة أحتاجها",
+    "reason_qualityNotGood": "جودة الفيديو غير كافية",
+    "reason_other": "سبب آخر",
+    "generalTitle": "إرسال ملاحظات",
+    "generalDescription": "ساعدنا في تحسين WowTok بملاحظاتك.",
+    "selectCategory": "اختر فئة",
+    "category_bugReport": "تقرير خطأ",
+    "category_featureRequest": "طلب ميزة",
+    "category_generalFeedback": "ملاحظات عامة",
+    "messagePlaceholder": "أخبرنا بما يدور في ذهنك..."
   }
 }

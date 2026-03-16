@@ -287,5 +287,31 @@
     "next": "Successivo",
     "pageOf": "Pagina {current} di {total}",
     "readMore": "Leggi di più"
+  },
+  "Feedback": {
+    "feedback": "Feedback",
+    "rateVideo": "Come è stato questo video?",
+    "commentPlaceholder": "Commenti aggiuntivi? (opzionale)",
+    "submit": "Invia",
+    "submitAndContinue": "Invia e continua",
+    "thankYou": "Grazie per il tuo feedback!",
+    "submitError": "Invio del feedback non riuscito. Riprova.",
+    "skip": "Salta",
+    "cancellationTitle": "Prima di andare...",
+    "cancellationDescription": "Ci piacerebbe sapere perché stai considerando modifiche al tuo abbonamento.",
+    "cancellationCommentPlaceholder": "Altro che vorresti condividere? (opzionale)",
+    "reason_tooExpensive": "Troppo costoso",
+    "reason_notUsingEnough": "Non lo uso abbastanza",
+    "reason_foundAlternative": "Ho trovato un'alternativa",
+    "reason_missingFeatures": "Mancano funzionalità di cui ho bisogno",
+    "reason_qualityNotGood": "Qualità video non sufficiente",
+    "reason_other": "Altro motivo",
+    "generalTitle": "Invia feedback",
+    "generalDescription": "Aiutaci a migliorare WowTok con il tuo feedback.",
+    "selectCategory": "Seleziona una categoria",
+    "category_bugReport": "Segnalazione bug",
+    "category_featureRequest": "Richiesta funzionalità",
+    "category_generalFeedback": "Feedback generale",
+    "messagePlaceholder": "Dicci cosa hai in mente..."
   }
 }

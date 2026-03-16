@@ -19,6 +19,7 @@ import type { VideoStatus } from "@/types";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
+import { VideoFeedbackWidget } from "@/components/dashboard/video-feedback-widget";
 
 interface VideoData {
   id: string;
@@ -247,6 +248,12 @@ export default function VideoDetailPage() {
                   {t("downloadSubtitles")}
                 </Button>
               )}
+            </div>
+          )}
+
+          {video.status === "COMPLETED" && (
+            <div className="mb-6">
+              <VideoFeedbackWidget videoId={video.id} />
             </div>
           )}
 

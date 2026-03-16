@@ -287,5 +287,31 @@
     "next": "下一页",
     "pageOf": "第 {current} 页，共 {total} 页",
     "readMore": "阅读更多"
+  },
+  "Feedback": {
+    "feedback": "反馈",
+    "rateVideo": "这个视频怎么样？",
+    "commentPlaceholder": "有其他评论吗？（可选）",
+    "submit": "提交",
+    "submitAndContinue": "提交并继续",
+    "thankYou": "感谢您的反馈！",
+    "submitError": "提交反馈失败，请重试。",
+    "skip": "跳过",
+    "cancellationTitle": "在您离开之前...",
+    "cancellationDescription": "我们想了解您考虑更改订阅的原因。",
+    "cancellationCommentPlaceholder": "还有其他想分享的吗？（可选）",
+    "reason_tooExpensive": "太贵了",
+    "reason_notUsingEnough": "使用不够频繁",
+    "reason_foundAlternative": "找到了替代方案",
+    "reason_missingFeatures": "缺少我需要的功能",
+    "reason_qualityNotGood": "视频质量不够好",
+    "reason_other": "其他原因",
+    "generalTitle": "发送反馈",
+    "generalDescription": "通过您的反馈帮助我们改进WowTok。",
+    "selectCategory": "选择类别",
+    "category_bugReport": "错误报告",
+    "category_featureRequest": "功能请求",
+    "category_generalFeedback": "一般反馈",
+    "messagePlaceholder": "告诉我们您的想法..."
   }
 }
