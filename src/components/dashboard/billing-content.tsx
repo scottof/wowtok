@@ -28,8 +28,13 @@ export function BillingContent({ subscription, plan }: BillingContentProps) {
   const [showPlanDialog, setShowPlanDialog] = useState(false);
   const [showSurvey, setShowSurvey] = useState(false);
 
-  function handleManageClick() {
-    setShowSurvey(true);
+  async function handleManageClick() {
+    if (subscription?.cancelAtPeriodEnd) {
+      // Already canceling — skip survey, go straight to portal
+      await createPortalSession();
+    } else {
+      setShowSurvey(true);
+    }
   }
 
   async function handleContinueToPortal() {
