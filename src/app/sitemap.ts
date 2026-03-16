@@ -1,18 +1,12 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
+import { getPostsByLocale } from "@/data/blog";
 
-const blogSlugs = [
-  { slug: "tiktok-algorithm-2026-how-ai-content-ranks", date: "2026-03-13" },
-  { slug: "automate-tiktok-content-pipeline-with-ai", date: "2026-03-13" },
-  { slug: "how-to-create-viral-tiktok-videos-with-ai", date: "2026-02-15" },
-  { slug: "best-tiktok-themes-for-engagement", date: "2026-02-10" },
-  { slug: "ai-voiceover-tips-for-short-videos", date: "2026-02-05" },
-];
-
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url;
 
-  const blogPages = blogSlugs.map((post) => ({
+  const posts = await getPostsByLocale("en");
+  const blogPages = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: "monthly" as const,
