@@ -1,3 +1,4 @@
+import React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -94,26 +95,62 @@ export default async function BlogPostPage({
           </header>
 
           <div className="prose prose-neutral max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-p:text-muted-foreground prose-p:leading-relaxed prose-strong:text-foreground prose-li:text-muted-foreground">
-            {post.content.split("\n\n").map((paragraph, i) => {
-              if (paragraph.startsWith("## ")) {
-                return (
-                  <h2 key={i} className="mb-3 mt-8 text-xl font-semibold">
-                    {paragraph.replace("## ", "")}
-                  </h2>
+            {(() => {
+              const blocks = post.content.split("\n\n");
+              const elements: React.ReactNode[] = [];
+              let i = 0;
+
+              const renderInline = (text: string) => {
+                const parts = text.split(/(\*\*[^*]+\*\*)/g);
+                return parts.map((part, j) =>
+                  part.startsWith("**") && part.endsWith("**") ? (
+                    <strong key={j} className="text-foreground font-semibold">
+                      {part.slice(2, -2)}
+                    </strong>
+                  ) : (
+                    <span key={j}>{part}</span>
+                  )
                 );
+              };
+
+              while (i < blocks.length) {
+                const block = blocks[i];
+
+                if (block.startsWith("## ")) {
+                  elements.push(
+                    <h2 key={i} className="mb-3 mt-8 text-xl font-semibold">
+                      {block.replace("## ", "")}
+                    </h2>
+                  );
+                  i++;
+                } else if (/^\d+\.\s/.test(block)) {
+                  // Collect consecutive ordered list items
+                  const items: string[] = [];
+                  while (i < blocks.length && /^\d+\.\s/.test(blocks[i])) {
+                    items.push(blocks[i].replace(/^\d+\.\s/, ""));
+                    i++;
+                  }
+                  elements.push(
+                    <ol key={`ol-${i}`} className="mb-4 list-decimal list-inside space-y-2">
+                      {items.map((item, j) => (
+                        <li key={j} className="text-muted-foreground leading-relaxed">
+                          {renderInline(item)}
+                        </li>
+                      ))}
+                    </ol>
+                  );
+                } else {
+                  elements.push(
+                    <p key={i} className="mb-4 text-muted-foreground leading-relaxed">
+                      {renderInline(block)}
+                    </p>
+                  );
+                  i++;
+                }
               }
-              if (paragraph.startsWith("**") && paragraph.endsWith("**")) {
-                return null;
-              }
-              return (
-                <p
-                  key={i}
-                  className="mb-4 text-muted-foreground leading-relaxed"
-                >
-                  {paragraph}
-                </p>
-              );
-            })}
+
+              return elements;
+            })()}
           </div>
 
           <div className="mt-12 rounded-xl gradient-bg p-8 text-center text-white">

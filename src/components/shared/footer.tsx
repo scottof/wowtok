@@ -17,7 +17,6 @@ export function Footer() {
     ],
     [t("company")]: [
       { label: t("blog"), href: "/blog" },
-      { label: t("about"), href: "/#features" },
       { label: t("contact"), href: "mailto:hello@wowtok.com" },
     ],
     [t("legal")]: [

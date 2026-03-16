@@ -88,7 +88,7 @@ export default async function BlogPage({
 
           {totalPages > 1 && (
             <div className="mt-12 flex items-center justify-center gap-4">
-              {safePage > 1 ? (
+              {safePage > 1 && (
                 <Link
                   href={`/blog?page=${safePage - 1}`}
                   className="inline-flex items-center gap-1 rounded-lg border border-border/60 px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
@@ -96,18 +96,13 @@ export default async function BlogPage({
                   <ChevronLeft className="h-4 w-4" />
                   {t("previous")}
                 </Link>
-              ) : (
-                <span className="inline-flex items-center gap-1 rounded-lg border border-border/30 px-4 py-2 text-sm font-medium text-muted-foreground/50">
-                  <ChevronLeft className="h-4 w-4" />
-                  {t("previous")}
-                </span>
               )}
 
               <span className="text-sm text-muted-foreground">
                 {t("pageOf", { current: safePage, total: totalPages })}
               </span>
 
-              {safePage < totalPages ? (
+              {safePage < totalPages && (
                 <Link
                   href={`/blog?page=${safePage + 1}`}
                   className="inline-flex items-center gap-1 rounded-lg border border-border/60 px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
@@ -115,11 +110,6 @@ export default async function BlogPage({
                   {t("next")}
                   <ChevronRight className="h-4 w-4" />
                 </Link>
-              ) : (
-                <span className="inline-flex items-center gap-1 rounded-lg border border-border/30 px-4 py-2 text-sm font-medium text-muted-foreground/50">
-                  {t("next")}
-                  <ChevronRight className="h-4 w-4" />
-                </span>
               )}
             </div>
           )}

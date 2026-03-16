@@ -23,10 +23,12 @@ export function mapPriceToPlan(
 export function mapStatus(status: string): SubStatus {
   switch (status) {
     case "active":
+    case "trialing":
       return "ACTIVE";
     case "past_due":
       return "PAST_DUE";
     case "canceled":
+    case "unpaid":
       return "CANCELED";
     default:
       return "INCOMPLETE";
