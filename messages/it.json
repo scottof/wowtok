@@ -275,5 +275,17 @@
     "howItWorks": "Come funziona",
     "pricing": "Prezzi",
     "faq": "FAQ"
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Consigli, tutorial e approfondimenti sulla creazione di video con IA.",
+    "backToBlog": "Torna al blog",
+    "ctaTitle": "Pronto a creare video con l'IA?",
+    "ctaDescription": "Inizia a generare video TikTok con WowTok oggi.",
+    "ctaButton": "Inizia gratis",
+    "previous": "Precedente",
+    "next": "Successivo",
+    "pageOf": "Pagina {current} di {total}",
+    "readMore": "Leggi di più"
   }
 }

@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
+import { getPostsByLocale } from "@/data/blog";
+import { getUserLocale } from "@/i18n/locale";
+import { getTranslations } from "next-intl/server";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,64 +13,49 @@ export const metadata: Metadata = {
     "Tips, tutorials, and insights about AI video creation, TikTok content strategy, and growing your audience.",
 };
 
-const posts = [
-  {
-    slug: "tiktok-algorithm-2026-how-ai-content-ranks",
-    title: "TikTok Algorithm in 2026: How AI-Generated Content Ranks Higher",
-    excerpt:
-      "Understand how the TikTok algorithm evaluates AI-generated videos and learn strategies to boost your content's visibility and reach.",
-    date: "2026-03-13",
-    readTime: "5 min read",
-  },
-  {
-    slug: "automate-tiktok-content-pipeline-with-ai",
-    title: "How to Automate Your TikTok Content Pipeline with AI",
-    excerpt:
-      "Build a consistent posting schedule without burnout. Learn how AI tools can help you plan, create, and publish TikTok videos at scale.",
-    date: "2026-03-13",
-    readTime: "6 min read",
-  },
-  {
-    slug: "how-to-create-viral-tiktok-videos-with-ai",
-    title: "How to Create Viral TikTok Videos with AI in 2026",
-    excerpt:
-      "Learn how AI is transforming content creation and how you can use WowTok to generate engaging TikTok videos from simple text prompts.",
-    date: "2026-02-15",
-    readTime: "5 min read",
-  },
-  {
-    slug: "best-tiktok-themes-for-engagement",
-    title: "The 10 Best TikTok Video Themes for Maximum Engagement",
-    excerpt:
-      "Discover which video themes drive the most views, likes, and followers on TikTok. From horror to comedy, find your niche.",
-    date: "2026-02-10",
-    readTime: "4 min read",
-  },
-  {
-    slug: "ai-voiceover-tips-for-short-videos",
-    title: "AI Voiceover Tips: Making Your Short Videos Sound Professional",
-    excerpt:
-      "Master the art of AI narration for TikTok and Reels. Voice selection, pacing, and scripting techniques that work.",
-    date: "2026-02-05",
-    readTime: "6 min read",
-  },
-];
+const POSTS_PER_PAGE = 5;
 
-export default function BlogPage() {
+export default async function BlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page } = await searchParams;
+  const currentPage = Math.max(1, parseInt(page || "1", 10));
+  const locale = await getUserLocale();
+  const t = await getTranslations("Blog");
+  const allPosts = await getPostsByLocale(locale);
+
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+  const safePage = Math.min(currentPage, totalPages);
+  const startIndex = (safePage - 1) * POSTS_PER_PAGE;
+  const paginatedPosts = allPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+
+  const dateLocaleMap: Record<string, string> = {
+    en: "en-US",
+    es: "es-ES",
+    it: "it-IT",
+    fr: "fr-FR",
+    ko: "ko-KR",
+    ar: "ar-SA",
+    zh: "zh-CN",
+    de: "de-DE",
+  };
+
   return (
     <>
       <Navbar />
       <main className="py-16">
         <div className="mx-auto max-w-4xl px-6">
           <div className="mb-12">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Blog</h1>
-            <p className="mt-3 text-muted-foreground">
-              Tips, tutorials, and insights about AI video creation.
-            </p>
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              {t("title")}
+            </h1>
+            <p className="mt-3 text-muted-foreground">{t("subtitle")}</p>
           </div>
 
           <div className="space-y-8">
-            {posts.map((post) => (
+            {paginatedPosts.map((post) => (
               <article key={post.slug} className="group">
                 <Link
                   href={`/blog/${post.slug}`}
@@ -74,11 +63,14 @@ export default function BlogPage() {
                 >
                   <div className="flex items-center gap-3 text-xs text-muted-foreground">
                     <time dateTime={post.date}>
-                      {new Date(post.date).toLocaleDateString("en-US", {
-                        month: "long",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
+                      {new Date(post.date).toLocaleDateString(
+                        dateLocaleMap[locale] || "en-US",
+                        {
+                          month: "long",
+                          day: "numeric",
+                          year: "numeric",
+                        }
+                      )}
                     </time>
                     <span>&middot;</span>
                     <span>{post.readTime}</span>
@@ -93,6 +85,44 @@ export default function BlogPage() {
               </article>
             ))}
           </div>
+
+          {totalPages > 1 && (
+            <div className="mt-12 flex items-center justify-center gap-4">
+              {safePage > 1 ? (
+                <Link
+                  href={`/blog?page=${safePage - 1}`}
+                  className="inline-flex items-center gap-1 rounded-lg border border-border/60 px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  {t("previous")}
+                </Link>
+              ) : (
+                <span className="inline-flex items-center gap-1 rounded-lg border border-border/30 px-4 py-2 text-sm font-medium text-muted-foreground/50">
+                  <ChevronLeft className="h-4 w-4" />
+                  {t("previous")}
+                </span>
+              )}
+
+              <span className="text-sm text-muted-foreground">
+                {t("pageOf", { current: safePage, total: totalPages })}
+              </span>
+
+              {safePage < totalPages ? (
+                <Link
+                  href={`/blog?page=${safePage + 1}`}
+                  className="inline-flex items-center gap-1 rounded-lg border border-border/60 px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
+                >
+                  {t("next")}
+                  <ChevronRight className="h-4 w-4" />
+                </Link>
+              ) : (
+                <span className="inline-flex items-center gap-1 rounded-lg border border-border/30 px-4 py-2 text-sm font-medium text-muted-foreground/50">
+                  {t("next")}
+                  <ChevronRight className="h-4 w-4" />
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </main>
       <Footer />

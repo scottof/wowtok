@@ -275,5 +275,17 @@
     "howItWorks": "How it Works",
     "pricing": "Pricing",
     "faq": "FAQ"
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Tips, tutorials, and insights about AI video creation.",
+    "backToBlog": "Back to blog",
+    "ctaTitle": "Ready to create AI videos?",
+    "ctaDescription": "Start generating TikTok videos with WowTok today.",
+    "ctaButton": "Get started free",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {current} of {total}",
+    "readMore": "Read more"
   }
 }

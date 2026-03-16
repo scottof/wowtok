@@ -275,5 +275,17 @@
     "howItWorks": "So funktioniert's",
     "pricing": "Preise",
     "faq": "FAQ"
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Tipps, Tutorials und Einblicke in die KI-Videoerstellung.",
+    "backToBlog": "Zurück zum Blog",
+    "ctaTitle": "Bereit, KI-Videos zu erstellen?",
+    "ctaDescription": "Beginne noch heute mit WowTok TikTok-Videos zu generieren.",
+    "ctaButton": "Kostenlos starten",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "pageOf": "Seite {current} von {total}",
+    "readMore": "Mehr lesen"
   }
 }
