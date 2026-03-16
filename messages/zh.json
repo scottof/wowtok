@@ -198,6 +198,7 @@
     "perMonth": "/月",
     "videosPerMonth": "视频/月",
     "subscriptionEnds": "您的订阅将于{date}结束。",
+    "canceling": "取消中",
     "nextBilling": "下次账单日期：",
     "manageSubscription": "管理订阅",
     "noSubscriptionBilling": "没有有效订阅",

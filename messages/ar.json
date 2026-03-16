@@ -198,6 +198,7 @@
     "perMonth": "/شهر",
     "videosPerMonth": "فيديو/شهر",
     "subscriptionEnds": "سينتهي اشتراكك في {date}.",
+    "canceling": "جارٍ الإلغاء",
     "nextBilling": "تاريخ الفاتورة التالية:",
     "manageSubscription": "إدارة الاشتراك",
     "noSubscriptionBilling": "لا يوجد اشتراك نشط",

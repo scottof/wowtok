@@ -198,6 +198,7 @@
     "perMonth": "/월",
     "videosPerMonth": "영상/월",
     "subscriptionEnds": "구독이 {date}에 종료됩니다.",
+    "canceling": "취소 중",
     "nextBilling": "다음 결제일:",
     "manageSubscription": "구독 관리",
     "noSubscriptionBilling": "활성 구독 없음",

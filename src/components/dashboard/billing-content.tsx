@@ -55,13 +55,17 @@ export function BillingContent({ subscription, plan }: BillingContentProps) {
                   <h3 className="text-lg font-semibold">{plan.name} {t("plan")}</h3>
                   <Badge
                     variant={
-                      subscription.status === "ACTIVE"
-                        ? "default"
-                        : "destructive"
+                      subscription.cancelAtPeriodEnd
+                        ? "secondary"
+                        : subscription.status === "ACTIVE"
+                          ? "default"
+                          : "destructive"
                     }
                     className="text-xs"
                   >
-                    {subscription.status}
+                    {subscription.cancelAtPeriodEnd
+                      ? t("canceling")
+                      : subscription.status}
                   </Badge>
                 </div>
                 <p className="mt-1 text-sm text-muted-foreground">
@@ -71,20 +75,20 @@ export function BillingContent({ subscription, plan }: BillingContentProps) {
               <CreditCard className="h-8 w-8 text-muted-foreground/30" />
             </div>
 
-            {subscription.cancelAtPeriodEnd && (
+            {subscription.cancelAtPeriodEnd ? (
               <div className="mt-4 rounded-lg bg-yellow-50 p-3 text-sm text-yellow-800">
                 {t("subscriptionEnds", {
                   date: new Date(subscription.currentPeriodEnd).toLocaleDateString(),
                 })}
               </div>
+            ) : (
+              <div className="mt-4 text-sm text-muted-foreground">
+                {t("nextBilling")}{" "}
+                <span className="font-medium text-foreground">
+                  {new Date(subscription.currentPeriodEnd).toLocaleDateString()}
+                </span>
+              </div>
             )}
-
-            <div className="mt-4 text-sm text-muted-foreground">
-              {t("nextBilling")}{" "}
-              <span className="font-medium text-foreground">
-                {new Date(subscription.currentPeriodEnd).toLocaleDateString()}
-              </span>
-            </div>
           </div>
 
           {/* Manage subscription */}

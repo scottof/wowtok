@@ -198,6 +198,7 @@
     "perMonth": "/mois",
     "videosPerMonth": "vidéos/mois",
     "subscriptionEnds": "Votre abonnement se terminera le {date}.",
+    "canceling": "ANNULATION",
     "nextBilling": "Prochaine date de facturation :",
     "manageSubscription": "Gérer l'Abonnement",
     "noSubscriptionBilling": "Aucun abonnement actif",
