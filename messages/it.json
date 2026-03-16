@@ -1,6 +1,6 @@
 {
   "Nav": {
-    "features": "Funzionalita",
+    "features": "Funzionalità",
     "howItWorks": "Come funziona",
     "pricing": "Prezzi",
     "faq": "FAQ",
@@ -34,7 +34,7 @@
     "mockupNext": "Avanti"
   },
   "Features": {
-    "title": "Tutto cio che ti serve per diventare virale",
+    "title": "Tutto ciò che ti serve per diventare virale",
     "subtitle": "Una pipeline video IA completa, dall'idea al contenuto pronto per TikTok.",
     "aiScript": "Divisione Intelligente delle Scene",
     "aiScriptDesc": "Scrivi la tua narrazione e l'IA la divide automaticamente in scene perfettamente sincronizzate con effetti visivi.",
@@ -63,26 +63,26 @@
     "badge": "Offerta di lancio limitata — fino al 40% di sconto",
     "title": "Prezzi semplici e trasparenti",
     "subtitle": "Prezzi semplici e trasparenti. Cancella in qualsiasi momento.",
-    "mostPopular": "Piu popolare",
+    "mostPopular": "Più popolare",
     "save": "RISPARMIA {discount}%",
     "perMonth": "/mese",
     "getStarted": "Inizia ora",
     "starter": "Starter",
     "starterDesc": "Perfetto per iniziare con i video IA",
     "creator": "Creator",
-    "creatorDesc": "Per i creatori di contenuti che hanno bisogno di piu",
+    "creatorDesc": "Per i creatori di contenuti che hanno bisogno di più",
     "pro": "Pro",
     "proDesc": "Per professionisti e team"
   },
   "FAQ": {
     "title": "Domande frequenti",
     "subtitle": "Tutto quello che devi sapere su WowTok.",
-    "q1": "Cos'e WowTok?",
-    "a1": "WowTok e una piattaforma alimentata dall'IA che genera video completi pronti per TikTok da semplici prompt di testo. Scegli un tema, scrivi cosa vuoi, e l'IA crea un video con scene generate, narrazione vocale e sottotitoli.",
+    "q1": "Cos'è WowTok?",
+    "a1": "WowTok è una piattaforma alimentata dall'IA che genera video completi pronti per TikTok da semplici prompt di testo. Scegli un tema, scrivi cosa vuoi, e l'IA crea un video con scene generate, narrazione vocale e sottotitoli.",
     "q2": "Come funziona la generazione video con IA?",
     "a2": "La nostra pipeline utilizza diversi modelli IA specializzati: uno suddivide il tuo script in scene, un altro genera i contenuti visivi per ogni scena, un terzo li anima in clip video e un quarto crea la voce narrante. Tutto viene assemblato in un video verticale finale 9:16.",
     "q3": "Quanto tempo ci vuole per generare un video?",
-    "a3": "La maggior parte dei video viene generata in 3-5 minuti a seconda della lunghezza e complessita. Vedrai aggiornamenti in tempo reale man mano che ogni fase si completa.",
+    "a3": "La maggior parte dei video viene generata in 3-5 minuti a seconda della lunghezza e complessità. Vedrai aggiornamenti in tempo reale man mano che ogni fase si completa.",
     "q4": "Che formato video ottengo?",
     "a4": "I video sono generati in formato verticale 9:16 (1080x1920) — ottimizzato per TikTok, Instagram Reels e YouTube Shorts. Ottieni un file MP4 pronto per il caricamento diretto.",
     "q5": "Posso cancellare il mio abbonamento in qualsiasi momento?",
@@ -124,7 +124,7 @@
     "signupButton": "Crea account",
     "noAccount": "Non hai un account?",
     "signupLink": "Registrati",
-    "hasAccount": "Hai gia un account?",
+    "hasAccount": "Hai già un account?",
     "loginLink": "Accedi",
     "agreeToTerms": "Accetto i",
     "termsLink": "Termini di servizio",
@@ -270,7 +270,7 @@
     "sendMessage": "Invia messaggio"
   },
   "Common": {
-    "features": "Funzionalita",
+    "features": "Funzionalità",
     "howItWorks": "Come funziona",
     "pricing": "Prezzi",
     "faq": "FAQ"
