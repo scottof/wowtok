@@ -11,6 +11,7 @@ import {
   Settings,
   LogOut,
   LifeBuoy,
+  MessageSquare,
 } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
@@ -23,6 +24,7 @@ import {
 } from "@/components/ui/sheet";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { PlanSelectionDialog } from "@/components/dashboard/plan-selection-dialog";
+import { FeedbackModal } from "@/components/dashboard/feedback-modal";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
@@ -42,9 +44,11 @@ interface MobileHeaderProps {
 export function MobileHeader({ hasSubscription }: MobileHeaderProps) {
   const [open, setOpen] = useState(false);
   const [showPlanDialog, setShowPlanDialog] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations("Dashboard");
+  const tFeedback = useTranslations("Feedback");
 
   const linkKeys = allLinks.filter(
     (link) => !link.requiresSub || hasSubscription
@@ -136,6 +140,18 @@ export function MobileHeader({ hasSubscription }: MobileHeaderProps) {
               variant="ghost"
               size="sm"
               className="w-full cursor-pointer justify-start gap-3 text-muted-foreground"
+              onClick={() => {
+                setOpen(false);
+                setShowFeedback(true);
+              }}
+            >
+              <MessageSquare className="h-4 w-4" />
+              {tFeedback("feedback")}
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full cursor-pointer justify-start gap-3 text-muted-foreground"
               onClick={handleSignOut}
             >
               <LogOut className="h-4 w-4" />
@@ -148,6 +164,11 @@ export function MobileHeader({ hasSubscription }: MobileHeaderProps) {
       <PlanSelectionDialog
         open={showPlanDialog}
         onOpenChange={setShowPlanDialog}
+      />
+
+      <FeedbackModal
+        open={showFeedback}
+        onOpenChange={setShowFeedback}
       />
     </>
   );
