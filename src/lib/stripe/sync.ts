@@ -37,6 +37,9 @@ export async function syncSubscriptionFromStripe(
     const periodStart = new Date(item.current_period_start * 1000);
     const periodEnd = new Date(item.current_period_end * 1000);
 
+    const isCanceling =
+      sub.cancel_at_period_end || sub.cancel_at != null;
+
     await prisma.subscription.upsert({
       where: { userId },
       update: {
@@ -46,7 +49,7 @@ export async function syncSubscriptionFromStripe(
         status,
         currentPeriodStart: periodStart,
         currentPeriodEnd: periodEnd,
-        cancelAtPeriodEnd: sub.cancel_at_period_end,
+        cancelAtPeriodEnd: isCanceling,
       },
       create: {
         userId,
@@ -56,7 +59,7 @@ export async function syncSubscriptionFromStripe(
         status,
         currentPeriodStart: periodStart,
         currentPeriodEnd: periodEnd,
-        cancelAtPeriodEnd: sub.cancel_at_period_end,
+        cancelAtPeriodEnd: isCanceling,
       },
     });
 

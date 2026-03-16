@@ -47,6 +47,9 @@ export async function POST(req: Request) {
       const periodStart = new Date(item.current_period_start * 1000);
       const periodEnd = new Date(item.current_period_end * 1000);
 
+      const isCanceling =
+        subscription.cancel_at_period_end || subscription.cancel_at != null;
+
       await prisma.subscription.upsert({
         where: { userId },
         update: {
@@ -56,7 +59,7 @@ export async function POST(req: Request) {
           status: mapStatus(subscription.status),
           currentPeriodStart: periodStart,
           currentPeriodEnd: periodEnd,
-          cancelAtPeriodEnd: subscription.cancel_at_period_end,
+          cancelAtPeriodEnd: isCanceling,
         },
         create: {
           userId,
@@ -66,7 +69,7 @@ export async function POST(req: Request) {
           status: mapStatus(subscription.status),
           currentPeriodStart: periodStart,
           currentPeriodEnd: periodEnd,
-          cancelAtPeriodEnd: subscription.cancel_at_period_end,
+          cancelAtPeriodEnd: isCanceling,
         },
       });
 
@@ -96,6 +99,9 @@ export async function POST(req: Request) {
         pro: env.STRIPE_PRO_PRICE_ID,
       });
 
+      const isUpdatedCanceling =
+        subscription.cancel_at_period_end || subscription.cancel_at != null;
+
       await prisma.subscription.updateMany({
         where: { stripeSubscriptionId: subscription.id },
         data: {
@@ -104,7 +110,7 @@ export async function POST(req: Request) {
           status: mapStatus(subscription.status),
           currentPeriodStart: new Date(updatedItem.current_period_start * 1000),
           currentPeriodEnd: new Date(updatedItem.current_period_end * 1000),
-          cancelAtPeriodEnd: subscription.cancel_at_period_end,
+          cancelAtPeriodEnd: isUpdatedCanceling,
         },
       });
       break;
