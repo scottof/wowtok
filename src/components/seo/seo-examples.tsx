@@ -2,21 +2,26 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Play } from "lucide-react";
+import { Lightbulb } from "lucide-react";
 
 interface SeoExamplesProps {
   namespace: string;
 }
 
+const cardColors = [
+  { border: "border-violet-500/20", badge: "bg-violet-500/10 text-violet-600" },
+  { border: "border-pink-500/20", badge: "bg-pink-500/10 text-pink-600" },
+  { border: "border-blue-500/20", badge: "bg-blue-500/10 text-blue-600" },
+  { border: "border-orange-500/20", badge: "bg-orange-500/10 text-orange-600" },
+];
+
 export function SeoExamples({ namespace }: SeoExamplesProps) {
   const t = useTranslations(namespace);
 
-  const examples = [];
+  const examples: { title: string; desc: string }[] = [];
   for (let i = 1; i <= 4; i++) {
     try {
-      const title = t(`example${i}Title`);
-      const desc = t(`example${i}Desc`);
-      examples.push({ title, desc });
+      examples.push({ title: t(`example${i}Title`), desc: t(`example${i}Desc`) });
     } catch {
       break;
     }
@@ -35,28 +40,30 @@ export function SeoExamples({ namespace }: SeoExamplesProps) {
         </div>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {examples.map((ex, i) => (
-            <motion.div
-              key={i}
-              className="group overflow-hidden rounded-2xl border border-border/60 bg-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div className="relative aspect-[9/16] bg-gradient-to-b from-gray-900 to-gray-800">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-transform group-hover:scale-110">
-                    <Play className="h-5 w-5 ml-0.5" />
-                  </div>
+          {examples.map((ex, i) => {
+            const colors = cardColors[i % cardColors.length];
+            return (
+              <motion.div
+                key={i}
+                className={`group rounded-2xl border ${colors.border} bg-card p-5 flex flex-col gap-3 hover:shadow-md transition-shadow`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className={`w-8 h-8 rounded-lg ${colors.badge} flex items-center justify-center`}>
+                  <Lightbulb className="h-4 w-4" />
                 </div>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-sm">{ex.title}</h3>
-                <p className="mt-1 text-xs text-muted-foreground">{ex.desc}</p>
-              </div>
-            </motion.div>
-          ))}
+                <div>
+                  <h3 className="font-semibold text-sm leading-snug">{ex.title}</h3>
+                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{ex.desc}</p>
+                </div>
+                <div className={`mt-auto inline-flex self-start rounded-full px-2.5 py-0.5 text-xs font-medium ${colors.badge}`}>
+                  Prompt idea
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
