@@ -30,7 +30,7 @@ export function Navbar() {
     if (isLandingPage) {
       document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     } else {
-      router.push(href);
+      window.location.href = href;
     }
   }
 

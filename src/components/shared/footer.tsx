@@ -29,6 +29,12 @@ export function Footer() {
       { label: tNav("howItWorks"), href: "/#how-it-works" },
       { label: tNav("faq"), href: "/#faq" },
     ],
+    [t("tools")]: [
+      { label: t("toolVideoGenerator"), href: "/ai-tiktok-video-generator" },
+      { label: t("toolContentGenerator"), href: "/ai-tiktok-content-generator" },
+      { label: t("toolVoiceover"), href: "/ai-voiceover-tiktok" },
+      { label: t("toolNoFace"), href: "/tiktok-video-maker-no-face" },
+    ],
     [t("company")]: [
       { label: t("blog"), href: "/blog" },
       { label: t("contact"), href: "mailto:hello@wowtok.com" },
@@ -42,7 +48,7 @@ export function Footer() {
   return (
     <footer className="border-t border-border/40 bg-muted/30">
       <div className="mx-auto max-w-6xl px-6 py-12">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           <div className="col-span-2 md:col-span-1">
             <Logo />
             <p className="mt-3 text-sm text-muted-foreground">

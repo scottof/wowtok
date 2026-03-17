@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 import { getPostsByLocale } from "@/data/blog";
+import { allSeoPages } from "@/config/seo-pages";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url;
@@ -57,5 +58,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.3,
     },
     ...blogPages,
+    ...allSeoPages.map((page) => ({
+      url: `${baseUrl}/${page.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: page.priority,
+    })),
   ];
 }
