@@ -104,7 +104,12 @@
     "contact": "Kontakt",
     "privacy": "Datenschutzrichtlinie",
     "terms": "Nutzungsbedingungen",
-    "copyright": "© {year} WowTok. Alle Rechte vorbehalten."
+    "copyright": "© {year} WowTok. Alle Rechte vorbehalten.",
+    "tools": "Tools",
+    "toolVideoGenerator": "KI Video-Generator",
+    "toolContentGenerator": "Content-Generator",
+    "toolVoiceover": "KI Voiceover",
+    "toolNoFace": "Videos ohne Gesicht"
   },
   "Auth": {
     "loginTitle": "Willkommen zuruck",

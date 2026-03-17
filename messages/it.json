@@ -104,7 +104,12 @@
     "contact": "Contatti",
     "privacy": "Informativa sulla privacy",
     "terms": "Termini di servizio",
-    "copyright": "© {year} WowTok. Tutti i diritti riservati."
+    "copyright": "© {year} WowTok. Tutti i diritti riservati.",
+    "tools": "Strumenti",
+    "toolVideoGenerator": "Generatore Video IA",
+    "toolContentGenerator": "Generatore di Contenuti",
+    "toolVoiceover": "Voce Fuori Campo IA",
+    "toolNoFace": "Video Senza Volto"
   },
   "Auth": {
     "loginTitle": "Bentornato",

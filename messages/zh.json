@@ -104,7 +104,12 @@
     "contact": "联系我们",
     "privacy": "隐私政策",
     "terms": "服务条款",
-    "copyright": "© {year} WowTok. 保留所有权利。"
+    "copyright": "© {year} WowTok. 保留所有权利。",
+    "tools": "工具",
+    "toolVideoGenerator": "AI视频生成器",
+    "toolContentGenerator": "内容生成器",
+    "toolVoiceover": "AI配音",
+    "toolNoFace": "无需出镜视频"
   },
   "Auth": {
     "loginTitle": "欢迎回来",
