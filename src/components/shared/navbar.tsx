@@ -43,7 +43,7 @@ export function Navbar() {
         <div className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => {
             const isHash = link.href.startsWith("/#");
-            return isHash ? (
+            return isHash && isLandingPage ? (
               <button
                 key={link.href}
                 onClick={() => handleHashClick(link.href)}
@@ -90,7 +90,7 @@ export function Navbar() {
           <div className="flex flex-col gap-3">
             {navLinks.map((link) => {
               const isHash = link.href.startsWith("/#");
-              return isHash ? (
+              return isHash && isLandingPage ? (
                 <button
                   key={link.href}
                   onClick={() => {
