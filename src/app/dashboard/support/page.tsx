@@ -1,9 +1,11 @@
 import { redirect } from "next/navigation";
+import { getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { SupportContent } from "@/components/dashboard/support-content";
 
 export default async function SupportPage() {
+  const locale = await getLocale();
   const supabase = await createClient();
   const {
     data: { user },
@@ -19,7 +21,7 @@ export default async function SupportPage() {
 
   // Only users with an active subscription can access support
   if (!hasSubscription) {
-    redirect("/dashboard");
+    redirect(`/${locale}/dashboard`);
   }
 
   const plan = dbUser?.subscription?.plan ?? null;

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -9,11 +9,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/shared/logo";
 import { ArrowLeft, Eye, EyeOff, Loader2 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { trackEvent } from "@/lib/analytics";
 
 export function SignupPageClient() {
   const router = useRouter();
+  const locale = useLocale();
+  const dashboardPath = `/${locale}/dashboard`;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,12 +31,14 @@ export function SignupPageClient() {
     setError("");
 
     const supabase = createClient();
+    const callbackUrl = new URL("/auth/callback", window.location.origin);
+    callbackUrl.searchParams.set("redirect", dashboardPath);
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: { full_name: name },
-        emailRedirectTo: `${window.location.origin}/auth/callback?redirect=/dashboard`,
+        emailRedirectTo: callbackUrl.toString(),
       },
     });
 
@@ -45,17 +49,19 @@ export function SignupPageClient() {
     }
 
     trackEvent("sign_up", { method: "email" });
-    router.push("/dashboard");
+    router.push(dashboardPath);
     router.refresh();
   }
 
   async function handleGoogleSignup() {
     trackEvent("sign_up", { method: "google" });
     const supabase = createClient();
+    const callbackUrl = new URL("/auth/callback", window.location.origin);
+    callbackUrl.searchParams.set("redirect", dashboardPath);
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback?redirect=/dashboard`,
+        redirectTo: callbackUrl.toString(),
       },
     });
   }

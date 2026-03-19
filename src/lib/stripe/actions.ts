@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { stripe } from "./client";
@@ -15,13 +16,14 @@ export async function createCheckoutSessionByPlan(planId: string) {
 }
 
 export async function createCheckoutSession(priceId: string) {
+  const locale = await getLocale();
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login");
+    redirect(`/${locale}/login`);
   }
 
   const dbUser = await prisma.user.findUnique({
@@ -29,7 +31,7 @@ export async function createCheckoutSession(priceId: string) {
   });
 
   if (!dbUser) {
-    redirect("/login");
+    redirect(`/${locale}/login`);
   }
 
   let customerId = dbUser.stripeCustomerId;
@@ -52,8 +54,8 @@ export async function createCheckoutSession(priceId: string) {
     payment_method_types: ["card"],
     line_items: [{ price: priceId, quantity: 1 }],
     allow_promotion_codes: true,
-    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?success=true`,
-    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing?canceled=true`,
+    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/${locale}/dashboard?success=true`,
+    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/${locale}/pricing?canceled=true`,
     metadata: { userId: dbUser.id },
   });
 
@@ -61,13 +63,14 @@ export async function createCheckoutSession(priceId: string) {
 }
 
 export async function createPortalSession() {
+  const locale = await getLocale();
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login");
+    redirect(`/${locale}/login`);
   }
 
   const dbUser = await prisma.user.findUnique({
@@ -75,12 +78,12 @@ export async function createPortalSession() {
   });
 
   if (!dbUser?.stripeCustomerId) {
-    redirect("/pricing");
+    redirect(`/${locale}/pricing`);
   }
 
   const session = await stripe.billingPortal.sessions.create({
     customer: dbUser.stripeCustomerId,
-    return_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/billing`,
+    return_url: `${process.env.NEXT_PUBLIC_APP_URL}/${locale}/dashboard/billing`,
   });
 
   redirect(session.url);

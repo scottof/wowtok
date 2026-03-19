@@ -1,16 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { prisma } from "@/lib/prisma";
+import { defaultLocale, locales, type Locale } from "@/i18n/config";
+
+function getLocaleFromRedirectPath(pathname: string) {
+  const maybeLocale = pathname.split("/")[1];
+  return locales.includes(maybeLocale as Locale)
+    ? (maybeLocale as Locale)
+    : defaultLocale;
+}
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
   const redirect = searchParams.get("redirect") || "/dashboard";
+  const locale = getLocaleFromRedirectPath(redirect);
+  const loginErrorUrl = `${origin}/${locale}/login?error=auth`;
 
   // Prepare the redirect response FIRST so we can attach cookies to it
-  const redirectUrl = code
-    ? `${origin}${redirect}`
-    : `${origin}/login?error=auth`;
+  const redirectUrl = code ? `${origin}${redirect}` : loginErrorUrl;
   const response = NextResponse.redirect(redirectUrl);
 
   if (code) {
@@ -61,8 +69,8 @@ export async function GET(request: NextRequest) {
     }
 
     // Auth failed — redirect to login with error
-    return NextResponse.redirect(`${origin}/login?error=auth`);
+    return NextResponse.redirect(loginErrorUrl);
   }
 
-  return NextResponse.redirect(`${origin}/login?error=auth`);
+  return NextResponse.redirect(loginErrorUrl);
 }

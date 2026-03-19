@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   PlusCircle,
@@ -20,7 +18,8 @@ import { FeedbackModal } from "@/components/dashboard/feedback-modal";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 
 const allLinks = [
   { href: "/dashboard", labelKey: "myVideos", icon: LayoutDashboard, requiresSub: false },
@@ -37,6 +36,7 @@ interface SidebarProps {
 export function Sidebar({ hasSubscription }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const locale = useLocale();
   const t = useTranslations("Dashboard");
   const [showPlanDialog, setShowPlanDialog] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -49,7 +49,7 @@ export function Sidebar({ hasSubscription }: SidebarProps) {
   async function handleSignOut() {
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push("/");
+    router.push(`/${locale}`);
     router.refresh();
   }
 

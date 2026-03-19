@@ -1,15 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
 import { Logo } from "./logo";
 import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 
 export function Footer() {
   const t = useTranslations("Footer");
   const tNav = useTranslations("Nav");
   const pathname = usePathname();
-  const router = useRouter();
 
   const isLandingPage = pathname === "/" || /^\/[a-z]{2}$/.test(pathname);
 

@@ -1,9 +1,9 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useTransition, useState, useRef, useEffect } from "react";
-import { setUserLocale } from "@/i18n/locale";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import {
   locales,
   localeNames,
@@ -19,6 +19,8 @@ interface LanguageSwitcherProps {
 export function LanguageSwitcher({ direction = "up" }: LanguageSwitcherProps) {
   const locale = useLocale() as Locale;
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -35,8 +37,10 @@ export function LanguageSwitcher({ direction = "up" }: LanguageSwitcherProps) {
 
   function handleSelect(newLocale: Locale) {
     setOpen(false);
-    startTransition(async () => {
-      await setUserLocale(newLocale);
+    startTransition(() => {
+      const query = searchParams.toString();
+      const href = query ? `${pathname}?${query}` : pathname;
+      router.replace(href, { locale: newLocale });
       router.refresh();
     });
   }

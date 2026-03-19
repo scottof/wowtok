@@ -1,16 +1,16 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ArrowLeft } from "lucide-react";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
 import { Button } from "@/components/ui/button";
 import { BlogCtaButton } from "@/components/blog/cta-button";
 import { getPostBySlug } from "@/data/blog";
-import { getUserLocale } from "@/i18n/locale";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { siteConfig } from "@/config/site";
 import type { Metadata } from "next";
+import { getLanguageAlternates, getLocalizedUrl } from "@/lib/seo/locale-urls";
 
 export async function generateStaticParams() {
   const { posts } = await import("@/data/blog/en");
@@ -23,17 +23,19 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const locale = await getUserLocale();
+  const locale = await getLocale();
   const post = await getPostBySlug(locale, slug);
   if (!post) return {};
 
-  const url = `${siteConfig.url}/blog/${slug}`;
+  const path = `/blog/${slug}`;
+  const url = getLocalizedUrl(locale, path);
 
   return {
     title: post.title,
     description: post.excerpt,
     alternates: {
       canonical: url,
+      languages: getLanguageAlternates(path),
     },
     openGraph: {
       title: post.title,
@@ -57,7 +59,7 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const locale = await getUserLocale();
+  const locale = await getLocale();
   const t = await getTranslations("Blog");
   const post = await getPostBySlug(locale, slug);
 
@@ -75,7 +77,7 @@ export default async function BlogPostPage({
     zh: "zh-CN",
     de: "de-DE",
   };
-  const postUrl = `${siteConfig.url}/blog/${slug}`;
+  const postUrl = getLocalizedUrl(locale, `/blog/${slug}`);
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -107,7 +109,7 @@ export default async function BlogPostPage({
         "@type": "ListItem",
         position: 1,
         name: "Blog",
-        item: `${siteConfig.url}/blog`,
+        item: `${siteConfig.url}/${locale}/blog`,
       },
       {
         "@type": "ListItem",

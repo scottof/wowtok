@@ -1,17 +1,21 @@
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
-import { siteConfig } from "@/config/site";
+import { getLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
+import { getLanguageAlternates, getLocalizedUrl } from "@/lib/seo/locale-urls";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Privacy");
+  const locale = await getLocale();
+  const url = getLocalizedUrl(locale, "/privacy");
   return {
     title: t("title"),
     description: t("metaDescription"),
     alternates: {
-      canonical: `${siteConfig.url}/privacy`,
+      canonical: url,
+      languages: getLanguageAlternates("/privacy"),
     },
   };
 }

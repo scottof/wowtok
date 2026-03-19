@@ -1,19 +1,17 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./logo";
 import { LanguageSwitcher } from "./language-switcher";
 import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const t = useTranslations("Nav");
   const pathname = usePathname();
-  const router = useRouter();
 
   const navLinks = [
     { href: "/#features", label: t("features") },

@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { Sidebar } from "@/components/dashboard/sidebar";
@@ -21,13 +22,14 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getLocale();
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login");
+    redirect(`/${locale}/login`);
   }
 
   // Ensure user exists in our database and fetch subscription

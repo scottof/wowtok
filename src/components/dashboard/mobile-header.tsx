@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Menu,
   LayoutDashboard,
@@ -27,7 +26,8 @@ import { PlanSelectionDialog } from "@/components/dashboard/plan-selection-dialo
 import { FeedbackModal } from "@/components/dashboard/feedback-modal";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 
 const allLinks = [
   { href: "/dashboard", labelKey: "myVideos", icon: LayoutDashboard, requiresSub: false },
@@ -47,6 +47,7 @@ export function MobileHeader({ hasSubscription }: MobileHeaderProps) {
   const [showFeedback, setShowFeedback] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const locale = useLocale();
   const t = useTranslations("Dashboard");
   const tFeedback = useTranslations("Feedback");
 
@@ -58,7 +59,7 @@ export function MobileHeader({ hasSubscription }: MobileHeaderProps) {
     setOpen(false);
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push("/");
+    router.push(`/${locale}`);
     router.refresh();
   }
 

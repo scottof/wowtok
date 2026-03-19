@@ -1,12 +1,12 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
 import { getPostsByLocale } from "@/data/blog";
-import { getUserLocale } from "@/i18n/locale";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { siteConfig } from "@/config/site";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Metadata } from "next";
+import { getLanguageAlternates, getLocalizedUrl } from "@/lib/seo/locale-urls";
 
 export async function generateMetadata({
   searchParams,
@@ -15,17 +15,23 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { page } = await searchParams;
   const currentPage = Math.max(1, parseInt(page || "1", 10));
+  const locale = await getLocale();
   const t = await getTranslations("Blog");
-  const canonical =
-    currentPage > 1
-      ? `${siteConfig.url}/blog?page=${currentPage}`
-      : `${siteConfig.url}/blog`;
+  const canonical = getLocalizedUrl(
+    locale,
+    "/blog",
+    currentPage > 1 ? { page: currentPage } : undefined
+  );
 
   return {
     title: currentPage > 1 ? `${t("title")} - Page ${currentPage}` : t("title"),
     description: t("subtitle"),
     alternates: {
       canonical,
+      languages: getLanguageAlternates(
+        "/blog",
+        currentPage > 1 ? { page: currentPage } : undefined
+      ),
     },
     openGraph: {
       title: currentPage > 1 ? `${t("title")} - Page ${currentPage}` : t("title"),
@@ -51,7 +57,7 @@ export default async function BlogPage({
 }) {
   const { page } = await searchParams;
   const currentPage = Math.max(1, parseInt(page || "1", 10));
-  const locale = await getUserLocale();
+  const locale = await getLocale();
   const t = await getTranslations("Blog");
   const allPosts = await getPostsByLocale(locale);
 

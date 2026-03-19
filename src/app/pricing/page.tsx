@@ -3,24 +3,31 @@ import { Footer } from "@/components/shared/footer";
 import { PricingCards } from "@/components/landing/pricing-cards";
 import { FAQ } from "@/components/landing/faq";
 import { createClient } from "@/lib/supabase/server";
-import { siteConfig } from "@/config/site";
+import { getLocale } from "next-intl/server";
 import type { Metadata } from "next";
+import { getLanguageAlternates, getLocalizedUrl } from "@/lib/seo/locale-urls";
 
-export const metadata: Metadata = {
-  title: "Pricing",
-  description:
-    "Simple, transparent pricing for WowTok. Start free, upgrade when you're ready. Cancel anytime.",
-  alternates: {
-    canonical: `${siteConfig.url}/pricing`,
-  },
-  openGraph: {
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const url = getLocalizedUrl(locale, "/pricing");
+
+  return {
     title: "Pricing",
     description:
       "Simple, transparent pricing for WowTok. Start free, upgrade when you're ready. Cancel anytime.",
-    url: `${siteConfig.url}/pricing`,
-    type: "website",
-  },
-};
+    alternates: {
+      canonical: url,
+      languages: getLanguageAlternates("/pricing"),
+    },
+    openGraph: {
+      title: "Pricing",
+      description:
+        "Simple, transparent pricing for WowTok. Start free, upgrade when you're ready. Cancel anytime.",
+      url,
+      type: "website",
+    },
+  };
+}
 
 export default async function PricingPage() {
   const supabase = await createClient();
