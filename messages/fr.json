@@ -110,9 +110,9 @@
     "toolContentGenerator": "Générateur de Contenu",
     "toolVoiceover": "Voix Off IA",
     "toolNoFace": "Vidéos Sans Visage",
-    "generators": "Générateurs populaires",
+    "generators": "Types de vidéos populaires",
     "toolCaptions": "Générateur de sous-titres",
-    "viewAllGenerators": "Voir tous les générateurs"
+    "viewAllGenerators": "Voir toutes les idées et tous les outils"
   },
   "Auth": {
     "loginTitle": "Bon retour",
@@ -2779,14 +2779,14 @@
     "faq8A": "Cela depend de votre forfait et du quota mensuel inclus."
   },
   "ToolsHub": {
-    "eyebrow": "Découvrir",
-    "title": "Explorer les générateurs WowTok",
-    "subtitle": "Parcourez toute la bibliothèque de générateurs TikTok IA, de pages par thème et de landing pages par format disponibles sur WowTok.",
-    "featuredTitle": "Générateurs populaires",
-    "featuredSubtitle": "Commencez par les générateurs les plus utiles pour les créateurs, les marques et les équipes de contenu.",
-    "themesTitle": "Générateurs par thème",
-    "themesSubtitle": "Trouvez des styles visuels conçus pour les histoires, les contenus d’ambiance et les formats TikTok par genre.",
+    "eyebrow": "Explorer",
+    "title": "Idées et outils IA pour les vidéos TikTok",
+    "subtitle": "Découvrez les différentes façons de créer des vidéos TikTok avec l’IA sur WowTok, des thèmes narratifs aux formats de contenu les plus pratiques.",
+    "featuredTitle": "Façons populaires de créer",
+    "featuredSubtitle": "Commencez par les parcours de création les plus utiles pour les créateurs, les marques et les équipes de contenu.",
+    "themesTitle": "Styles narratifs et thèmes",
+    "themesSubtitle": "Trouvez des directions visuelles conçues pour le storytelling, les vidéos d’ambiance et les idées TikTok liées à un genre.",
     "formatsTitle": "Formats et cas d’usage",
-    "formatsSubtitle": "Explorez des pages spécialisées pour la voix off, les sous-titres, les vidéos sans visage et d’autres workflows TikTok récurrents."
+    "formatsSubtitle": "Explorez des pages pour les vidéos en voix off, les sous-titres, les formats sans visage et d’autres workflows TikTok répétables."
   }
 }

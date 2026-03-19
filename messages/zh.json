@@ -110,9 +110,9 @@
     "toolContentGenerator": "内容生成器",
     "toolVoiceover": "AI配音",
     "toolNoFace": "无需出镜视频",
-    "generators": "热门生成器",
+    "generators": "热门视频类型",
     "toolCaptions": "字幕生成器",
-    "viewAllGenerators": "查看全部生成器"
+    "viewAllGenerators": "查看全部创意与工具"
   },
   "Auth": {
     "loginTitle": "欢迎回来",
@@ -2779,14 +2779,14 @@
     "ctaButton": "免费开始"
   },
   "ToolsHub": {
-    "eyebrow": "发现",
-    "title": "浏览 WowTok 生成器",
-    "subtitle": "查看 WowTok 提供的完整 AI TikTok 生成器、主题页和不同内容格式的落地页。",
-    "featuredTitle": "热门生成器",
-    "featuredSubtitle": "先从最适合创作者、品牌和内容团队的核心生成器开始。",
-    "themesTitle": "主题类生成器",
-    "themesSubtitle": "查找适合故事化内容、氛围感内容和不同题材 TikTok 视频的视觉主题。",
+    "eyebrow": "探索",
+    "title": "AI TikTok 视频创意与工具",
+    "subtitle": "浏览你可以在 WowTok 上用 AI 制作 TikTok 视频的不同方式，包括故事题材和实用内容形式。",
+    "featuredTitle": "热门创作方式",
+    "featuredSubtitle": "先从最适合创作者、品牌和内容团队的创作方向开始。",
+    "themesTitle": "故事风格与主题",
+    "themesSubtitle": "查找适合剧情叙事、氛围感视频和不同题材 TikTok 灵感的视觉方向。",
     "formatsTitle": "内容形式与用例",
-    "formatsSubtitle": "浏览配音、字幕、无露脸视频等常见 TikTok 工作流的专用页面。"
+    "formatsSubtitle": "浏览适用于配音视频、字幕视频、无露脸视频等可重复使用的 TikTok 工作流页面。"
   }
 }

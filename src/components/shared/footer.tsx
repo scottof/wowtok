@@ -25,8 +25,6 @@ export function Footer() {
     { label: t("toolVideoGenerator"), href: `/${featuredSeoPageSlugs[0]}` },
     { label: t("toolContentGenerator"), href: `/${featuredSeoPageSlugs[1]}` },
     { label: t("toolVoiceover"), href: `/${featuredSeoPageSlugs[2]}` },
-    { label: t("toolNoFace"), href: `/${featuredSeoPageSlugs[3]}` },
-    { label: t("toolCaptions"), href: `/${featuredSeoPageSlugs[4]}` },
     { label: t("viewAllGenerators"), href: "/ai-tiktok-generators" },
   ];
 

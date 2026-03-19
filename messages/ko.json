@@ -110,9 +110,9 @@
     "toolContentGenerator": "콘텐츠 생성기",
     "toolVoiceover": "AI 음성 생성",
     "toolNoFace": "얼굴 없는 비디오",
-    "generators": "인기 생성기",
+    "generators": "인기 영상 유형",
     "toolCaptions": "자막 생성기",
-    "viewAllGenerators": "모든 생성기 보기"
+    "viewAllGenerators": "모든 아이디어와 도구 보기"
   },
   "Auth": {
     "loginTitle": "다시 오신 것을 환영합니다",
@@ -2780,13 +2780,13 @@
   },
   "ToolsHub": {
     "eyebrow": "탐색",
-    "title": "WowTok 생성기 둘러보기",
-    "subtitle": "WowTok에서 제공하는 전체 AI TikTok 생성기, 테마 페이지, 포맷별 랜딩 페이지를 한곳에서 살펴보세요.",
-    "featuredTitle": "인기 생성기",
-    "featuredSubtitle": "크리에이터, 브랜드, 콘텐츠 팀이 가장 많이 활용하는 핵심 생성기부터 시작하세요.",
-    "themesTitle": "테마별 생성기",
-    "themesSubtitle": "스토리형 콘텐츠, 분위기 중심 콘텐츠, 장르별 TikTok 포맷에 맞는 비주얼 스타일을 찾아보세요.",
+    "title": "AI TikTok 영상 아이디어와 도구",
+    "subtitle": "WowTok에서 AI로 TikTok 영상을 만드는 다양한 방법을 살펴보세요. 스토리 테마부터 실용적인 콘텐츠 포맷까지 한곳에 모았습니다.",
+    "featuredTitle": "인기 있는 제작 방식",
+    "featuredSubtitle": "크리에이터, 브랜드, 콘텐츠 팀에 가장 유용한 제작 방식부터 시작하세요.",
+    "themesTitle": "스토리 스타일과 테마",
+    "themesSubtitle": "스토리텔링, 분위기 중심 영상, 장르별 TikTok 아이디어에 맞는 비주얼 방향을 찾아보세요.",
     "formatsTitle": "포맷 및 활용 사례",
-    "formatsSubtitle": "보이스오버, 자막, 노페이스 영상 등 자주 쓰이는 TikTok 작업 흐름별 전용 페이지를 둘러보세요."
+    "formatsSubtitle": "보이스오버 영상, 자막, 얼굴이 나오지 않는 포맷 등 반복해서 활용할 수 있는 TikTok 작업 흐름 페이지를 둘러보세요."
   }
 }

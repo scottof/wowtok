@@ -110,9 +110,9 @@
     "toolContentGenerator": "Generatore di Contenuti",
     "toolVoiceover": "Voce Fuori Campo IA",
     "toolNoFace": "Video Senza Volto",
-    "generators": "Generatori popolari",
+    "generators": "Tipi di video popolari",
     "toolCaptions": "Generatore di sottotitoli",
-    "viewAllGenerators": "Vedi tutti i generatori"
+    "viewAllGenerators": "Vedi tutte le idee e gli strumenti"
   },
   "Auth": {
     "loginTitle": "Bentornato",
@@ -2779,14 +2779,14 @@
     "ctaButton": "Inizia gratis"
   },
   "ToolsHub": {
-    "eyebrow": "Scopri",
-    "title": "Esplora i generatori WowTok",
-    "subtitle": "Sfoglia l’intera libreria di generatori AI per TikTok, temi e pagine dedicate ai diversi formati disponibili su WowTok.",
-    "featuredTitle": "Generatori popolari",
-    "featuredSubtitle": "Inizia dai generatori più utili per creator, brand e team di contenuti.",
-    "themesTitle": "Generatori per tema",
-    "themesSubtitle": "Trova stili visivi pensati per storie, contenuti d’atmosfera e formati TikTok legati a un genere.",
+    "eyebrow": "Esplora",
+    "title": "Idee e strumenti AI per video TikTok",
+    "subtitle": "Scopri i diversi modi in cui puoi creare video TikTok con l’AI su WowTok, dai temi narrativi ai formati di contenuto più pratici.",
+    "featuredTitle": "Modi popolari per creare",
+    "featuredSubtitle": "Inizia dai percorsi di creazione più utili per creator, brand e team di contenuti.",
+    "themesTitle": "Stili narrativi e temi",
+    "themesSubtitle": "Trova direzioni visive pensate per storytelling, video d’atmosfera e idee TikTok legate a un genere.",
     "formatsTitle": "Formati e casi d’uso",
-    "formatsSubtitle": "Esplora pagine specializzate per voiceover, sottotitoli, video senza volto e altri flussi di lavoro ricorrenti su TikTok."
+    "formatsSubtitle": "Esplora pagine dedicate a voiceover, sottotitoli, video senza volto e altri flussi di lavoro ricorrenti per TikTok."
   }
 }

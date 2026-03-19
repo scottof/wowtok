@@ -110,9 +110,9 @@
     "toolContentGenerator": "Content-Generator",
     "toolVoiceover": "KI Voiceover",
     "toolNoFace": "Videos ohne Gesicht",
-    "generators": "Beliebte Generatoren",
+    "generators": "Beliebte Videotypen",
     "toolCaptions": "Untertitel-Generator",
-    "viewAllGenerators": "Alle Generatoren ansehen"
+    "viewAllGenerators": "Alle Ideen und Tools ansehen"
   },
   "Auth": {
     "loginTitle": "Willkommen zuruck",
@@ -2780,13 +2780,13 @@
   },
   "ToolsHub": {
     "eyebrow": "Entdecken",
-    "title": "WowTok-Generatoren entdecken",
-    "subtitle": "Durchsuche die komplette Bibliothek an KI-TikTok-Generatoren, Themenseiten und formatbezogenen Landingpages auf WowTok.",
-    "featuredTitle": "Beliebte Generatoren",
-    "featuredSubtitle": "Starte mit den vielseitigsten Generatoren für Creator, Marken und Content-Teams.",
-    "themesTitle": "Themenbasierte Generatoren",
-    "themesSubtitle": "Finde visuelle Stile für Storytelling, stimmungsgetriebenen Content und genrebezogene TikTok-Formate.",
+    "title": "KI-Ideen und Tools für TikTok-Videos",
+    "subtitle": "Sieh dir an, auf welche Arten du mit KI auf WowTok TikTok-Videos erstellen kannst, von Story-Themen bis zu praktischen Content-Formaten.",
+    "featuredTitle": "Beliebte Wege zum Erstellen",
+    "featuredSubtitle": "Starte mit den nützlichsten Erstellungswegen für Creator, Marken und Content-Teams.",
+    "themesTitle": "Story-Stile und Themen",
+    "themesSubtitle": "Finde visuelle Richtungen für Storytelling, stimmungsgetriebene Videos und genrebezogene TikTok-Ideen.",
     "formatsTitle": "Formate und Anwendungsfälle",
-    "formatsSubtitle": "Entdecke spezialisierte Seiten für Voice-over, Untertitel, faceless Videos und andere wiederkehrende TikTok-Workflows."
+    "formatsSubtitle": "Entdecke Seiten für Voice-over-Videos, Untertitel, faceless Formate und andere wiederholbare TikTok-Workflows."
   }
 }

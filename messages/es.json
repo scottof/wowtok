@@ -110,9 +110,9 @@
     "toolContentGenerator": "Generador de Contenido",
     "toolVoiceover": "Voz en Off IA",
     "toolNoFace": "Videos Sin Rostro",
-    "generators": "Generadores populares",
+    "generators": "Tipos de video populares",
     "toolCaptions": "Generador de subtítulos",
-    "viewAllGenerators": "Ver todos los generadores"
+    "viewAllGenerators": "Ver todas las ideas y herramientas"
   },
   "Auth": {
     "loginTitle": "Bienvenido de vuelta",
@@ -2779,14 +2779,14 @@
     "faq8A": "Eso depende del plan que tengas activo y del límite mensual incluido."
   },
   "ToolsHub": {
-    "eyebrow": "Descubre",
-    "title": "Explora los generadores de WowTok",
-    "subtitle": "Revisa toda la biblioteca de generadores de TikTok con IA, temas y landing pages por formato disponibles en WowTok.",
-    "featuredTitle": "Generadores populares",
-    "featuredSubtitle": "Empieza por los generadores más útiles para creadores, marcas y equipos de contenido.",
-    "themesTitle": "Generadores por temática",
-    "themesSubtitle": "Encuentra estilos visuales pensados para historias, contenido con atmósfera y formatos de TikTok orientados a un género.",
+    "eyebrow": "Explora",
+    "title": "Ideas y herramientas con IA para videos de TikTok",
+    "subtitle": "Descubre las distintas maneras en que puedes crear videos de TikTok con IA en WowTok, desde temas narrativos hasta formatos de contenido prácticos.",
+    "featuredTitle": "Formas populares de crear",
+    "featuredSubtitle": "Empieza por los caminos de creación más útiles para creadores, marcas y equipos de contenido.",
+    "themesTitle": "Estilos narrativos y temáticas",
+    "themesSubtitle": "Encuentra direcciones visuales pensadas para storytelling, videos con atmósfera e ideas de TikTok según el género.",
     "formatsTitle": "Formatos y casos de uso",
-    "formatsSubtitle": "Explora páginas especializadas para voz en off, subtítulos, videos sin rostro y otros flujos de trabajo frecuentes en TikTok."
+    "formatsSubtitle": "Explora páginas para videos con voz en off, subtítulos, formatos sin rostro y otros flujos de trabajo repetibles en TikTok."
   }
 }

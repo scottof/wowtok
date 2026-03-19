@@ -110,9 +110,9 @@
     "toolContentGenerator": "Content Generator",
     "toolVoiceover": "AI Voiceover",
     "toolNoFace": "No-Face Video Maker",
-    "generators": "Popular Generators",
+    "generators": "Popular Video Types",
     "toolCaptions": "Caption Generator",
-    "viewAllGenerators": "View all generators"
+    "viewAllGenerators": "View all ideas & tools"
   },
   "Auth": {
     "loginTitle": "Welcome back",
@@ -2779,14 +2779,14 @@
     "ctaButton": "Get started free"
   },
   "ToolsHub": {
-    "eyebrow": "Discover",
-    "title": "Explore WowTok Generators",
-    "subtitle": "Browse the full library of AI TikTok generators, themes, and format-specific landing pages available on WowTok.",
-    "featuredTitle": "Popular Generators",
-    "featuredSubtitle": "Start with the most broadly useful generators for creators, brands, and content teams.",
-    "themesTitle": "Theme-Based Generators",
-    "themesSubtitle": "Find visual styles built for stories, mood-driven content, and genre-specific TikTok formats.",
+    "eyebrow": "Explore",
+    "title": "AI TikTok Video Ideas & Tools",
+    "subtitle": "Browse the different ways you can create TikTok videos with AI on WowTok, from storytelling themes to practical content formats.",
+    "featuredTitle": "Popular Ways To Create",
+    "featuredSubtitle": "Start with the most useful creation paths for creators, brands, and content teams.",
+    "themesTitle": "Story Styles And Themes",
+    "themesSubtitle": "Find visual directions built for storytelling, mood-driven videos, and genre-specific TikTok ideas.",
     "formatsTitle": "Formats And Use Cases",
-    "formatsSubtitle": "Explore specialized pages for voiceover, captions, faceless videos, and other recurring TikTok workflows."
+    "formatsSubtitle": "Explore pages for voiceover videos, captions, faceless formats, and other repeatable TikTok workflows."
   }
 }
