@@ -10,19 +10,20 @@ import { getLanguageAlternates, getLocalizedUrl } from "@/lib/seo/locale-urls";
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const url = getLocalizedUrl(locale, "/pricing");
+  const title = "AI TikTok Video Generator Pricing";
+  const description =
+    "Compare WowTok pricing plans for AI TikTok video generation, voiceovers, and automated content creation. Start free and upgrade anytime.";
 
   return {
-    title: "Pricing",
-    description:
-      "Simple, transparent pricing for WowTok. Start free, upgrade when you're ready. Cancel anytime.",
+    title,
+    description,
     alternates: {
       canonical: url,
       languages: getLanguageAlternates("/pricing"),
     },
     openGraph: {
-      title: "Pricing",
-      description:
-        "Simple, transparent pricing for WowTok. Start free, upgrade when you're ready. Cancel anytime.",
+      title,
+      description,
       url,
       type: "website",
     },

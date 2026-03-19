@@ -22,10 +22,15 @@ export async function generateMetadata({
     "/blog",
     currentPage > 1 ? { page: currentPage } : undefined
   );
+  const titleBase = "AI TikTok Video Blog";
+  const title =
+    currentPage > 1 ? `${titleBase} - Page ${currentPage}` : titleBase;
+  const description =
+    "Read tutorials, prompts, and growth tips for creating TikTok videos with AI, voiceovers, captions, and faceless formats.";
 
   return {
-    title: currentPage > 1 ? `${t("title")} - Page ${currentPage}` : t("title"),
-    description: t("subtitle"),
+    title,
+    description,
     alternates: {
       canonical,
       languages: getLanguageAlternates(
@@ -34,15 +39,15 @@ export async function generateMetadata({
       ),
     },
     openGraph: {
-      title: currentPage > 1 ? `${t("title")} - Page ${currentPage}` : t("title"),
-      description: t("subtitle"),
+      title,
+      description,
       url: canonical,
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: currentPage > 1 ? `${t("title")} - Page ${currentPage}` : t("title"),
-      description: t("subtitle"),
+      title,
+      description,
       images: [siteConfig.ogImage],
     },
   };

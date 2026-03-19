@@ -5,6 +5,12 @@ import { SeoPageTemplate } from "@/components/seo/seo-page-template";
 import { allSeoPages, getSeoPageBySlug } from "@/config/seo-pages";
 import { getLanguageAlternates, getLocalizedUrl } from "@/lib/seo/locale-urls";
 
+function stripTrailingBrand(metaTitle: string) {
+  return metaTitle
+    .replace(/\s*\|\s*WowTok AI\s*$/i, "")
+    .replace(/\s*\|\s*WowTok\s*$/i, "");
+}
+
 export function generateSeoStaticParams() {
   return allSeoPages.map((page) => ({ seoSlug: page.slug }));
 }
@@ -21,16 +27,17 @@ export async function generateSeoMetadata({
   const locale = await getLocale();
   const pagePath = `/${seoSlug}`;
   const pageUrl = getLocalizedUrl(locale, pagePath);
+  const title = stripTrailingBrand(t("metaTitle"));
 
   return {
-    title: t("metaTitle"),
+    title,
     description: t("metaDescription"),
     alternates: {
       canonical: pageUrl,
       languages: getLanguageAlternates(pagePath),
     },
     openGraph: {
-      title: t("metaTitle"),
+      title,
       description: t("metaDescription"),
       url: pageUrl,
       type: "website",
