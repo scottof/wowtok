@@ -191,6 +191,30 @@ export const allSeoPages: SeoPageConfig[] = [
   },
 ];
 
+export const featuredSeoPageSlugs = [
+  "ai-tiktok-video-generator",
+  "ai-tiktok-content-generator",
+  "ai-voiceover-tiktok",
+  "tiktok-video-maker-no-face",
+  "ai-tiktok-caption-generator",
+] as const;
+
 export function getSeoPageBySlug(slug: string): SeoPageConfig | undefined {
   return allSeoPages.find((p) => p.slug === slug);
+}
+
+export function getFeaturedSeoPages() {
+  return featuredSeoPageSlugs
+    .map((slug) => getSeoPageBySlug(slug))
+    .filter((page): page is SeoPageConfig => Boolean(page));
+}
+
+export function getThemeSeoPages() {
+  return allSeoPages.filter((page) => Boolean(page.themeId));
+}
+
+export function getUtilitySeoPages() {
+  return allSeoPages.filter(
+    (page) => page.type === "niche" && !page.themeId
+  );
 }

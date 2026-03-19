@@ -109,7 +109,10 @@
     "toolVideoGenerator": "KI Video-Generator",
     "toolContentGenerator": "Content-Generator",
     "toolVoiceover": "KI Voiceover",
-    "toolNoFace": "Videos ohne Gesicht"
+    "toolNoFace": "Videos ohne Gesicht",
+    "generators": "Beliebte Generatoren",
+    "toolCaptions": "Untertitel-Generator",
+    "viewAllGenerators": "Alle Generatoren ansehen"
   },
   "Auth": {
     "loginTitle": "Willkommen zuruck",
@@ -2774,5 +2777,16 @@
     "faq7A": "Lade die finale MP4 herunter und poste sie anschließend über die TikTok-App.",
     "faq8Q": "Wie viele Videos kann ich pro Monat erstellen?",
     "faq8A": "Das hängt von deinem Tarif und dem enthaltenen Monatskontingent ab."
+  },
+  "ToolsHub": {
+    "eyebrow": "Entdecken",
+    "title": "WowTok-Generatoren entdecken",
+    "subtitle": "Durchsuche die komplette Bibliothek an KI-TikTok-Generatoren, Themenseiten und formatbezogenen Landingpages auf WowTok.",
+    "featuredTitle": "Beliebte Generatoren",
+    "featuredSubtitle": "Starte mit den vielseitigsten Generatoren für Creator, Marken und Content-Teams.",
+    "themesTitle": "Themenbasierte Generatoren",
+    "themesSubtitle": "Finde visuelle Stile für Storytelling, stimmungsgetriebenen Content und genrebezogene TikTok-Formate.",
+    "formatsTitle": "Formate und Anwendungsfälle",
+    "formatsSubtitle": "Entdecke spezialisierte Seiten für Voice-over, Untertitel, faceless Videos und andere wiederkehrende TikTok-Workflows."
   }
 }

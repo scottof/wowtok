@@ -109,7 +109,10 @@
     "toolVideoGenerator": "Generador de Video IA",
     "toolContentGenerator": "Generador de Contenido",
     "toolVoiceover": "Voz en Off IA",
-    "toolNoFace": "Videos Sin Rostro"
+    "toolNoFace": "Videos Sin Rostro",
+    "generators": "Generadores populares",
+    "toolCaptions": "Generador de subtítulos",
+    "viewAllGenerators": "Ver todos los generadores"
   },
   "Auth": {
     "loginTitle": "Bienvenido de vuelta",
@@ -2774,5 +2777,16 @@
     "faq7A": "Descargas el MP4 final y lo subes directamente desde la app de TikTok.",
     "faq8Q": "¿Cuántos videos puedo crear al mes?",
     "faq8A": "Eso depende del plan que tengas activo y del límite mensual incluido."
+  },
+  "ToolsHub": {
+    "eyebrow": "Descubre",
+    "title": "Explora los generadores de WowTok",
+    "subtitle": "Revisa toda la biblioteca de generadores de TikTok con IA, temas y landing pages por formato disponibles en WowTok.",
+    "featuredTitle": "Generadores populares",
+    "featuredSubtitle": "Empieza por los generadores más útiles para creadores, marcas y equipos de contenido.",
+    "themesTitle": "Generadores por temática",
+    "themesSubtitle": "Encuentra estilos visuales pensados para historias, contenido con atmósfera y formatos de TikTok orientados a un género.",
+    "formatsTitle": "Formatos y casos de uso",
+    "formatsSubtitle": "Explora páginas especializadas para voz en off, subtítulos, videos sin rostro y otros flujos de trabajo frecuentes en TikTok."
   }
 }

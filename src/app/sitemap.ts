@@ -7,6 +7,11 @@ import { getLanguageAlternates, getLocalizedUrl } from "@/lib/seo/locale-urls";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     { path: "/", changeFrequency: "weekly" as const, priority: 1 },
+    {
+      path: "/ai-tiktok-generators",
+      changeFrequency: "weekly" as const,
+      priority: 0.85,
+    },
     { path: "/pricing", changeFrequency: "weekly" as const, priority: 0.9 },
     { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
     { path: "/terms", changeFrequency: "yearly" as const, priority: 0.3 },

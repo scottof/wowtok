@@ -109,7 +109,10 @@
     "toolVideoGenerator": "AI Video Generator",
     "toolContentGenerator": "Content Generator",
     "toolVoiceover": "AI Voiceover",
-    "toolNoFace": "No-Face Video Maker"
+    "toolNoFace": "No-Face Video Maker",
+    "generators": "Popular Generators",
+    "toolCaptions": "Caption Generator",
+    "viewAllGenerators": "View all generators"
   },
   "Auth": {
     "loginTitle": "Welcome back",
@@ -2774,5 +2777,16 @@
     "ctaTitle": "Start Creating Drama TikTok Videos Today",
     "ctaSubtitle": "Join storytellers who use WowTok to craft emotionally powerful, cinematic drama content that moves audiences and builds deeply engaged communities.",
     "ctaButton": "Get started free"
+  },
+  "ToolsHub": {
+    "eyebrow": "Discover",
+    "title": "Explore WowTok Generators",
+    "subtitle": "Browse the full library of AI TikTok generators, themes, and format-specific landing pages available on WowTok.",
+    "featuredTitle": "Popular Generators",
+    "featuredSubtitle": "Start with the most broadly useful generators for creators, brands, and content teams.",
+    "themesTitle": "Theme-Based Generators",
+    "themesSubtitle": "Find visual styles built for stories, mood-driven content, and genre-specific TikTok formats.",
+    "formatsTitle": "Formats And Use Cases",
+    "formatsSubtitle": "Explore specialized pages for voiceover, captions, faceless videos, and other recurring TikTok workflows."
   }
 }

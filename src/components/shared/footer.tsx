@@ -3,6 +3,7 @@
 import { Logo } from "./logo";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
+import { featuredSeoPageSlugs } from "@/config/seo-pages";
 
 export function Footer() {
   const t = useTranslations("Footer");
@@ -20,6 +21,15 @@ export function Footer() {
     // On non-landing pages, let the Link navigate normally to /#section
   }
 
+  const generatorLinks = [
+    { label: t("toolVideoGenerator"), href: `/${featuredSeoPageSlugs[0]}` },
+    { label: t("toolContentGenerator"), href: `/${featuredSeoPageSlugs[1]}` },
+    { label: t("toolVoiceover"), href: `/${featuredSeoPageSlugs[2]}` },
+    { label: t("toolNoFace"), href: `/${featuredSeoPageSlugs[3]}` },
+    { label: t("toolCaptions"), href: `/${featuredSeoPageSlugs[4]}` },
+    { label: t("viewAllGenerators"), href: "/ai-tiktok-generators" },
+  ];
+
   const footerLinks = {
     [t("product")]: [
       { label: tNav("features"), href: "/#features" },
@@ -27,12 +37,7 @@ export function Footer() {
       { label: tNav("howItWorks"), href: "/#how-it-works" },
       { label: tNav("faq"), href: "/#faq" },
     ],
-    [t("tools")]: [
-      { label: t("toolVideoGenerator"), href: "/ai-tiktok-video-generator" },
-      { label: t("toolContentGenerator"), href: "/ai-tiktok-content-generator" },
-      { label: t("toolVoiceover"), href: "/ai-voiceover-tiktok" },
-      { label: t("toolNoFace"), href: "/tiktok-video-maker-no-face" },
-    ],
+    [t("generators")]: generatorLinks,
     [t("company")]: [
       { label: t("blog"), href: "/blog" },
       { label: t("contact"), href: "mailto:hello@wowtok.com" },

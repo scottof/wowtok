@@ -109,7 +109,10 @@
     "toolVideoGenerator": "AI 비디오 생성기",
     "toolContentGenerator": "콘텐츠 생성기",
     "toolVoiceover": "AI 음성 생성",
-    "toolNoFace": "얼굴 없는 비디오"
+    "toolNoFace": "얼굴 없는 비디오",
+    "generators": "인기 생성기",
+    "toolCaptions": "자막 생성기",
+    "viewAllGenerators": "모든 생성기 보기"
   },
   "Auth": {
     "loginTitle": "다시 오신 것을 환영합니다",
@@ -2774,5 +2777,16 @@
     "faq5A": "네. 같은 비주얼 방향을 유지하면서 새로운 스크립트로 다음 편을 계속 만들 수 있습니다.",
     "faq6Q": "바로 게시할 수 있나요?",
     "faq6A": "네. TikTok, Reels, Shorts에 바로 업로드할 수 있는 세로형 MP4 파일을 받게 됩니다."
+  },
+  "ToolsHub": {
+    "eyebrow": "탐색",
+    "title": "WowTok 생성기 둘러보기",
+    "subtitle": "WowTok에서 제공하는 전체 AI TikTok 생성기, 테마 페이지, 포맷별 랜딩 페이지를 한곳에서 살펴보세요.",
+    "featuredTitle": "인기 생성기",
+    "featuredSubtitle": "크리에이터, 브랜드, 콘텐츠 팀이 가장 많이 활용하는 핵심 생성기부터 시작하세요.",
+    "themesTitle": "테마별 생성기",
+    "themesSubtitle": "스토리형 콘텐츠, 분위기 중심 콘텐츠, 장르별 TikTok 포맷에 맞는 비주얼 스타일을 찾아보세요.",
+    "formatsTitle": "포맷 및 활용 사례",
+    "formatsSubtitle": "보이스오버, 자막, 노페이스 영상 등 자주 쓰이는 TikTok 작업 흐름별 전용 페이지를 둘러보세요."
   }
 }

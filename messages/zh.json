@@ -109,7 +109,10 @@
     "toolVideoGenerator": "AI视频生成器",
     "toolContentGenerator": "内容生成器",
     "toolVoiceover": "AI配音",
-    "toolNoFace": "无需出镜视频"
+    "toolNoFace": "无需出镜视频",
+    "generators": "热门生成器",
+    "toolCaptions": "字幕生成器",
+    "viewAllGenerators": "查看全部生成器"
   },
   "Auth": {
     "loginTitle": "欢迎回来",
@@ -2774,5 +2777,16 @@
     "ctaTitle": "立即开始制作科幻TikTok视频",
     "ctaSubtitle": "加入使用WowTok创作惊艳科幻内容的创作者，把未来叙事变成真正吸引观众并建立社群的短视频。",
     "ctaButton": "免费开始"
+  },
+  "ToolsHub": {
+    "eyebrow": "发现",
+    "title": "浏览 WowTok 生成器",
+    "subtitle": "查看 WowTok 提供的完整 AI TikTok 生成器、主题页和不同内容格式的落地页。",
+    "featuredTitle": "热门生成器",
+    "featuredSubtitle": "先从最适合创作者、品牌和内容团队的核心生成器开始。",
+    "themesTitle": "主题类生成器",
+    "themesSubtitle": "查找适合故事化内容、氛围感内容和不同题材 TikTok 视频的视觉主题。",
+    "formatsTitle": "内容形式与用例",
+    "formatsSubtitle": "浏览配音、字幕、无露脸视频等常见 TikTok 工作流的专用页面。"
   }
 }
