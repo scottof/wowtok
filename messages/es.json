@@ -141,7 +141,9 @@
   },
   "PricingPage": {
     "title": "Precios",
-    "description": "Precios simples y transparentes para WowTok. Cancela en cualquier momento."
+    "description": "Precios simples y transparentes para WowTok. Cancela en cualquier momento.",
+    "metaTitle": "Precios del generador de videos de TikTok con IA",
+    "metaDescription": "Compara los planes de WowTok para generación de videos de TikTok con IA, voz en off y creación automatizada de contenido. Empieza gratis y mejora tu plan cuando quieras."
   },
   "Dashboard": {
     "myVideos": "Mis Videos",
@@ -287,6 +289,8 @@
   "Blog": {
     "title": "Blog",
     "subtitle": "Consejos, tutoriales e ideas sobre la creación de videos con IA.",
+    "metaTitle": "Blog de videos de TikTok con IA",
+    "metaDescription": "Lee tutoriales, prompts y consejos de crecimiento para crear videos de TikTok con IA, voz en off, subtítulos y formatos sin rostro.",
     "backToBlog": "Volver al blog",
     "ctaTitle": "¿Listo para crear videos con IA?",
     "ctaDescription": "Empieza a generar videos de TikTok con WowTok hoy.",

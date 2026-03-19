@@ -141,7 +141,9 @@
   },
   "PricingPage": {
     "title": "Preise",
-    "description": "Einfache, transparente Preise für WowTok. Jederzeit kündbar."
+    "description": "Einfache, transparente Preise für WowTok. Jederzeit kündbar.",
+    "metaTitle": "Preise für den KI-TikTok-Video-Generator",
+    "metaDescription": "Vergleiche die WowTok-Tarife für KI-TikTok-Videogenerierung, Voice-over und automatisierte Content-Erstellung. Starte kostenlos und upgrade jederzeit."
   },
   "Dashboard": {
     "myVideos": "Meine Videos",
@@ -287,6 +289,8 @@
   "Blog": {
     "title": "Blog",
     "subtitle": "Tipps, Tutorials und Einblicke in die KI-Videoerstellung.",
+    "metaTitle": "Blog für KI-TikTok-Videos",
+    "metaDescription": "Lies Tutorials, Prompt-Ideen und Wachstumstipps für TikTok-Videos mit KI, Voice-over, Untertiteln und faceless Formaten.",
     "backToBlog": "Zurück zum Blog",
     "ctaTitle": "Bereit, KI-Videos zu erstellen?",
     "ctaDescription": "Beginne noch heute mit WowTok TikTok-Videos zu generieren.",

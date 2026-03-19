@@ -141,7 +141,9 @@
   },
   "PricingPage": {
     "title": "Pricing",
-    "description": "Simple, transparent pricing for WowTok. Cancel anytime."
+    "description": "Simple, transparent pricing for WowTok. Cancel anytime.",
+    "metaTitle": "AI TikTok Video Generator Pricing",
+    "metaDescription": "Compare WowTok pricing plans for AI TikTok video generation, voiceovers, and automated content creation. Start free and upgrade anytime."
   },
   "Dashboard": {
     "myVideos": "My Videos",
@@ -287,6 +289,8 @@
   "Blog": {
     "title": "Blog",
     "subtitle": "Tips, tutorials, and insights about AI video creation.",
+    "metaTitle": "AI TikTok Video Blog",
+    "metaDescription": "Read tutorials, prompts, and growth tips for creating TikTok videos with AI, voiceovers, captions, and faceless formats.",
     "backToBlog": "Back to blog",
     "ctaTitle": "Ready to create AI videos?",
     "ctaDescription": "Start generating TikTok videos with WowTok today.",

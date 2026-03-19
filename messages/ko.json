@@ -141,7 +141,9 @@
   },
   "PricingPage": {
     "title": "요금제",
-    "description": "WowTok의 간단하고 투명한 가격. 언제든지 취소 가능."
+    "description": "WowTok의 간단하고 투명한 가격. 언제든지 취소 가능.",
+    "metaTitle": "AI TikTok 영상 생성기 요금제",
+    "metaDescription": "AI TikTok 영상 생성, 보이스오버, 자동화된 콘텐츠 제작을 위한 WowTok 요금제를 비교해 보세요. 무료로 시작하고 언제든 업그레이드할 수 있습니다."
   },
   "Dashboard": {
     "myVideos": "내 영상",
@@ -287,6 +289,8 @@
   "Blog": {
     "title": "블로그",
     "subtitle": "AI 영상 제작에 대한 팁, 튜토리얼 및 인사이트.",
+    "metaTitle": "AI TikTok 영상 블로그",
+    "metaDescription": "AI, 보이스오버, 자막, 노페이스 포맷으로 TikTok 영상을 만드는 튜토리얼, 프롬프트, 성장 팁을 읽어보세요.",
     "backToBlog": "블로그로 돌아가기",
     "ctaTitle": "AI 영상을 만들 준비가 되셨나요?",
     "ctaDescription": "지금 WowTok으로 TikTok 영상을 생성하세요.",

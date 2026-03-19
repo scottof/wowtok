@@ -22,11 +22,10 @@ export async function generateMetadata({
     "/blog",
     currentPage > 1 ? { page: currentPage } : undefined
   );
-  const titleBase = "AI TikTok Video Blog";
+  const titleBase = t("metaTitle");
   const title =
     currentPage > 1 ? `${titleBase} - Page ${currentPage}` : titleBase;
-  const description =
-    "Read tutorials, prompts, and growth tips for creating TikTok videos with AI, voiceovers, captions, and faceless formats.";
+  const description = t("metaDescription");
 
   return {
     title,

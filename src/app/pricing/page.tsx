@@ -3,16 +3,16 @@ import { Footer } from "@/components/shared/footer";
 import { PricingCards } from "@/components/landing/pricing-cards";
 import { FAQ } from "@/components/landing/faq";
 import { createClient } from "@/lib/supabase/server";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { getLanguageAlternates, getLocalizedUrl } from "@/lib/seo/locale-urls";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
+  const t = await getTranslations("PricingPage");
   const url = getLocalizedUrl(locale, "/pricing");
-  const title = "AI TikTok Video Generator Pricing";
-  const description =
-    "Compare WowTok pricing plans for AI TikTok video generation, voiceovers, and automated content creation. Start free and upgrade anytime.";
+  const title = t("metaTitle");
+  const description = t("metaDescription");
 
   return {
     title,

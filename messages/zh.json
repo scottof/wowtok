@@ -141,7 +141,9 @@
   },
   "PricingPage": {
     "title": "定价",
-    "description": "WowTok简单透明的定价。随时取消。"
+    "description": "WowTok简单透明的定价。随时取消。",
+    "metaTitle": "AI TikTok 视频生成器定价",
+    "metaDescription": "比较 WowTok 的 AI TikTok 视频生成、配音和自动化内容创作套餐。可免费开始，随时升级。"
   },
   "Dashboard": {
     "myVideos": "我的视频",
@@ -1015,6 +1017,8 @@
   "Blog": {
     "title": "博客",
     "subtitle": "关于AI视频创作的技巧、教程和见解。",
+    "metaTitle": "AI TikTok 视频博客",
+    "metaDescription": "阅读关于使用 AI、配音、字幕和无露脸形式制作 TikTok 视频的教程、提示词和增长技巧。",
     "backToBlog": "返回博客",
     "ctaTitle": "准备创建AI视频了吗？",
     "ctaDescription": "立即使用WowTok生成TikTok视频。",
