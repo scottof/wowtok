@@ -6,9 +6,10 @@ import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
 import { Button } from "@/components/ui/button";
 import { BlogCtaButton } from "@/components/blog/cta-button";
-import { getPostsByLocale, getPostBySlug } from "@/data/blog";
+import { getPostBySlug } from "@/data/blog";
 import { getUserLocale } from "@/i18n/locale";
 import { getTranslations } from "next-intl/server";
+import { siteConfig } from "@/config/site";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -26,14 +27,26 @@ export async function generateMetadata({
   const post = await getPostBySlug(locale, slug);
   if (!post) return {};
 
+  const url = `${siteConfig.url}/blog/${slug}`;
+
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,
+      url,
       type: "article",
       publishedTime: post.date,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [siteConfig.ogImage],
     },
   };
 }
@@ -62,9 +75,59 @@ export default async function BlogPostPage({
     zh: "zh-CN",
     de: "de-DE",
   };
+  const postUrl = `${siteConfig.url}/blog/${slug}`;
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    dateModified: post.date,
+    mainEntityOfPage: postUrl,
+    url: postUrl,
+    inLanguage: locale,
+    author: {
+      "@type": "Organization",
+      name: siteConfig.name,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/icon.png`,
+      },
+    },
+  };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Blog",
+        item: `${siteConfig.url}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: post.title,
+        item: postUrl,
+      },
+    ],
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Navbar />
       <main className="py-16">
         <article className="mx-auto max-w-3xl px-6">

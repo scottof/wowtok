@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
+import { siteConfig } from "@/config/site";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
@@ -9,6 +10,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t("title"),
     description: t("metaDescription"),
+    alternates: {
+      canonical: `${siteConfig.url}/privacy`,
+    },
   };
 }
 

@@ -4,14 +4,43 @@ import { Footer } from "@/components/shared/footer";
 import { getPostsByLocale } from "@/data/blog";
 import { getUserLocale } from "@/i18n/locale";
 import { getTranslations } from "next-intl/server";
+import { siteConfig } from "@/config/site";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Blog",
-  description:
-    "Tips, tutorials, and insights about AI video creation, TikTok content strategy, and growing your audience.",
-};
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}): Promise<Metadata> {
+  const { page } = await searchParams;
+  const currentPage = Math.max(1, parseInt(page || "1", 10));
+  const t = await getTranslations("Blog");
+  const canonical =
+    currentPage > 1
+      ? `${siteConfig.url}/blog?page=${currentPage}`
+      : `${siteConfig.url}/blog`;
+
+  return {
+    title: currentPage > 1 ? `${t("title")} - Page ${currentPage}` : t("title"),
+    description: t("subtitle"),
+    alternates: {
+      canonical,
+    },
+    openGraph: {
+      title: currentPage > 1 ? `${t("title")} - Page ${currentPage}` : t("title"),
+      description: t("subtitle"),
+      url: canonical,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: currentPage > 1 ? `${t("title")} - Page ${currentPage}` : t("title"),
+      description: t("subtitle"),
+      images: [siteConfig.ogImage],
+    },
+  };
+}
 
 const POSTS_PER_PAGE = 5;
 

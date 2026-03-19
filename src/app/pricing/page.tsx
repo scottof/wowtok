@@ -3,12 +3,23 @@ import { Footer } from "@/components/shared/footer";
 import { PricingCards } from "@/components/landing/pricing-cards";
 import { FAQ } from "@/components/landing/faq";
 import { createClient } from "@/lib/supabase/server";
+import { siteConfig } from "@/config/site";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Pricing",
   description:
     "Simple, transparent pricing for WowTok. Start free, upgrade when you're ready. Cancel anytime.",
+  alternates: {
+    canonical: `${siteConfig.url}/pricing`,
+  },
+  openGraph: {
+    title: "Pricing",
+    description:
+      "Simple, transparent pricing for WowTok. Start free, upgrade when you're ready. Cancel anytime.",
+    url: `${siteConfig.url}/pricing`,
+    type: "website",
+  },
 };
 
 export default async function PricingPage() {
