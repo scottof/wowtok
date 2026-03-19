@@ -2,6 +2,39 @@ import type { BlogPost } from "./index";
 
 export const posts: BlogPost[] = [
   {
+    slug: "tiktok-image-to-video-trend-2026",
+    title: "Image-to-Video en TikTok: la Gran Tendencia de IA de Esta Semana",
+    excerpt:
+      "Las propias herramientas de IA de TikTok están poniendo los flujos image-to-video en el centro de atención. Aquí tienes por qué conviene probar esta tendencia ahora y cómo convertir una sola imagen en mejor contenido short-form.",
+    date: "2026-03-19",
+    readTime: "5 min read",
+    content: `En marzo de 2026, una de las tendencias de IA más claras en TikTok es image-to-video. Symphony Creative Studio de TikTok ya permite convertir una sola imagen y un prompt en un clip animado corto, y ese flujo de trabajo está influyendo rápidamente en cómo los creadores construyen hooks, tomas de producto y storytelling sin mostrar el rostro.
+
+## Por Qué Esta Tendencia Está Creciendo
+
+Los creadores quieren producir más sin grabar cada escena desde cero. Image-to-video elimina el paso más difícil: generar movimiento. Puedes empezar con una imagen de producto, un fotograma de personaje o una escena potente y convertirla en una apertura que se siente nativa dentro del feed Para Ti.
+
+## Qué Hace que Image-to-Video Funcione en TikTok
+
+El formato funciona mejor cuando el primer frame ya despierta curiosidad. Un sujeto claro, composición vertical, una dirección de movimiento evidente y una emoción simple suelen superar a los visuales recargados. La propia guía de prompts de TikTok también favorece instrucciones breves, directas y de una sola escena.
+
+## Mejores Casos de Uso Ahora Mismo
+
+Esta tendencia es especialmente útil para demos de producto, canales de storytelling sin rostro, transformaciones antes y después, videos explicativos con voz en off generada por IA y pruebas rápidas de varios hooks a partir de una misma idea.
+
+## Cómo Usarla Sin que se Vea Genérica
+
+El error más común es publicar el clip generado tal como sale. Los mejores resultados llegan cuando image-to-video es solo la apertura. Añade narración, subtítulos y un segundo momento que le dé al espectador una razón para seguir mirando. La fórmula más fuerte es simple: un frame potente, una idea de movimiento y una promesa clara.
+
+## Cómo Encaja WowTok
+
+WowTok resulta útil cuando quieres convertir esta tendencia en un sistema repetible. En lugar de quedarte en una animación de cinco segundos, puedes transformar la idea en un video completo para TikTok con escenas, voz en off, subtítulos y una temática coherente. Así, image-to-video se convierte en el punto de partida, no en toda la publicación.
+
+## Qué Probar Esta Semana
+
+Prueba tres versiones del mismo concepto: una con movimiento dramático, una enfocada al producto y otra guiada por narración. Compara tasa de finalización, compartidos y repeticiones. En TikTok, la mejor ejecución de una tendencia rara vez es la más sofisticada. Normalmente es la más clara.`,
+  },
+  {
     slug: "ai-video-editing-vs-traditional-why-creators-switch",
     title: "Edición de video con IA vs edición tradicional: por qué los creadores están cambiando",
     excerpt:
