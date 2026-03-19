@@ -1,20 +1,19 @@
 import { notFound } from "next/navigation";
-import { SeoPageTemplate } from "@/components/seo/seo-page-template";
-import { allSeoPages, getSeoPageBySlug } from "@/config/seo-pages";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
+import { SeoPageTemplate } from "@/components/seo/seo-page-template";
+import { allSeoPages, getSeoPageBySlug } from "@/config/seo-pages";
 import { getLanguageAlternates, getLocalizedUrl } from "@/lib/seo/locale-urls";
 
-export function generateStaticParams() {
-  return allSeoPages.map((p) => ({ seoSlug: p.slug }));
+export function generateSeoStaticParams() {
+  return allSeoPages.map((page) => ({ seoSlug: page.slug }));
 }
 
-export async function generateMetadata({
-  params,
+export async function generateSeoMetadata({
+  seoSlug,
 }: {
-  params: Promise<{ seoSlug: string }>;
+  seoSlug: string;
 }): Promise<Metadata> {
-  const { seoSlug } = await params;
   const page = getSeoPageBySlug(seoSlug);
   if (!page) return {};
 
@@ -39,12 +38,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function SeoPage({
-  params,
+export async function SeoPage({
+  seoSlug,
 }: {
-  params: Promise<{ seoSlug: string }>;
+  seoSlug: string;
 }) {
-  const { seoSlug } = await params;
   const page = getSeoPageBySlug(seoSlug);
   if (!page) notFound();
 
