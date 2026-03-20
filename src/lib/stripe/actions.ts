@@ -5,25 +5,30 @@ import { getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { stripe } from "./client";
+import { getCurrencyForLocale, getPlanPricing } from "./config";
 
 export async function createCheckoutSessionByPlan(planId: string) {
   const { plans } = await import("./config");
+  const locale = await getLocale();
+  const currency = getCurrencyForLocale(locale);
   const plan = plans.find((p) => p.id === planId.toUpperCase());
-  if (!plan || !plan.stripePriceId) {
+  const pricing = plan ? getPlanPricing(plan, currency) : undefined;
+
+  if (!plan || !pricing?.stripePriceId) {
     throw new Error("Invalid plan");
   }
-  return createCheckoutSession(plan.stripePriceId);
+  return createCheckoutSession(pricing.stripePriceId, locale);
 }
 
-export async function createCheckoutSession(priceId: string) {
-  const locale = await getLocale();
+export async function createCheckoutSession(priceId: string, locale?: string) {
+  const activeLocale = locale ?? (await getLocale());
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect(`/${locale}/login`);
+    redirect(`/${activeLocale}/login`);
   }
 
   const dbUser = await prisma.user.findUnique({
@@ -31,7 +36,7 @@ export async function createCheckoutSession(priceId: string) {
   });
 
   if (!dbUser) {
-    redirect(`/${locale}/login`);
+    redirect(`/${activeLocale}/login`);
   }
 
   let customerId = dbUser.stripeCustomerId;
@@ -54,8 +59,8 @@ export async function createCheckoutSession(priceId: string) {
     payment_method_types: ["card"],
     line_items: [{ price: priceId, quantity: 1 }],
     allow_promotion_codes: true,
-    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/${locale}/dashboard?success=true`,
-    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/${locale}/pricing?canceled=true`,
+    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/${activeLocale}/dashboard?success=true`,
+    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/${activeLocale}/pricing?canceled=true`,
     metadata: { userId: dbUser.id },
   });
 

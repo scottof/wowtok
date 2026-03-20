@@ -1,5 +1,10 @@
-import { getTranslations } from "next-intl/server";
-import { siteConfig } from "@/config/site";
+import { getLocale, getTranslations } from "next-intl/server";
+import {
+  getCurrencyForLocale,
+  getPlanPricing,
+  plans,
+} from "@/lib/stripe/config";
+import { getLocalizedUrl } from "@/lib/seo/locale-urls";
 
 interface SeoSoftwareAppJsonLdProps {
   namespace: string;
@@ -10,43 +15,30 @@ export async function SeoSoftwareAppJsonLd({
   namespace,
   slug,
 }: SeoSoftwareAppJsonLdProps) {
+  const locale = await getLocale();
   const t = await getTranslations(namespace);
+  const currency = getCurrencyForLocale(locale);
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: t("h1"),
     description: t("metaDescription"),
-    url: `${siteConfig.url}/${slug}`,
+    url: getLocalizedUrl(locale, `/${slug}`),
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Web",
-    offers: [
-      {
+    offers: plans.map((plan) => {
+      const pricing = getPlanPricing(plan, currency)!;
+
+      return {
         "@type": "Offer",
-        name: "Starter",
-        price: "29",
-        priceCurrency: "USD",
+        name: plan.name,
+        price: String(pricing.price),
+        priceCurrency: currency,
         priceValidUntil: "2027-12-31",
-        description: "3 AI videos per month, 3 standard AI voices, 720p output",
-      },
-      {
-        "@type": "Offer",
-        name: "Creator",
-        price: "59",
-        priceCurrency: "USD",
-        priceValidUntil: "2027-12-31",
-        description:
-          "10 AI videos per month, 10+ premium AI voices, 1080p output, no watermark",
-      },
-      {
-        "@type": "Offer",
-        name: "Pro",
-        price: "149",
-        priceCurrency: "USD",
-        priceValidUntil: "2027-12-31",
-        description: "25 AI videos per month, all premium voices, batch generation",
-      },
-    ],
+        description: plan.features.slice(0, 3).join(", "),
+      };
+    }),
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.8",

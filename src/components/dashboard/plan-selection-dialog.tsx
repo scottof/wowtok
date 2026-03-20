@@ -10,11 +10,16 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { plans } from "@/lib/stripe/config";
+import {
+  formatPrice,
+  getCurrencyForLocale,
+  getPlanPricing,
+  plans,
+} from "@/lib/stripe/config";
 import { createCheckoutSessionByPlan } from "@/lib/stripe/actions";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { trackEvent } from "@/lib/analytics";
 
 interface PlanSelectionDialogProps {
@@ -29,8 +34,10 @@ export function PlanSelectionDialog({
   blocking = false,
   onOpenChange,
 }: PlanSelectionDialogProps) {
+  const locale = useLocale();
   const t = useTranslations("Dashboard");
   const [selectingPlan, setSelectingPlan] = useState<string | null>(null);
+  const currency = getCurrencyForLocale(locale);
 
   async function handleSelectPlan(planId: string) {
     trackEvent("select_plan", { plan: planId, source: "dialog" });
@@ -72,56 +79,63 @@ export function PlanSelectionDialog({
         </DialogHeader>
 
         <div className="grid gap-4 sm:grid-cols-3 my-2">
-          {plans.map((p) => (
-            <div
-              key={p.id}
-              className={cn(
-                "rounded-xl border p-4 flex flex-col",
-                p.highlighted && "border-violet-400 ring-2 ring-violet-100"
-              )}
-            >
-              <h3 className="font-semibold">{p.name}</h3>
-              <div className="flex items-baseline gap-1 mt-1">
-                <span className="text-2xl font-bold">${p.price}</span>
-                <span className="text-xs text-muted-foreground">
-                  {t("perMonth")}
-                </span>
-              </div>
-              {p.originalPrice && (
-                <span className="text-xs text-muted-foreground line-through">
-                  ${p.originalPrice}
-                </span>
-              )}
-              <p className="text-xs text-muted-foreground mt-2">
-                {p.videosPerMonth} {t("videosPerMonth")}
-              </p>
-              <ul className="mt-3 space-y-1.5 flex-1">
-                {p.features.slice(1, 4).map((f) => (
-                  <li key={f} className="flex items-start gap-1.5 text-xs">
-                    <Check className="h-3 w-3 shrink-0 text-violet-600 mt-0.5" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Button
-                onClick={() => handleSelectPlan(p.id)}
-                disabled={selectingPlan !== null}
+          {plans.map((p) => {
+            const pricing = getPlanPricing(p, currency);
+            if (!pricing) return null;
+
+            return (
+              <div
+                key={p.id}
                 className={cn(
-                  "mt-4 w-full cursor-pointer",
-                  p.highlighted
-                    ? "gradient-bg border-0 text-white hover:opacity-90"
-                    : ""
+                  "rounded-xl border p-4 flex flex-col",
+                  p.highlighted && "border-violet-400 ring-2 ring-violet-100"
                 )}
-                variant={p.highlighted ? "default" : "outline"}
-                size="sm"
               >
-                {selectingPlan === p.id ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : null}
-                {t("selectPlan")}
-              </Button>
-            </div>
-          ))}
+                <h3 className="font-semibold">{p.name}</h3>
+                <div className="flex items-baseline gap-1 mt-1">
+                  <span className="text-2xl font-bold">
+                    {formatPrice(pricing.price, currency, locale)}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {t("perMonth")}
+                  </span>
+                </div>
+                {pricing.originalPrice && (
+                  <span className="text-xs text-muted-foreground line-through">
+                    {formatPrice(pricing.originalPrice, currency, locale)}
+                  </span>
+                )}
+                <p className="text-xs text-muted-foreground mt-2">
+                  {p.videosPerMonth} {t("videosPerMonth")}
+                </p>
+                <ul className="mt-3 space-y-1.5 flex-1">
+                  {p.features.slice(1, 4).map((f) => (
+                    <li key={f} className="flex items-start gap-1.5 text-xs">
+                      <Check className="h-3 w-3 shrink-0 text-violet-600 mt-0.5" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <Button
+                  onClick={() => handleSelectPlan(p.id)}
+                  disabled={selectingPlan !== null}
+                  className={cn(
+                    "mt-4 w-full cursor-pointer",
+                    p.highlighted
+                      ? "gradient-bg border-0 text-white hover:opacity-90"
+                      : ""
+                  )}
+                  variant={p.highlighted ? "default" : "outline"}
+                  size="sm"
+                >
+                  {selectingPlan === p.id ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : null}
+                  {t("selectPlan")}
+                </Button>
+              </div>
+            );
+          })}
         </div>
       </DialogContent>
     </Dialog>

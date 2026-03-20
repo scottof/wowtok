@@ -1,6 +1,7 @@
 import type { Plan, SubStatus, VideoStatus } from "@prisma/client";
 
 export type { Plan, SubStatus, VideoStatus };
+export type SupportedCurrency = "USD" | "EUR";
 
 export interface Scene {
   index: number;
@@ -22,12 +23,17 @@ export interface VideoTheme {
 export interface PricingPlan {
   id: Plan;
   name: string;
-  price: number;
-  originalPrice: number;
-  stripePriceId: string;
   description: string;
   features: string[];
   videosPerMonth: number;
+  pricing: Record<
+    SupportedCurrency,
+    {
+      price: number;
+      originalPrice: number;
+      stripePriceId: string;
+    }
+  >;
   highlighted?: boolean;
 }
 

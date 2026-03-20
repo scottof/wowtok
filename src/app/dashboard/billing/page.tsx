@@ -1,9 +1,17 @@
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
-import { getPlan } from "@/lib/stripe/config";
+import {
+  formatPrice,
+  getCurrencyByPriceId,
+  getCurrencyForLocale,
+  getPlan,
+  getPlanPricing,
+} from "@/lib/stripe/config";
 import { BillingContent } from "@/components/dashboard/billing-content";
+import { getLocale } from "next-intl/server";
 
 export default async function BillingPage() {
+  const locale = await getLocale();
   const supabase = await createClient();
   const {
     data: { user },
@@ -16,6 +24,10 @@ export default async function BillingPage() {
 
   const subscription = dbUser?.subscription;
   const plan = subscription ? getPlan(subscription.plan) : null;
+  const currency = subscription?.stripePriceId
+    ? getCurrencyByPriceId(subscription.stripePriceId) ?? getCurrencyForLocale(locale)
+    : undefined;
+  const pricing = plan && currency ? getPlanPricing(plan, currency) : null;
 
   return (
     <BillingContent
@@ -30,10 +42,10 @@ export default async function BillingPage() {
           : null
       }
       plan={
-        plan
+        plan && pricing
           ? {
               name: plan.name,
-              price: plan.price,
+              priceDisplay: formatPrice(pricing.price, currency!, locale),
               videosPerMonth: plan.videosPerMonth,
             }
           : null

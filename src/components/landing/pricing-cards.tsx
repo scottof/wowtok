@@ -3,11 +3,16 @@
 import { Link } from "@/i18n/navigation";
 import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { plans } from "@/lib/stripe/config";
+import {
+  formatPrice,
+  getCurrencyForLocale,
+  getPlanPricing,
+  plans,
+} from "@/lib/stripe/config";
 import { createCheckoutSessionByPlan } from "@/lib/stripe/actions";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { trackEvent } from "@/lib/analytics";
 
@@ -16,10 +21,12 @@ interface PricingCardsProps {
 }
 
 export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
+  const locale = useLocale();
   const t = useTranslations("Pricing");
   const tDash = useTranslations("Dashboard");
   const [isPending, startTransition] = useTransition();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  const currency = getCurrencyForLocale(locale);
 
   function handleSubscribe(planId: string) {
     trackEvent("select_plan", { plan: planId, source: "pricing_page" });
@@ -51,8 +58,12 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {plans.map((plan, i) => {
+            const pricing = getPlanPricing(plan, currency);
+            if (!pricing) return null;
+
             const discount = Math.round(
-              ((plan.originalPrice - plan.price) / plan.originalPrice) * 100
+              ((pricing.originalPrice - pricing.price) / pricing.originalPrice) *
+                100
             );
             const isLoading = isPending && loadingPlan === plan.id;
             return (
@@ -86,14 +97,16 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
 
                 <div className="mb-1 flex items-center gap-2">
                   <span className="text-lg text-muted-foreground/70 line-through decoration-red-400/60">
-                    ${plan.originalPrice}
+                    {formatPrice(pricing.originalPrice, currency, locale)}
                   </span>
                   <span className="rounded-md bg-green-100 px-1.5 py-0.5 text-[11px] font-semibold text-green-700">
                     {t("save", { discount })}
                   </span>
                 </div>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold">${plan.price}</span>
+                  <span className="text-4xl font-bold">
+                    {formatPrice(pricing.price, currency, locale)}
+                  </span>
                   <span className="text-muted-foreground">{t("perMonth")}</span>
                 </div>
 

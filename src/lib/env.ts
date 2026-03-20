@@ -9,12 +9,6 @@ function requireEnv(name: string): string {
   return value;
 }
 
-// Lazy singletons — validated once on first access, cached thereafter.
-function lazy<T>(fn: () => T): () => T {
-  let cached: T | undefined;
-  return () => (cached ??= fn());
-}
-
 export const env = {
   // Supabase
   get SUPABASE_SERVICE_ROLE_KEY() { return requireEnv("SUPABASE_SERVICE_ROLE_KEY"); },
@@ -29,8 +23,11 @@ export const env = {
   get STRIPE_SECRET_KEY() { return requireEnv("STRIPE_SECRET_KEY"); },
   get STRIPE_WEBHOOK_SECRET() { return requireEnv("STRIPE_WEBHOOK_SECRET"); },
   get STRIPE_STARTER_PRICE_ID() { return requireEnv("STRIPE_STARTER_PRICE_ID"); },
+  get STRIPE_STARTER_PRICE_ID_EUR() { return requireEnv("STRIPE_STARTER_PRICE_ID_EUR"); },
   get STRIPE_CREATOR_PRICE_ID() { return requireEnv("STRIPE_CREATOR_PRICE_ID"); },
+  get STRIPE_CREATOR_PRICE_ID_EUR() { return requireEnv("STRIPE_CREATOR_PRICE_ID_EUR"); },
   get STRIPE_PRO_PRICE_ID() { return requireEnv("STRIPE_PRO_PRICE_ID"); },
+  get STRIPE_PRO_PRICE_ID_EUR() { return requireEnv("STRIPE_PRO_PRICE_ID_EUR"); },
 
   // AI providers
   get OPENAI_API_KEY() { return requireEnv("OPENAI_API_KEY"); },

@@ -18,7 +18,7 @@ interface BillingContentProps {
   } | null;
   plan: {
     name: string;
-    price: number;
+    priceDisplay: string;
     videosPerMonth: number;
   } | null;
 }
@@ -74,7 +74,7 @@ export function BillingContent({ subscription, plan }: BillingContentProps) {
                   </Badge>
                 </div>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  ${plan.price}{t("perMonth")} &middot; {plan.videosPerMonth} {t("videosPerMonth")}
+                  {plan.priceDisplay}{t("perMonth")} &middot; {plan.videosPerMonth} {t("videosPerMonth")}
                 </p>
               </div>
               <CreditCard className="h-8 w-8 text-muted-foreground/30" />

@@ -8,11 +8,11 @@ import type { Plan, SubStatus } from "@prisma/client";
  */
 export function mapPriceToPlan(
   priceId: string,
-  priceLookup: { starter: string; creator: string; pro: string }
+  priceLookup: { starter: string[]; creator: string[]; pro: string[] }
 ): Plan {
-  if (priceId === priceLookup.starter) return "STARTER";
-  if (priceId === priceLookup.creator) return "CREATOR";
-  if (priceId === priceLookup.pro) return "PRO";
+  if (priceLookup.starter.includes(priceId)) return "STARTER";
+  if (priceLookup.creator.includes(priceId)) return "CREATOR";
+  if (priceLookup.pro.includes(priceId)) return "PRO";
   return "STARTER";
 }
 

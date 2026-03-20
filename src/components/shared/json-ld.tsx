@@ -1,4 +1,10 @@
+import { getLocale } from "next-intl/server";
 import { siteConfig } from "@/config/site";
+import {
+  getCurrencyForLocale,
+  getPlanPricing,
+  plans,
+} from "@/lib/stripe/config";
 
 export function OrganizationJsonLd() {
   const jsonLd = {
@@ -19,7 +25,9 @@ export function OrganizationJsonLd() {
   );
 }
 
-export function ProductJsonLd() {
+export async function ProductJsonLd() {
+  const locale = await getLocale();
+  const currency = getCurrencyForLocale(locale);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -28,32 +36,18 @@ export function ProductJsonLd() {
     url: siteConfig.url,
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Web",
-    offers: [
-      {
+    offers: plans.map((plan) => {
+      const pricing = getPlanPricing(plan, currency)!;
+
+      return {
         "@type": "Offer",
-        name: "Starter",
-        price: "29",
-        priceCurrency: "USD",
+        name: plan.name,
+        price: String(pricing.price),
+        priceCurrency: currency,
         priceValidUntil: "2027-12-31",
-        description: "3 AI videos per month, 3 standard AI voices, 720p output",
-      },
-      {
-        "@type": "Offer",
-        name: "Creator",
-        price: "59",
-        priceCurrency: "USD",
-        priceValidUntil: "2027-12-31",
-        description: "10 AI videos per month, 10+ premium AI voices, 1080p output, no watermark",
-      },
-      {
-        "@type": "Offer",
-        name: "Pro",
-        price: "149",
-        priceCurrency: "USD",
-        priceValidUntil: "2027-12-31",
-        description: "25 AI videos per month, all premium voices, batch generation",
-      },
-    ],
+        description: plan.features.slice(0, 3).join(", "),
+      };
+    }),
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.8",

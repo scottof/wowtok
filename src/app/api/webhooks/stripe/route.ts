@@ -40,9 +40,15 @@ export async function POST(req: Request) {
       const item = subscription.items.data[0];
       const priceId = item.price.id;
       const plan = mapPriceToPlan(priceId, {
-        starter: env.STRIPE_STARTER_PRICE_ID,
-        creator: env.STRIPE_CREATOR_PRICE_ID,
-        pro: env.STRIPE_PRO_PRICE_ID,
+        starter: [
+          env.STRIPE_STARTER_PRICE_ID,
+          env.STRIPE_STARTER_PRICE_ID_EUR,
+        ],
+        creator: [
+          env.STRIPE_CREATOR_PRICE_ID,
+          env.STRIPE_CREATOR_PRICE_ID_EUR,
+        ],
+        pro: [env.STRIPE_PRO_PRICE_ID, env.STRIPE_PRO_PRICE_ID_EUR],
       });
       const periodStart = new Date(item.current_period_start * 1000);
       const periodEnd = new Date(item.current_period_end * 1000);
@@ -94,9 +100,15 @@ export async function POST(req: Request) {
       const updatedItem = subscription.items.data[0];
       const priceId = updatedItem.price.id;
       const plan = mapPriceToPlan(priceId, {
-        starter: env.STRIPE_STARTER_PRICE_ID,
-        creator: env.STRIPE_CREATOR_PRICE_ID,
-        pro: env.STRIPE_PRO_PRICE_ID,
+        starter: [
+          env.STRIPE_STARTER_PRICE_ID,
+          env.STRIPE_STARTER_PRICE_ID_EUR,
+        ],
+        creator: [
+          env.STRIPE_CREATOR_PRICE_ID,
+          env.STRIPE_CREATOR_PRICE_ID_EUR,
+        ],
+        pro: [env.STRIPE_PRO_PRICE_ID, env.STRIPE_PRO_PRICE_ID_EUR],
       });
 
       const isUpdatedCanceling =

@@ -31,12 +31,17 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { videoThemes } from "@/config/themes";
-import { plans } from "@/lib/stripe/config";
+import {
+  formatPrice,
+  getCurrencyForLocale,
+  getPlanPricing,
+  plans,
+} from "@/lib/stripe/config";
 import { createCheckoutSessionByPlan } from "@/lib/stripe/actions";
 import { PlanSelectionDialog } from "@/components/dashboard/plan-selection-dialog";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { trackEvent } from "@/lib/analytics";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -69,6 +74,7 @@ interface CreateVideoFormProps {
 
 export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVideoFormProps) {
   const router = useRouter();
+  const locale = useLocale();
   const t = useTranslations("Dashboard");
   const [step, setStep] = useState(0);
   const [theme, setTheme] = useState("");
@@ -79,13 +85,17 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
   const [loading, setLoading] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [upgrading, setUpgrading] = useState(false);
-  const [showPlanSelection, setShowPlanSelection] = useState(!hasSubscription);
+  const showPlanSelection = !hasSubscription;
 
   const isStarter = plan === "STARTER";
   const isAtLimit = limit > 0 && used >= limit;
+  const currency = getCurrencyForLocale(locale);
 
   const nextPlanId = NEXT_PLAN_MAP[plan];
   const nextPlan = nextPlanId ? plans.find((p) => p.id === nextPlanId) : null;
+  const nextPlanPricing = nextPlan
+    ? getPlanPricing(nextPlan, currency)
+    : undefined;
 
   const steps = [
     t("stepTheme"),
@@ -164,7 +174,7 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
   }
 
   // Upgrade overlay
-  const upgradeOverlay = nextPlan ? (
+  const upgradeOverlay = nextPlan && nextPlanPricing ? (
     <Dialog open={showUpgrade} onOpenChange={setShowUpgrade}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
@@ -181,10 +191,12 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
 
         <div className="my-2">
           <div className="flex items-baseline gap-1 mb-4">
-            <span className="text-3xl font-bold">${nextPlan.price}</span>
+            <span className="text-3xl font-bold">
+              {formatPrice(nextPlanPricing.price, currency, locale)}
+            </span>
             <span className="text-sm text-muted-foreground">{t("perMonth")}</span>
             <span className="ml-2 text-sm text-muted-foreground line-through">
-              ${nextPlan.originalPrice}
+              {formatPrice(nextPlanPricing.originalPrice, currency, locale)}
             </span>
           </div>
 
