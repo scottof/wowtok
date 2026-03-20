@@ -23,6 +23,11 @@ export function LanguageSwitcher({ direction = "up" }: LanguageSwitcherProps) {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const sortedLocales = [...locales].sort((a, b) =>
+    localeNames[a].localeCompare(localeNames[b], undefined, {
+      sensitivity: "base",
+    })
+  );
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -57,7 +62,7 @@ export function LanguageSwitcher({ direction = "up" }: LanguageSwitcherProps) {
 
       {open && (
         <div className={`absolute right-0 z-50 min-w-[160px] rounded-lg border border-border/60 bg-background p-1 shadow-lg ${direction === "down" ? "top-full mt-1" : "bottom-full mb-1"}`}>
-          {locales.map((l) => (
+          {sortedLocales.map((l) => (
             <button
               key={l}
               onClick={() => handleSelect(l)}
