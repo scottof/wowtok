@@ -1,5 +1,3 @@
-"use client";
-
 import { Link } from "@/i18n/navigation";
 import {
   ArrowRight,
@@ -12,8 +10,7 @@ import {
   Search,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 const mockThemes = [
   { icon: Ghost, key: "mockupThemeHorror" as const, selected: true },
@@ -32,23 +29,17 @@ const stepKeys = [
   "mockupStepReview",
 ] as const;
 
-export function Hero() {
-  const t = useTranslations("Hero");
+export async function Hero() {
+  const t = await getTranslations("Hero");
 
   return (
     <section className="relative overflow-hidden">
-      {/* Subtle gradient background */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-1/2 top-0 h-[600px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-violet-100/60 to-transparent blur-3xl" />
       </div>
 
       <div className="mx-auto max-w-6xl px-6 pb-20 pt-20 md:pt-28">
-        <motion.div
-          className="mx-auto max-w-3xl text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
+        <div className="mx-auto max-w-3xl text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/50 px-4 py-1.5 text-sm text-muted-foreground">
             <Play className="h-3 w-3 fill-violet-600 text-violet-600" />
             {t("badge")}
@@ -79,26 +70,15 @@ export function Hero() {
               size="lg"
               variant="outline"
               className="w-full cursor-pointer sm:w-auto"
-              onClick={() =>
-                document
-                  .getElementById("how-it-works")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
+              asChild
             >
-              {t("secondaryCta")}
+              <a href="#how-it-works">{t("secondaryCta")}</a>
             </Button>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Dashboard mockup */}
-        <motion.div
-          className="mx-auto mt-16 max-w-3xl"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
+        <div className="mx-auto mt-16 max-w-3xl">
           <div className="relative rounded-2xl border border-border/60 bg-card p-5 shadow-2xl shadow-violet-500/10">
-            {/* Window chrome */}
             <div className="mb-4 flex items-center gap-2">
               <span className="h-3 w-3 rounded-full bg-red-400" />
               <span className="h-3 w-3 rounded-full bg-yellow-400" />
@@ -108,7 +88,6 @@ export function Hero() {
               </span>
             </div>
 
-            {/* Step indicator */}
             <div className="mb-5 flex items-center gap-1.5">
               {stepKeys.map((stepKey, i) => (
                 <div key={stepKey} className="flex items-center gap-1.5">
@@ -137,10 +116,8 @@ export function Hero() {
               ))}
             </div>
 
-            {/* Choose theme label */}
             <p className="mb-3 text-sm font-medium">{t("mockupChooseTheme")}</p>
 
-            {/* Theme grid */}
             <div className="grid grid-cols-3 gap-2">
               {mockThemes.map((theme) => {
                 const Icon = theme.icon;
@@ -162,7 +139,9 @@ export function Hero() {
                     />
                     <p
                       className={`mt-1.5 text-xs font-medium ${
-                        theme.selected ? "text-violet-900 dark:text-violet-100" : ""
+                        theme.selected
+                          ? "text-violet-900 dark:text-violet-100"
+                          : ""
                       }`}
                     >
                       {t(theme.key)}
@@ -172,7 +151,6 @@ export function Hero() {
               })}
             </div>
 
-            {/* Prompt input preview */}
             <div className="mt-4 rounded-lg border border-border/60 bg-muted/30 p-3">
               <p className="mb-1 text-xs text-muted-foreground">
                 {t("mockupPromptLabel")}
@@ -182,7 +160,6 @@ export function Hero() {
               </p>
             </div>
 
-            {/* Next button */}
             <div className="mt-4 flex justify-end">
               <div className="gradient-bg rounded-lg px-5 py-2 text-sm font-medium text-white">
                 {t("mockupNext")}
@@ -190,7 +167,7 @@ export function Hero() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
