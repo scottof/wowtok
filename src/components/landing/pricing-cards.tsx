@@ -114,7 +114,7 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
                 {isLoggedIn ? (
                   <Button
                     className={cn(
-                      "mb-8 w-full",
+                      "mb-8 w-full cursor-pointer",
                       plan.highlighted
                         ? "gradient-bg border-0 text-white hover:opacity-90"
                         : ""
@@ -131,7 +131,7 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
                 ) : (
                   <Button
                     className={cn(
-                      "mb-8 w-full",
+                      "mb-8 w-full cursor-pointer",
                       plan.highlighted
                         ? "gradient-bg border-0 text-white hover:opacity-90"
                         : ""
