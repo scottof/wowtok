@@ -44,6 +44,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useLocale, useTranslations } from "next-intl";
 import { trackEvent } from "@/lib/analytics";
+import { getTheme } from "@/config/themes";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Ghost,
@@ -78,6 +79,7 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
   const locale = useLocale();
   const pathname = usePathname();
   const t = useTranslations("Dashboard");
+  const tPricing = useTranslations("Pricing");
   const [step, setStep] = useState(0);
   const [theme, setTheme] = useState("");
   const [title, setTitle] = useState("");
@@ -115,6 +117,8 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
     { id: "james", name: "James", description: t("voiceJames") },
     { id: "emily", name: "Emily", description: t("voiceEmily") },
   ];
+  const selectedTheme = theme ? getTheme(theme) : undefined;
+  const selectedVoice = voiceOptions.find((voice) => voice.id === voiceId);
 
   function canProceed() {
     switch (step) {
@@ -184,10 +188,10 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
             <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-bg">
               <Zap className="h-4 w-4 text-white" />
             </div>
-            {t("upgradeTo", { plan: nextPlan.name })}
+            {t("upgradeTo", { plan: tPricing(nextPlan.nameKey) })}
           </DialogTitle>
           <DialogDescription>
-            {t("overlayDesc", { plan: nextPlan.name })}
+            {t("overlayDesc", { plan: tPricing(nextPlan.nameKey) })}
           </DialogDescription>
         </DialogHeader>
 
@@ -203,10 +207,10 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
           </div>
 
           <ul className="space-y-2">
-            {nextPlan.features.map((feature) => (
-              <li key={feature} className="flex items-center gap-2 text-sm">
+            {nextPlan.featureKeys.map((featureKey) => (
+              <li key={featureKey} className="flex items-center gap-2 text-sm">
                 <Check className="h-4 w-4 shrink-0 text-violet-600" />
-                {feature}
+                {tPricing(featureKey)}
               </li>
             ))}
           </ul>
@@ -223,7 +227,7 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
             ) : (
               <Zap className="mr-2 h-4 w-4" />
             )}
-            {t("upgradeTo", { plan: nextPlan.name })}
+            {t("upgradeTo", { plan: tPricing(nextPlan.nameKey) })}
           </Button>
           <Button
             variant="ghost"
@@ -359,7 +363,7 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
                     {isLocked && (
                       <div className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-violet-100 px-2 py-0.5 text-[10px] font-medium text-violet-700">
                         <Lock className="h-2.5 w-2.5" />
-                        Creator
+                        {tPricing("creator")}
                       </div>
                     )}
                     <div
@@ -375,9 +379,9 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
                       <Icon className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium">{th.name}</p>
+                      <p className="text-sm font-medium">{t(th.nameKey)}</p>
                       <p className="mt-0.5 text-xs text-muted-foreground">
-                        {th.description}
+                        {t(th.descriptionKey)}
                       </p>
                     </div>
                   </button>
@@ -490,7 +494,7 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
                     {isLocked && (
                       <div className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-violet-100 px-2 py-0.5 text-[10px] font-medium text-violet-700">
                         <Lock className="h-2.5 w-2.5" />
-                        Creator
+                        {tPricing("creator")}
                       </div>
                     )}
                     <div
@@ -538,7 +542,9 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
             <div className="space-y-3 rounded-lg bg-muted/50 p-4">
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">{t("theme")}</span>
-                <span className="font-medium capitalize">{theme}</span>
+                <span className="font-medium">
+                  {selectedTheme ? t(selectedTheme.nameKey) : theme}
+                </span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">{t("title")}</span>
@@ -546,7 +552,7 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">{t("voice")}</span>
-                <span className="font-medium capitalize">{voiceId}</span>
+                <span className="font-medium">{selectedVoice?.name ?? voiceId}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">{t("estDuration")}</span>

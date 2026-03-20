@@ -30,9 +30,9 @@ interface DashboardContentProps {
   purchaseCompleted?: boolean;
 }
 
-const nextPlan: Record<string, { name: string; videos: number }> = {
-  STARTER: { name: "Creator", videos: 20 },
-  CREATOR: { name: "Pro", videos: 50 },
+const nextPlan: Record<string, { planKey: "creator" | "pro"; videos: number }> = {
+  STARTER: { planKey: "creator", videos: 20 },
+  CREATOR: { planKey: "pro", videos: 50 },
 };
 
 export function DashboardContent({
@@ -44,6 +44,7 @@ export function DashboardContent({
   purchaseCompleted,
 }: DashboardContentProps) {
   const t = useTranslations("Dashboard");
+  const tPricing = useTranslations("Pricing");
   const [showPlanDialog, setShowPlanDialog] = useState(false);
 
   useEffect(() => {
@@ -98,12 +99,15 @@ export function DashboardContent({
             <div className="flex-1">
               <h3 className="font-semibold">{t("limitReachedTitle")}</h3>
               <p className="mt-1 text-sm text-muted-foreground">
-                {t("limitReachedDesc", { plan: upgrade.name, videos: upgrade.videos })}
+                {t("limitReachedDesc", {
+                  plan: tPricing(upgrade.planKey),
+                  videos: upgrade.videos,
+                })}
               </p>
               <Button className="mt-3 gradient-bg border-0 text-white hover:opacity-90" size="sm" asChild>
                 <Link href="/pricing">
                   <Zap className="mr-2 h-3 w-3" />
-                  {t("upgradeTo", { plan: upgrade.name })}
+                  {t("upgradeTo", { plan: tPricing(upgrade.planKey) })}
                 </Link>
               </Button>
             </div>

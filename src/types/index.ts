@@ -15,6 +15,8 @@ export interface VideoTheme {
   id: string;
   name: string;
   description: string;
+  nameKey: string;
+  descriptionKey: string;
   icon: string;
   promptPrefix: string;
   style: string;
@@ -23,8 +25,11 @@ export interface VideoTheme {
 export interface PricingPlan {
   id: Plan;
   name: string;
+  nameKey: string;
   description: string;
+  descriptionKey: string;
   features: string[];
+  featureKeys: string[];
   videosPerMonth: number;
   pricing: Record<
     SupportedCurrency,

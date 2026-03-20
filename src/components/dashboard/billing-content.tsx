@@ -17,7 +17,7 @@ interface BillingContentProps {
     currentPeriodEnd: Date;
   } | null;
   plan: {
-    name: string;
+    id: string;
     priceDisplay: string;
     videosPerMonth: number;
   } | null;
@@ -25,6 +25,7 @@ interface BillingContentProps {
 
 export function BillingContent({ subscription, plan }: BillingContentProps) {
   const t = useTranslations("Dashboard");
+  const tPricing = useTranslations("Pricing");
   const [showPlanDialog, setShowPlanDialog] = useState(false);
   const [showSurvey, setShowSurvey] = useState(false);
 
@@ -57,7 +58,9 @@ export function BillingContent({ subscription, plan }: BillingContentProps) {
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-lg font-semibold">{plan.name} {t("plan")}</h3>
+                  <h3 className="text-lg font-semibold">
+                    {tPricing(plan.id.toLowerCase())} {t("plan")}
+                  </h3>
                   <Badge
                     variant={
                       subscription.cancelAtPeriodEnd

@@ -10,7 +10,9 @@ export const plans: PricingPlan[] = [
   {
     id: "STARTER",
     name: "Starter",
+    nameKey: "starter",
     description: "Perfect for getting started with AI videos",
+    descriptionKey: "starterDesc",
     videosPerMonth: 3,
     pricing: {
       USD: {
@@ -31,11 +33,20 @@ export const plans: PricingPlan[] = [
       "5 basic themes",
       "Email support",
     ],
+    featureKeys: [
+      "starterFeature1",
+      "starterFeature2",
+      "starterFeature3",
+      "starterFeature4",
+      "starterFeature5",
+    ],
   },
   {
     id: "CREATOR",
     name: "Creator",
+    nameKey: "creator",
     description: "For content creators who need more",
+    descriptionKey: "creatorDesc",
     videosPerMonth: 10,
     highlighted: true,
     pricing: {
@@ -59,11 +70,22 @@ export const plans: PricingPlan[] = [
       "No watermark",
       "Priority support",
     ],
+    featureKeys: [
+      "creatorFeature1",
+      "creatorFeature2",
+      "creatorFeature3",
+      "creatorFeature4",
+      "creatorFeature5",
+      "creatorFeature6",
+      "creatorFeature7",
+    ],
   },
   {
     id: "PRO",
     name: "Pro",
+    nameKey: "pro",
     description: "For professionals and teams",
+    descriptionKey: "proDesc",
     videosPerMonth: 25,
     pricing: {
       USD: {
@@ -86,6 +108,16 @@ export const plans: PricingPlan[] = [
       "No watermark",
       "Batch generation",
       "Dedicated support",
+    ],
+    featureKeys: [
+      "proFeature1",
+      "proFeature2",
+      "proFeature3",
+      "proFeature4",
+      "proFeature5",
+      "proFeature6",
+      "proFeature7",
+      "proFeature8",
     ],
   },
 ];

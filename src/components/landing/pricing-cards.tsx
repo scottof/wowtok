@@ -90,9 +90,9 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
                 )}
 
                 <div className="mb-6">
-                  <h3 className="text-lg font-semibold">{plan.name}</h3>
+                  <h3 className="text-lg font-semibold">{t(plan.nameKey)}</h3>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {plan.description}
+                    {t(plan.descriptionKey)}
                   </p>
                 </div>
 
@@ -144,10 +144,10 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
                 )}
 
                 <ul className="space-y-3">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3 text-sm">
+                  {plan.featureKeys.map((featureKey) => (
+                    <li key={featureKey} className="flex items-start gap-3 text-sm">
                       <Check className="mt-0.5 h-4 w-4 shrink-0 text-violet-600" />
-                      <span>{feature}</span>
+                      <span>{t(featureKey)}</span>
                     </li>
                   ))}
                 </ul>

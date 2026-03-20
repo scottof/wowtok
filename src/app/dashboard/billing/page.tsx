@@ -44,7 +44,7 @@ export default async function BillingPage() {
       plan={
         plan && pricing
           ? {
-              name: plan.name,
+              id: plan.id,
               priceDisplay: formatPrice(pricing.price, currency!, locale),
               videosPerMonth: plan.videosPerMonth,
             }

@@ -38,6 +38,7 @@ export function PlanSelectionDialog({
   const locale = useLocale();
   const pathname = usePathname();
   const t = useTranslations("Dashboard");
+  const tPricing = useTranslations("Pricing");
   const [selectingPlan, setSelectingPlan] = useState<string | null>(null);
   const currency = getCurrencyForLocale(locale);
 
@@ -93,7 +94,7 @@ export function PlanSelectionDialog({
                   p.highlighted && "border-violet-400 ring-2 ring-violet-100"
                 )}
               >
-                <h3 className="font-semibold">{p.name}</h3>
+                <h3 className="font-semibold">{tPricing(p.nameKey)}</h3>
                 <div className="flex items-baseline gap-1 mt-1">
                   <span className="text-2xl font-bold">
                     {formatPrice(pricing.price, currency, locale)}
@@ -111,10 +112,10 @@ export function PlanSelectionDialog({
                   {p.videosPerMonth} {t("videosPerMonth")}
                 </p>
                 <ul className="mt-3 space-y-1.5 flex-1">
-                  {p.features.slice(1, 4).map((f) => (
-                    <li key={f} className="flex items-start gap-1.5 text-xs">
+                  {p.featureKeys.slice(1, 4).map((featureKey) => (
+                    <li key={featureKey} className="flex items-start gap-1.5 text-xs">
                       <Check className="h-3 w-3 shrink-0 text-violet-600 mt-0.5" />
-                      {f}
+                      {tPricing(featureKey)}
                     </li>
                   ))}
                 </ul>
