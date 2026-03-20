@@ -17,6 +17,7 @@ import {
   plans,
 } from "@/lib/stripe/config";
 import { createCheckoutSessionByPlan } from "@/lib/stripe/actions";
+import { usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useLocale, useTranslations } from "next-intl";
@@ -35,6 +36,7 @@ export function PlanSelectionDialog({
   onOpenChange,
 }: PlanSelectionDialogProps) {
   const locale = useLocale();
+  const pathname = usePathname();
   const t = useTranslations("Dashboard");
   const [selectingPlan, setSelectingPlan] = useState<string | null>(null);
   const currency = getCurrencyForLocale(locale);
@@ -43,7 +45,7 @@ export function PlanSelectionDialog({
     trackEvent("select_plan", { plan: planId, source: "dialog" });
     setSelectingPlan(planId);
     try {
-      await createCheckoutSessionByPlan(planId);
+      await createCheckoutSessionByPlan(planId, pathname);
     } catch (err) {
       // Next.js redirect() throws a NEXT_REDIRECT "error" — don't show toast for that
       if (typeof err === "object" && err !== null && "digest" in err) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,6 +22,7 @@ interface PricingCardsProps {
 
 export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
   const locale = useLocale();
+  const pathname = usePathname();
   const t = useTranslations("Pricing");
   const tDash = useTranslations("Dashboard");
   const [isPending, startTransition] = useTransition();
@@ -34,7 +35,7 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
     setLoadingPlan(planId);
     startTransition(async () => {
       try {
-        await createCheckoutSessionByPlan(planId);
+        await createCheckoutSessionByPlan(planId, pathname);
       } catch {
         setLoadingPlan(null);
       }

@@ -6,8 +6,20 @@ import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { stripe } from "./client";
 import { getCurrencyForLocale, getPlanPricing } from "./config";
+import { getLocalizedUrl } from "@/lib/seo/locale-urls";
 
-export async function createCheckoutSessionByPlan(planId: string) {
+function getCheckoutCancelPath(returnPath?: string) {
+  if (!returnPath || !returnPath.startsWith("/")) {
+    return "/pricing";
+  }
+
+  return returnPath;
+}
+
+export async function createCheckoutSessionByPlan(
+  planId: string,
+  returnPath?: string
+) {
   const { plans } = await import("./config");
   const locale = await getLocale();
   const currency = getCurrencyForLocale(locale);
@@ -17,10 +29,14 @@ export async function createCheckoutSessionByPlan(planId: string) {
   if (!plan || !pricing?.stripePriceId) {
     throw new Error("Invalid plan");
   }
-  return createCheckoutSession(pricing.stripePriceId, locale);
+  return createCheckoutSession(pricing.stripePriceId, locale, returnPath);
 }
 
-export async function createCheckoutSession(priceId: string, locale?: string) {
+export async function createCheckoutSession(
+  priceId: string,
+  locale?: string,
+  returnPath?: string
+) {
   const activeLocale = locale ?? (await getLocale());
   const supabase = await createClient();
   const {
@@ -60,7 +76,11 @@ export async function createCheckoutSession(priceId: string, locale?: string) {
     line_items: [{ price: priceId, quantity: 1 }],
     allow_promotion_codes: true,
     success_url: `${process.env.NEXT_PUBLIC_APP_URL}/${activeLocale}/dashboard?success=true`,
-    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/${activeLocale}/pricing?canceled=true`,
+    cancel_url: getLocalizedUrl(
+      activeLocale,
+      getCheckoutCancelPath(returnPath),
+      { canceled: true }
+    ),
     metadata: { userId: dbUser.id },
   });
 

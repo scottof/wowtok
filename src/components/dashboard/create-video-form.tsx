@@ -39,6 +39,7 @@ import {
 } from "@/lib/stripe/config";
 import { createCheckoutSessionByPlan } from "@/lib/stripe/actions";
 import { PlanSelectionDialog } from "@/components/dashboard/plan-selection-dialog";
+import { usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useLocale, useTranslations } from "next-intl";
@@ -75,6 +76,7 @@ interface CreateVideoFormProps {
 export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVideoFormProps) {
   const router = useRouter();
   const locale = useLocale();
+  const pathname = usePathname();
   const t = useTranslations("Dashboard");
   const [step, setStep] = useState(0);
   const [theme, setTheme] = useState("");
@@ -159,7 +161,7 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
     if (!nextPlanId) return;
     setUpgrading(true);
     try {
-      await createCheckoutSessionByPlan(nextPlanId);
+      await createCheckoutSessionByPlan(nextPlanId, pathname);
     } catch (err) {
       // Next.js redirect() throws a NEXT_REDIRECT "error" — don't show toast for that
       if (typeof err === "object" && err !== null && "digest" in err) {
