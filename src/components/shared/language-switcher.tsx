@@ -7,7 +7,6 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 import {
   locales,
   localeNames,
-  localeFlags,
   type Locale,
 } from "@/i18n/config";
 import { ChevronDown } from "lucide-react";
@@ -52,8 +51,7 @@ export function LanguageSwitcher({ direction = "up" }: LanguageSwitcherProps) {
         className="flex cursor-pointer items-center gap-1.5 rounded-md border border-border/60 px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         disabled={isPending}
       >
-        <span>{localeFlags[locale]}</span>
-        <span className="hidden sm:inline">{localeNames[locale]}</span>
+        <span>{localeNames[locale]}</span>
         <ChevronDown className="h-3 w-3" />
       </button>
 
@@ -69,7 +67,6 @@ export function LanguageSwitcher({ direction = "up" }: LanguageSwitcherProps) {
                   : "text-muted-foreground"
               }`}
             >
-              <span>{localeFlags[l]}</span>
               <span>{localeNames[l]}</span>
             </button>
           ))}
