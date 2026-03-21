@@ -165,7 +165,9 @@ export function formatPrice(
   currency: SupportedCurrency,
   locale = "en"
 ) {
-  return new Intl.NumberFormat(locale, {
+  const normalizedLocale = locale === "pt" ? "pt-PT" : locale;
+
+  return new Intl.NumberFormat(normalizedLocale, {
     style: "currency",
     currency,
     currencyDisplay: "narrowSymbol",

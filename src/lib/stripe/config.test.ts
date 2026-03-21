@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   defaultCurrency,
+  formatPrice,
   getCurrencyByPriceId,
   getCurrencyForLocale,
   getPlan,
@@ -86,6 +87,10 @@ describe("stripe/config", () => {
       expect(getCurrencyByPriceId("price_starter_usd_test")).toBe("USD");
       expect(getCurrencyByPriceId("price_starter_eur_test")).toBe("EUR");
       expect(getCurrencyByPriceId("price_unknown")).toBeUndefined();
+    });
+
+    it("formats Portuguese prices using pt-PT conventions", () => {
+      expect(formatPrice(59, "EUR", "pt")).toBe("59\xa0€");
     });
   });
 });
