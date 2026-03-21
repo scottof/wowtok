@@ -63,6 +63,7 @@ describe("stripe/config", () => {
       expect(getCurrencyForLocale("fr-FR")).toBe("EUR");
       expect(getCurrencyForLocale("it")).toBe("EUR");
       expect(getCurrencyForLocale("es")).toBe("EUR");
+      expect(getCurrencyForLocale("pt")).toBe("EUR");
     });
 
     it("falls back to USD for non-European locales", () => {

@@ -4,7 +4,7 @@ import type { PricingPlan, SupportedCurrency } from "@/types";
 // on the server-only env validation module.
 
 export const defaultCurrency: SupportedCurrency = "USD";
-export const euroLocales = new Set(["de", "es", "fr", "it"]);
+export const euroLocales = new Set(["de", "es", "fr", "it", "pt"]);
 
 export const plans: PricingPlan[] = [
   {
