@@ -2836,7 +2836,7 @@
   "ContactPage": {
     "eyebrow": "Contact",
     "title": "Contactez WowTok",
-    "subtitle": "Questions, partenariats ou demandes sur mesure ? Envoyez-nous un message et nous vous repondrons a hello@wowtok.com.",
+    "subtitle": "Questions, partenariats ou demandes sur mesure ? Envoyez-nous un message et nous vous repondrons bientot.",
     "name": "Nom",
     "namePlaceholder": "Votre nom",
     "email": "Email",
@@ -2845,7 +2845,7 @@
     "subjectPlaceholder": "Comment pouvons-nous vous aider ?",
     "message": "Message",
     "messagePlaceholder": "Expliquez-nous ce dont vous avez besoin et nous vous orienterons.",
-    "responseTime": "Nous repondons generalement sous 1 a 2 jours ouvres.",
+    "responseTime": "Nous repondons generalement des que possible.",
     "submit": "Envoyer le message",
     "successTitle": "Message envoye",
     "successDescription": "Merci de nous avoir contactes. Nous vous repondrons des que possible.",

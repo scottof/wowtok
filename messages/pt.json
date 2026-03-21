@@ -462,7 +462,7 @@
   "ContactPage": {
     "eyebrow": "Contacto",
     "title": "Entre em contacto com a WowTok",
-    "subtitle": "Tem perguntas, parcerias ou pedidos personalizados? Envie-nos uma mensagem e responderemos através de hello@wowtok.com.",
+    "subtitle": "Tem perguntas, parcerias ou pedidos personalizados? Envie-nos uma mensagem e responderemos em breve.",
     "name": "Nome",
     "namePlaceholder": "O seu nome",
     "email": "Email",
@@ -471,7 +471,7 @@
     "subjectPlaceholder": "Como podemos ajudar?",
     "message": "Mensagem",
     "messagePlaceholder": "Diga-nos do que precisa e nós indicaremos o melhor próximo passo.",
-    "responseTime": "Normalmente respondemos em 1-2 dias uteis.",
+    "responseTime": "Normalmente respondemos assim que possivel.",
     "submit": "Enviar mensagem",
     "successTitle": "Mensagem enviada",
     "successDescription": "Obrigado pelo seu contacto. Responderemos assim que possivel.",
