@@ -2,9 +2,9 @@ import { describe, it, expect } from "vitest";
 import { mapPriceToPlan, mapStatus } from "./mappers";
 
 const priceLookup = {
-  starter: "price_starter_123",
-  creator: "price_creator_456",
-  pro: "price_pro_789",
+  starter: ["price_starter_123"],
+  creator: ["price_creator_456"],
+  pro: ["price_pro_789"],
 };
 
 describe("stripe/mappers", () => {
@@ -28,10 +28,14 @@ describe("stripe/mappers", () => {
       expect(mapStatus("canceled")).toBe("CANCELED");
     });
 
+    it("maps trialing and unpaid to the expected terminal statuses", () => {
+      expect(mapStatus("trialing")).toBe("ACTIVE");
+      expect(mapStatus("unpaid")).toBe("CANCELED");
+    });
+
     it("falls back to INCOMPLETE for unknown statuses", () => {
-      expect(mapStatus("trialing")).toBe("INCOMPLETE");
-      expect(mapStatus("unpaid")).toBe("INCOMPLETE");
       expect(mapStatus("")).toBe("INCOMPLETE");
+      expect(mapStatus("unknown_status")).toBe("INCOMPLETE");
     });
   });
 });
