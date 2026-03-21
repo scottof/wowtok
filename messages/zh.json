@@ -2832,5 +2832,26 @@
     "themesSubtitle": "查找适合剧情叙事、氛围感视频和不同题材 TikTok 灵感的视觉方向。",
     "formatsTitle": "内容形式与用例",
     "formatsSubtitle": "浏览适用于配音视频、字幕视频、无露脸视频等可重复使用的 TikTok 工作流页面。"
+  },
+  "ContactPage": {
+    "eyebrow": "联系",
+    "title": "联系 WowTok",
+    "subtitle": "有问题、合作意向或定制需求？给我们发消息，我们会通过 hello@wowtok.com 回复你。",
+    "name": "姓名",
+    "namePlaceholder": "你的姓名",
+    "email": "邮箱",
+    "emailPlaceholder": "you@example.com",
+    "subject": "主题",
+    "subjectPlaceholder": "我们可以如何帮助你？",
+    "message": "消息",
+    "messagePlaceholder": "告诉我们你的需求，我们会为你指明下一步方向。",
+    "responseTime": "我们通常会在 1-2 个工作日内回复。",
+    "submit": "发送消息",
+    "successTitle": "消息已发送",
+    "successDescription": "感谢你的联系。我们会尽快回复你。",
+    "sendAnother": "再发一条消息",
+    "metaTitle": "联系 WowTok",
+    "metaDescription": "联系 WowTok 获取支持、合作或了解我们的 AI TikTok 视频平台。",
+    "companyLabel": "公司"
   }
 }

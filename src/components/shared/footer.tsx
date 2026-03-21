@@ -24,7 +24,7 @@ export async function Footer() {
     [t("generators")]: generatorLinks,
     [t("company")]: [
       { label: t("blog"), href: "/blog" },
-      { label: t("contact"), href: "/privacy#contact" },
+      { label: t("contact"), href: "/contact" },
     ],
     [t("legal")]: [
       { label: t("privacy"), href: "/privacy" },

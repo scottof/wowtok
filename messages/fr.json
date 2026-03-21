@@ -2832,5 +2832,26 @@
     "themesSubtitle": "Trouvez des directions visuelles conçues pour le storytelling, les vidéos d’ambiance et les idées TikTok liées à un genre.",
     "formatsTitle": "Formats et cas d’usage",
     "formatsSubtitle": "Explorez des pages pour les vidéos en voix off, les sous-titres, les formats sans visage et d’autres workflows TikTok répétables."
+  },
+  "ContactPage": {
+    "eyebrow": "Contact",
+    "title": "Contactez WowTok",
+    "subtitle": "Questions, partenariats ou demandes sur mesure ? Envoyez-nous un message et nous vous repondrons a hello@wowtok.com.",
+    "name": "Nom",
+    "namePlaceholder": "Votre nom",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "subject": "Sujet",
+    "subjectPlaceholder": "Comment pouvons-nous vous aider ?",
+    "message": "Message",
+    "messagePlaceholder": "Expliquez-nous ce dont vous avez besoin et nous vous orienterons.",
+    "responseTime": "Nous repondons generalement sous 1 a 2 jours ouvres.",
+    "submit": "Envoyer le message",
+    "successTitle": "Message envoye",
+    "successDescription": "Merci de nous avoir contactes. Nous vous repondrons des que possible.",
+    "sendAnother": "Envoyer un autre message",
+    "metaTitle": "Contacter WowTok",
+    "metaDescription": "Contactez WowTok pour le support, les partenariats ou toute question sur notre plateforme de videos TikTok avec IA.",
+    "companyLabel": "Entreprise"
   }
 }
