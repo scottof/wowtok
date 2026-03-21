@@ -1,25 +1,11 @@
-"use client";
-
 import { Logo } from "./logo";
-import { useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { featuredSeoPageSlugs } from "@/config/seo-pages";
 
-export function Footer() {
-  const t = useTranslations("Footer");
-  const tNav = useTranslations("Nav");
-  const pathname = usePathname();
-
-  const isLandingPage = pathname === "/" || /^\/[a-z]{2}$/.test(pathname);
-
-  function handleHashClick(e: React.MouseEvent, href: string) {
-    const id = href.slice(2);
-    if (isLandingPage) {
-      e.preventDefault();
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    }
-    // On non-landing pages, let the Link navigate normally to /#section
-  }
+export async function Footer() {
+  const t = await getTranslations("Footer");
+  const tNav = await getTranslations("Nav");
 
   const generatorLinks = [
     { label: t("toolVideoGenerator"), href: `/${featuredSeoPageSlugs[0]}` },
@@ -38,7 +24,7 @@ export function Footer() {
     [t("generators")]: generatorLinks,
     [t("company")]: [
       { label: t("blog"), href: "/blog" },
-      { label: t("contact"), href: "mailto:hello@wowtok.com" },
+      { label: t("contact"), href: "/privacy#contact" },
     ],
     [t("legal")]: [
       { label: t("privacy"), href: "/privacy" },
@@ -61,12 +47,10 @@ export function Footer() {
               <p className="mb-3 text-sm font-medium">{title}</p>
               <ul className="space-y-2">
                 {links.map((link) => {
-                  const isHash = link.href.startsWith("/#");
                   return (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        onClick={isHash ? (e: React.MouseEvent) => handleHashClick(e, link.href) : undefined}
                         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                       >
                         {link.label}

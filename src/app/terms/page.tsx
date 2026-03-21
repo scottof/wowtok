@@ -83,7 +83,7 @@ export default function TermsPage() {
           <h2>{t("s11Title")}</h2>
           <p>{t("s11Text")}</p>
 
-          <h2>{t("s12Title")}</h2>
+          <h2 id="contact" className="scroll-mt-24">{t("s12Title")}</h2>
           <p>
             {t("s12Text")}{" "}
             <a
