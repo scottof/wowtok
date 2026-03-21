@@ -3,8 +3,8 @@ import { locales, defaultLocale, isRTL, localeNames } from "./config";
 import type { Locale } from "./config";
 
 describe("i18n/config", () => {
-  it("has 9 locales with 'en' as default", () => {
-    expect(locales).toHaveLength(9);
+  it("has 10 locales with 'en' as default", () => {
+    expect(locales).toHaveLength(10);
     expect(defaultLocale).toBe("en");
     expect(locales).toContain("en");
   });
@@ -17,7 +17,7 @@ describe("i18n/config", () => {
 
   it("isRTL returns true only for Arabic", () => {
     expect(isRTL("ar")).toBe(true);
-    const ltrLocales: Locale[] = ["en", "es", "it", "fr", "ko", "zh", "de", "ru"];
+    const ltrLocales: Locale[] = ["en", "es", "it", "fr", "ko", "zh", "de", "ru", "pt"];
     for (const locale of ltrLocales) {
       expect(isRTL(locale)).toBe(false);
     }
