@@ -26,6 +26,7 @@ WowTok helps creators, marketers, and faceless channels generate TikTok-ready vi
 ## Guides
 
 - [Blog](https://www.wowtok.com/en/blog) - Main blog hub for AI TikTok video strategy and tutorials.
+- [Faceless TikTok Creators Are Winning in 2026 With AI Storytelling](https://www.wowtok.com/en/blog/faceless-tiktok-creators-ai-storytelling-2026) - Current trend guide on faceless creator workflows, AI storytelling, and faster production.
 - [How to Create Viral TikTok Videos with AI in 2026](https://www.wowtok.com/en/blog/how-to-create-viral-tiktok-videos-with-ai) - Guide to prompt-driven viral-style creation.
 - [How to Automate Your TikTok Content Pipeline with AI](https://www.wowtok.com/en/blog/automate-tiktok-content-pipeline-with-ai) - Workflow guide for repeatable publishing.
 - [TikTok Algorithm in 2026: How AI-Generated Content Ranks Higher](https://www.wowtok.com/en/blog/tiktok-algorithm-2026-how-ai-content-ranks) - Practical SEO and distribution context for AI content.
@@ -40,4 +41,4 @@ WowTok helps creators, marketers, and faceless channels generate TikTok-ready vi
 
 - [Login](https://www.wowtok.com/en/login) - Existing user sign-in.
 - [How to Create TikTok Videos with AI](https://www.wowtok.com/en/how-to-create-tiktok-videos-with-ai) - Additional high-intent landing page.
-- [Support](mailto:hello@wowtok.com) - Direct support contact.
+- [Contact](https://www.wowtok.com/en/contact) - Public contact page for questions, partnerships, and support.
