@@ -35,7 +35,7 @@ export async function Hero() {
   return (
     <section className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-0 h-[600px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-violet-100/60 to-transparent blur-3xl" />
+        <div className="absolute left-1/2 top-0 hidden h-[600px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-violet-100/60 to-transparent blur-3xl md:block" />
       </div>
 
       <div className="mx-auto max-w-6xl px-6 pb-20 pt-20 md:pt-28">

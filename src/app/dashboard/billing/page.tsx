@@ -1,5 +1,3 @@
-import { createClient } from "@/lib/supabase/server";
-import { prisma } from "@/lib/prisma";
 import {
   formatPrice,
   getCurrencyByPriceId,
@@ -9,18 +7,11 @@ import {
 } from "@/lib/stripe/config";
 import { BillingContent } from "@/components/dashboard/billing-content";
 import { getLocale } from "next-intl/server";
+import { getDashboardViewer } from "@/lib/dashboard/server";
 
 export default async function BillingPage() {
   const locale = await getLocale();
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const dbUser = await prisma.user.findUnique({
-    where: { supabaseId: user!.id },
-    include: { subscription: true },
-  });
+  const { dbUser } = await getDashboardViewer();
 
   const subscription = dbUser?.subscription;
   const plan = subscription ? getPlan(subscription.plan) : null;

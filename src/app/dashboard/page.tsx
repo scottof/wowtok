@@ -1,9 +1,9 @@
-import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { DashboardContent } from "@/components/dashboard/dashboard-content";
 import { getVideosLimit } from "@/lib/stripe/config";
 import { syncSubscriptionFromStripe } from "@/lib/stripe/sync";
 import type { VideoStatus } from "@/types";
+import { getCurrentUsageMonth, getDashboardViewer } from "@/lib/dashboard/server";
 
 export default async function DashboardPage({
   searchParams,
@@ -11,50 +11,45 @@ export default async function DashboardPage({
   searchParams: Promise<{ success?: string }>;
 }) {
   const { success } = await searchParams;
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { dbUser } = await getDashboardViewer();
 
-  let dbUser = await prisma.user.findUnique({
-    where: { supabaseId: user!.id },
-    include: {
-      subscription: true,
-      videos: { orderBy: { createdAt: "desc" }, take: 20 },
-    },
-  });
+  if (!dbUser) {
+    return null;
+  }
+
+  let subscription = dbUser.subscription;
 
   // If user just completed checkout but subscription is missing or incomplete,
   // directly sync from Stripe (webhook may not have arrived yet)
   if (
     success === "true" &&
-    dbUser?.stripeCustomerId &&
-    (!dbUser.subscription || dbUser.subscription.status !== "ACTIVE")
+    dbUser.stripeCustomerId &&
+    (!subscription || subscription.status !== "ACTIVE")
   ) {
     await syncSubscriptionFromStripe(dbUser.id, dbUser.stripeCustomerId);
-    // Re-fetch with updated subscription
-    dbUser = await prisma.user.findUnique({
-      where: { supabaseId: user!.id },
-      include: {
-        subscription: true,
-        videos: { orderBy: { createdAt: "desc" }, take: 20 },
-      },
+    subscription = await prisma.subscription.findUnique({
+      where: { userId: dbUser.id },
     });
   }
 
-  const now = new Date();
-  const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-  const usage = await prisma.usageRecord.findUnique({
-    where: { userId_month: { userId: dbUser!.id, month } },
-  });
+  const month = getCurrentUsageMonth();
+  const [videos, usage] = await Promise.all([
+    prisma.video.findMany({
+      where: { userId: dbUser.id },
+      orderBy: { createdAt: "desc" },
+      take: 20,
+    }),
+    prisma.usageRecord.findUnique({
+      where: { userId_month: { userId: dbUser.id, month } },
+    }),
+  ]);
 
   return (
     <DashboardContent
-      purchaseCompleted={success === "true" && !!dbUser?.subscription && dbUser.subscription.status === "ACTIVE"}
-      hasSubscription={!!dbUser?.subscription && dbUser.subscription.status === "ACTIVE"}
-      plan={dbUser?.subscription?.plan ?? null}
-      videos={
-        dbUser?.videos.map((v) => ({
+      purchaseCompleted={success === "true" && !!subscription && subscription.status === "ACTIVE"}
+      hasSubscription={!!subscription && subscription.status === "ACTIVE"}
+      plan={subscription?.plan ?? null}
+      videos={videos.map((v) => ({
           id: v.id,
           title: v.title,
           theme: v.theme,
@@ -62,10 +57,9 @@ export default async function DashboardPage({
           thumbnailUrl: v.thumbnailUrl,
           duration: v.duration,
           createdAt: v.createdAt,
-        })) ?? []
-      }
+        }))}
       used={usage?.videosGenerated ?? 0}
-      limit={usage?.videosLimit ?? (dbUser?.subscription ? getVideosLimit(dbUser.subscription.plan) : 0)}
+      limit={usage?.videosLimit ?? (subscription ? getVideosLimit(subscription.plan) : 0)}
     />
   );
 }

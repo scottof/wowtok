@@ -1,27 +1,22 @@
-import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { getVideosLimit } from "@/lib/stripe/config";
 import { CreateVideoForm } from "@/components/dashboard/create-video-form";
+import { getCurrentUsageMonth, getDashboardViewer } from "@/lib/dashboard/server";
 
 export default async function CreateVideoPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { dbUser } = await getDashboardViewer();
 
-  const dbUser = await prisma.user.findUnique({
-    where: { supabaseId: user!.id },
-    include: { subscription: true },
-  });
+  if (!dbUser) {
+    return null;
+  }
 
   const hasSubscription =
     !!dbUser?.subscription && dbUser.subscription.status === "ACTIVE";
   const plan = dbUser?.subscription?.plan ?? "STARTER";
 
-  const now = new Date();
-  const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+  const month = getCurrentUsageMonth();
   const usage = await prisma.usageRecord.findUnique({
-    where: { userId_month: { userId: dbUser!.id, month } },
+    where: { userId_month: { userId: dbUser.id, month } },
   });
 
   const used = usage?.videosGenerated ?? 0;

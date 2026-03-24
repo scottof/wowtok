@@ -1,10 +1,9 @@
 import { redirect } from "next/navigation";
 import { getLocale } from "next-intl/server";
-import { createClient } from "@/lib/supabase/server";
-import { prisma } from "@/lib/prisma";
 import { Sidebar } from "@/components/dashboard/sidebar";
 import { MobileHeader } from "@/components/dashboard/mobile-header";
 import type { Metadata } from "next";
+import { getDashboardViewer } from "@/lib/dashboard/server";
 
 export const metadata: Metadata = {
   robots: {
@@ -23,27 +22,11 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { authUser, dbUser } = await getDashboardViewer();
 
-  if (!user) {
+  if (!authUser || !dbUser) {
     redirect(`/${locale}/login`);
   }
-
-  // Ensure user exists in our database and fetch subscription
-  const dbUser = await prisma.user.upsert({
-    where: { supabaseId: user.id },
-    update: {},
-    create: {
-      supabaseId: user.id,
-      email: user.email!,
-      name: user.user_metadata?.full_name || user.user_metadata?.name,
-      avatarUrl: user.user_metadata?.avatar_url,
-    },
-    include: { subscription: true },
-  });
 
   const hasSubscription =
     !!dbUser.subscription && dbUser.subscription.status === "ACTIVE";

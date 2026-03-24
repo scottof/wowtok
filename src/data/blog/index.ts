@@ -16,6 +16,8 @@ const postModules: Record<string, () => Promise<{ posts: BlogPost[] }>> = {
   ar: () => import("./ar"),
   zh: () => import("./zh"),
   de: () => import("./de"),
+  ru: () => import("./ru"),
+  pt: () => import("./pt"),
 };
 
 export async function getPostsByLocale(locale: string): Promise<BlogPost[]> {
