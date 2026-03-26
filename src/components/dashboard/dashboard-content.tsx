@@ -30,9 +30,9 @@ interface DashboardContentProps {
   purchaseCompleted?: boolean;
 }
 
-const nextPlan: Record<string, { planKey: "creator" | "pro"; videos: number }> = {
-  STARTER: { planKey: "creator", videos: 20 },
-  CREATOR: { planKey: "pro", videos: 50 },
+const nextPlan: Record<string, { planKey: "creator" | "pro"; credits: number }> = {
+  STARTER: { planKey: "creator", credits: 100 },
+  CREATOR: { planKey: "pro", credits: 250 },
 };
 
 export function DashboardContent({
@@ -64,22 +64,12 @@ export function DashboardContent({
             {t("myVideosSubtitle")}
           </p>
         </div>
-        {hasSubscription ? (
-          <Button className="w-full sm:w-auto gradient-bg border-0 text-white hover:opacity-90" asChild>
-            <Link href="/dashboard/create">
-              <PlusCircle className="mr-2 h-4 w-4" />
-              {t("createVideoButton")}
-            </Link>
-          </Button>
-        ) : (
-          <Button
-            className="w-full sm:w-auto gradient-bg border-0 text-white hover:opacity-90 cursor-pointer"
-            onClick={() => setShowPlanDialog(true)}
-          >
+        <Button className="w-full sm:w-auto gradient-bg border-0 text-white hover:opacity-90" asChild>
+          <Link href="/dashboard/create">
             <PlusCircle className="mr-2 h-4 w-4" />
             {t("createVideoButton")}
-          </Button>
-        )}
+          </Link>
+        </Button>
       </div>
 
       {/* Usage bar */}
@@ -97,11 +87,12 @@ export function DashboardContent({
               <Zap className="h-5 w-5 text-violet-600" />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold">{t("limitReachedTitle")}</h3>
+              <h3 className="font-semibold">{t("creditsLimitReachedTitle")}</h3>
               <p className="mt-1 text-sm text-muted-foreground">
-                {t("limitReachedDesc", {
+                {t("creditsLimitReachedDesc", {
                   plan: tPricing(upgrade.planKey),
-                  videos: upgrade.videos,
+                  credits: upgrade.credits,
+                  videos: upgrade.credits,
                 })}
               </p>
               <Button className="mt-3 gradient-bg border-0 text-white hover:opacity-90" size="sm" asChild>
@@ -120,15 +111,21 @@ export function DashboardContent({
         <div className="mb-8 rounded-xl border border-violet-200 bg-violet-50/50 p-6 text-center">
           <h3 className="font-semibold">{t("noSubscription")}</h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            {t("noSubscriptionDesc")}
+            {t("noSubscriptionCreditsDesc")}
           </p>
-          <Button
-            className="mt-4 gradient-bg border-0 text-white hover:opacity-90 cursor-pointer"
-            size="sm"
-            onClick={() => setShowPlanDialog(true)}
-          >
-            {t("viewPlans")}
-          </Button>
+          <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button className="gradient-bg border-0 text-white hover:opacity-90" size="sm" asChild>
+              <Link href="/dashboard/create">{t("createVideoButton")}</Link>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="cursor-pointer"
+              onClick={() => setShowPlanDialog(true)}
+            >
+              {t("viewPlans")}
+            </Button>
+          </div>
         </div>
       )}
 
@@ -155,20 +152,9 @@ export function DashboardContent({
           <p className="mt-1 text-sm text-muted-foreground">
             {t("noVideosDesc")}
           </p>
-          {hasSubscription ? (
-            <Button variant="outline" size="sm" className="mt-4" asChild>
-              <Link href="/dashboard/create">{t("createFirst")}</Link>
-            </Button>
-          ) : (
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-4 cursor-pointer"
-              onClick={() => setShowPlanDialog(true)}
-            >
-              {t("createFirst")}
-            </Button>
-          )}
+          <Button variant="outline" size="sm" className="mt-4" asChild>
+            <Link href="/dashboard/create">{t("createFirst")}</Link>
+          </Button>
         </div>
       )}
 

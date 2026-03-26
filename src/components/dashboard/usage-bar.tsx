@@ -30,7 +30,7 @@ export function UsageBar({ used, limit }: UsageBarProps) {
         <span className={cn(
           isAtLimit ? "text-red-700" : isNearLimit ? "text-amber-700" : "text-muted-foreground"
         )}>
-          {t("videosThisMonth")}
+          {t("creditsThisMonth")}
         </span>
         <div className="flex items-center gap-3">
           <span className={cn(

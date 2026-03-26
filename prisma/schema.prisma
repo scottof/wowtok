@@ -32,6 +32,21 @@ enum VideoStatus {
   FAILED
 }
 
+enum BillingSource {
+  SUBSCRIPTION
+  CREDIT_PURCHASE
+}
+
+enum CreditPurchaseStatus {
+  COMPLETED
+  EXHAUSTED
+}
+
+enum Currency {
+  USD
+  EUR
+}
+
 model User {
   id               String         @id @default(cuid())
   email            String         @unique
@@ -42,6 +57,7 @@ model User {
   subscription     Subscription?
   videos           Video[]
   usageRecords     UsageRecord[]
+  creditPurchases  CreditPurchase[]
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
 }
@@ -62,38 +78,73 @@ model Subscription {
 }
 
 model Video {
-  id           String      @id @default(cuid())
-  userId       String
-  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  title        String
-  theme        String
-  prompt       String
-  narratorText String      @db.Text
-  status       VideoStatus @default(PENDING)
-  scenes       Json?
-  voiceId      String?
-  videoUrl      String?
-  voiceoverUrl  String?
-  subtitles     String?   @db.Text
-  thumbnailUrl  String?
-  duration     Int?
-  errorMessage String?
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  id               String          @id @default(cuid())
+  userId           String
+  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title            String
+  theme            String
+  prompt           String
+  narratorText     String          @db.Text
+  status           VideoStatus     @default(PENDING)
+  scenes           Json?
+  voiceId          String?
+  billingSource    BillingSource   @default(SUBSCRIPTION)
+  creditUsages     CreditUsage[]
+  creditsCharged   Int?
+  creditRestoredAt DateTime?
+  videoUrl         String?
+  voiceoverUrl     String?
+  subtitles        String?         @db.Text
+  thumbnailUrl     String?
+  duration         Int?
+  errorMessage     String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
 
   @@index([userId])
 }
 
 model UsageRecord {
-  id              String   @id @default(cuid())
-  userId          String
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  month           String
-  videosGenerated Int      @default(0)
-  videosLimit     Int
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  month       String
+  creditsUsed Int      @default(0)
+  creditsLimit Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@unique([userId, month])
   @@index([userId])
+}
+
+model CreditPurchase {
+  id                    String               @id @default(cuid())
+  userId                String
+  user                  User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stripeCheckoutSessionId String             @unique
+  stripePaymentIntentId String?              @unique
+  creditsPurchased      Int
+  creditsRemaining      Int
+  amount                Int
+  currency              Currency
+  status                CreditPurchaseStatus @default(COMPLETED)
+  creditUsages          CreditUsage[]
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime             @updatedAt
+
+  @@index([userId, createdAt])
+}
+
+model CreditUsage {
+  id               String         @id @default(cuid())
+  creditPurchaseId String
+  creditPurchase   CreditPurchase @relation(fields: [creditPurchaseId], references: [id], onDelete: Cascade)
+  videoId          String
+  video            Video          @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  creditsConsumed  Int
+  createdAt        DateTime       @default(now())
+
+  @@index([creditPurchaseId])
+  @@index([videoId])
 }

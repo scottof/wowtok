@@ -1,8 +1,14 @@
 import { NextResponse, after } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
-import { getVideosLimit } from "@/lib/stripe/config";
+import { estimateCreditsForVideo } from "@/lib/stripe/config";
 import { env } from "@/lib/env";
+import {
+  consumePurchasedCreditsForVideo,
+  getOrCreateUsageRecord,
+  getPurchasedCreditsAvailable,
+} from "@/lib/credits";
+import type { BillingSource, Plan } from "@prisma/client";
 
 function getBaseUrl() {
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
@@ -30,40 +36,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    // Check subscription
-    if (
-      !dbUser.subscription ||
-      dbUser.subscription.status !== "ACTIVE"
-    ) {
-      return NextResponse.json(
-        { error: "Active subscription required" },
-        { status: 403 }
-      );
-    }
-
-    // Check usage
-    const now = new Date();
-    const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-    const limit = getVideosLimit(dbUser.subscription.plan);
-
-    const usage = await prisma.usageRecord.upsert({
-      where: { userId_month: { userId: dbUser.id, month } },
-      update: {},
-      create: {
-        userId: dbUser.id,
-        month,
-        videosGenerated: 0,
-        videosLimit: limit,
-      },
-    });
-
-    if (usage.videosGenerated >= usage.videosLimit) {
-      return NextResponse.json(
-        { error: "Monthly video limit reached" },
-        { status: 429 }
-      );
-    }
-
     const body = await req.json();
     const { title, theme, prompt, narratorText, voiceId } = body;
 
@@ -74,24 +46,97 @@ export async function POST(req: Request) {
       );
     }
 
-    // Create video record
-    const video = await prisma.video.create({
-      data: {
-        userId: dbUser.id,
-        title,
-        theme,
-        prompt,
-        narratorText,
-        voiceId: voiceId || "adam",
-        status: "PENDING",
-      },
-    });
+    const requiredCredits = estimateCreditsForVideo(narratorText);
+    const hasActiveSubscription =
+      !!dbUser.subscription && dbUser.subscription.status === "ACTIVE";
 
-    // Increment usage
-    await prisma.usageRecord.update({
-      where: { userId_month: { userId: dbUser.id, month } },
-      data: { videosGenerated: { increment: 1 } },
-    });
+    let videoId = "";
+
+    try {
+      const video = await prisma.$transaction(async (tx) => {
+        let billingSource: BillingSource = "SUBSCRIPTION";
+        let creditsFromSubscription = 0;
+        let creditsFromPurchases = requiredCredits;
+
+        if (hasActiveSubscription) {
+          const usage = await getOrCreateUsageRecord(
+            tx,
+            dbUser.id,
+            dbUser.subscription!.plan as Plan
+          );
+
+          const monthlyCreditsRemaining = Math.max(
+            usage.creditsLimit - usage.creditsUsed,
+            0
+          );
+
+          creditsFromSubscription = Math.min(
+            monthlyCreditsRemaining,
+            requiredCredits
+          );
+          creditsFromPurchases = requiredCredits - creditsFromSubscription;
+
+          if (creditsFromSubscription > 0) {
+            await tx.usageRecord.update({
+              where: { userId_month: { userId: dbUser.id, month: usage.month } },
+              data: { creditsUsed: { increment: creditsFromSubscription } },
+            });
+          }
+        }
+
+        const video = await tx.video.create({
+          data: {
+            userId: dbUser.id,
+            title,
+            theme,
+            prompt,
+            narratorText,
+            voiceId: voiceId || "adam",
+            status: "PENDING",
+            billingSource,
+            creditsCharged: requiredCredits,
+          },
+        });
+
+        if (creditsFromPurchases > 0) {
+          const purchasedCreditsAvailable = await getPurchasedCreditsAvailable(
+            dbUser.id,
+            tx
+          );
+
+          if (purchasedCreditsAvailable < creditsFromPurchases) {
+            throw new Error("INSUFFICIENT_CREDITS");
+          }
+
+          await consumePurchasedCreditsForVideo(
+            tx,
+            dbUser.id,
+            video.id,
+            creditsFromPurchases
+          );
+          billingSource = "CREDIT_PURCHASE";
+
+          await tx.video.update({
+            where: { id: video.id },
+            data: {
+              billingSource,
+            },
+          });
+        }
+
+        return video;
+      });
+
+      videoId = video.id;
+    } catch (error) {
+      if (error instanceof Error && error.message === "INSUFFICIENT_CREDITS") {
+        return NextResponse.json(
+          { error: "Insufficient credits", code: "INSUFFICIENT_CREDITS" },
+          { status: 402 }
+        );
+      }
+      throw error;
+    }
 
     // Trigger background pipeline (self-chaining step processor)
     const baseUrl = getBaseUrl();
@@ -103,14 +148,14 @@ export async function POST(req: Request) {
             "Content-Type": "application/json",
             "x-process-secret": env.PROCESS_SECRET,
           },
-          body: JSON.stringify({ videoId: video.id, step: "scenes" }),
+          body: JSON.stringify({ videoId, step: "scenes" }),
         });
       } catch (e) {
         console.error("Failed to trigger pipeline:", e);
       }
     });
 
-    return NextResponse.json({ videoId: video.id });
+    return NextResponse.json({ videoId });
   } catch (error) {
     console.error("Generate video error:", error);
     return NextResponse.json(

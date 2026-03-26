@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Ghost,
   Sparkles,
@@ -32,12 +32,17 @@ import {
 } from "@/components/ui/dialog";
 import { videoThemes } from "@/config/themes";
 import {
+  estimateCreditsForVideo,
   formatPrice,
+  getCreditTopupPricing,
   getCurrencyForLocale,
   getPlanPricing,
   plans,
 } from "@/lib/stripe/config";
-import { createCheckoutSessionByPlan } from "@/lib/stripe/actions";
+import {
+  createCheckoutSessionByPlan,
+  createCreditTopupCheckoutSession,
+} from "@/lib/stripe/actions";
 import { PlanSelectionDialog } from "@/components/dashboard/plan-selection-dialog";
 import { usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -61,6 +66,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 const STARTER_THEME_LIMIT = 5;
 const STARTER_VOICE_LIMIT = 3;
+const DRAFT_STORAGE_KEY = "wowtok:create-video-draft";
 
 const NEXT_PLAN_MAP: Record<string, string> = {
   STARTER: "CREATOR",
@@ -68,14 +74,22 @@ const NEXT_PLAN_MAP: Record<string, string> = {
 };
 
 interface CreateVideoFormProps {
-  plan: string;
+  plan: string | null;
   used: number;
   limit: number;
   hasSubscription: boolean;
+  purchasedCreditsAvailable: number;
 }
 
-export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVideoFormProps) {
+export function CreateVideoForm({
+  plan,
+  used,
+  limit,
+  hasSubscription,
+  purchasedCreditsAvailable,
+}: CreateVideoFormProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const locale = useLocale();
   const pathname = usePathname();
   const t = useTranslations("Dashboard");
@@ -87,15 +101,25 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
   const [narratorText, setNarratorText] = useState("");
   const [voiceId, setVoiceId] = useState("adam");
   const [loading, setLoading] = useState(false);
+  const [topupLoading, setTopupLoading] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
+  const [showPlanDialog, setShowPlanDialog] = useState(false);
   const [upgrading, setUpgrading] = useState(false);
-  const showPlanSelection = !hasSubscription;
+  const [draftReady, setDraftReady] = useState(false);
 
-  const isStarter = plan === "STARTER";
-  const isAtLimit = limit > 0 && used >= limit;
+  const applyStarterRestrictions = hasSubscription && plan === "STARTER";
   const currency = getCurrencyForLocale(locale);
+  const paygStatus = searchParams.get("payg");
+  const monthlyCreditsRemaining = hasSubscription
+    ? Math.max(limit - used, 0)
+    : 0;
+  const requiredCredits = estimateCreditsForVideo(narratorText);
+  const totalAvailableCredits =
+    monthlyCreditsRemaining + purchasedCreditsAvailable;
+  const creditShortfall = Math.max(requiredCredits - totalAvailableCredits, 0);
+  const topupPricing = getCreditTopupPricing(creditShortfall, currency);
 
-  const nextPlanId = NEXT_PLAN_MAP[plan];
+  const nextPlanId = plan ? NEXT_PLAN_MAP[plan] : undefined;
   const nextPlan = nextPlanId ? plans.find((p) => p.id === nextPlanId) : null;
   const nextPlanPricing = nextPlan
     ? getPlanPricing(nextPlan, currency)
@@ -117,8 +141,79 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
     { id: "james", name: "James", description: t("voiceJames") },
     { id: "emily", name: "Emily", description: t("voiceEmily") },
   ];
+
   const selectedTheme = theme ? getTheme(theme) : undefined;
   const selectedVoice = voiceOptions.find((voice) => voice.id === voiceId);
+
+  useEffect(() => {
+    const storedDraft = window.sessionStorage.getItem(DRAFT_STORAGE_KEY);
+    if (storedDraft) {
+      try {
+        const parsed = JSON.parse(storedDraft) as {
+          theme?: string;
+          title?: string;
+          prompt?: string;
+          narratorText?: string;
+          voiceId?: string;
+          step?: number;
+        };
+        setTheme(parsed.theme ?? "");
+        setTitle(parsed.title ?? "");
+        setPrompt(parsed.prompt ?? "");
+        setNarratorText(parsed.narratorText ?? "");
+        setVoiceId(parsed.voiceId ?? "adam");
+        setStep(
+          typeof parsed.step === "number"
+            ? Math.max(0, Math.min(parsed.step, steps.length - 1))
+            : 0
+        );
+      } catch {
+        window.sessionStorage.removeItem(DRAFT_STORAGE_KEY);
+      }
+    }
+
+    setDraftReady(true);
+  }, [steps.length]);
+
+  useEffect(() => {
+    if (!draftReady) return;
+
+    window.sessionStorage.setItem(
+      DRAFT_STORAGE_KEY,
+      JSON.stringify({
+        theme,
+        title,
+        prompt,
+        narratorText,
+        voiceId,
+        step,
+      })
+    );
+  }, [draftReady, narratorText, prompt, step, theme, title, voiceId]);
+
+  useEffect(() => {
+    if (!draftReady || !paygStatus) return;
+
+    if (paygStatus === "success") {
+      toast.success(t("creditCheckoutSuccess"));
+      setStep(steps.length - 1);
+    } else if (paygStatus === "canceled") {
+      toast.message(t("creditCheckoutCanceled"));
+      setStep(steps.length - 1);
+    }
+
+    router.replace(pathname);
+  }, [draftReady, pathname, paygStatus, router, steps.length, t]);
+
+  function getDraftFingerprint() {
+    return [
+      theme,
+      title.trim(),
+      prompt.trim(),
+      narratorText.trim(),
+      voiceId,
+    ].join("|");
+  }
 
   function canProceed() {
     switch (step) {
@@ -146,13 +241,22 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
 
       if (!res.ok) {
         const data = await res.json();
-        toast.error(data.error || t("failedGeneration"));
+        if (res.status === 402) {
+          toast.error(t("insufficientCredits"));
+        } else {
+          toast.error(data.error || t("failedGeneration"));
+        }
         setLoading(false);
         return;
       }
 
       const data = await res.json();
-      trackEvent("generate_video", { theme, voice: voiceId });
+      trackEvent("generate_video", {
+        theme,
+        voice: voiceId,
+        requiredCredits,
+      });
+      window.sessionStorage.removeItem(DRAFT_STORAGE_KEY);
       toast.success(t("videoStarted"));
       router.push(`/dashboard/videos/${data.videoId}`);
     } catch {
@@ -167,7 +271,6 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
     try {
       await createCheckoutSessionByPlan(nextPlanId, pathname);
     } catch (err) {
-      // Next.js redirect() throws a NEXT_REDIRECT "error" — don't show toast for that
       if (typeof err === "object" && err !== null && "digest" in err) {
         const digest = (err as { digest?: string }).digest;
         if (typeof digest === "string" && digest.startsWith("NEXT_REDIRECT")) {
@@ -179,7 +282,30 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
     }
   }
 
-  // Upgrade overlay
+  async function handleCreditCheckout() {
+    if (creditShortfall <= 0) {
+      return;
+    }
+
+    setTopupLoading(true);
+    try {
+      await createCreditTopupCheckoutSession({
+        requiredCredits: creditShortfall,
+        returnPath: pathname,
+        draftFingerprint: getDraftFingerprint(),
+      });
+    } catch (err) {
+      if (typeof err === "object" && err !== null && "digest" in err) {
+        const digest = (err as { digest?: string }).digest;
+        if (typeof digest === "string" && digest.startsWith("NEXT_REDIRECT")) {
+          return;
+        }
+      }
+      toast.error(t("somethingWrong"));
+      setTopupLoading(false);
+    }
+  }
+
   const upgradeOverlay = nextPlan && nextPlanPricing ? (
     <Dialog open={showUpgrade} onOpenChange={setShowUpgrade}>
       <DialogContent className="sm:max-w-md">
@@ -191,16 +317,20 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
             {t("upgradeTo", { plan: tPricing(nextPlan.nameKey) })}
           </DialogTitle>
           <DialogDescription>
-            {t("overlayDesc", { plan: tPricing(nextPlan.nameKey) })}
+            {t("creditsOverlayDesc", {
+              plan: tPricing(nextPlan.nameKey),
+            })}
           </DialogDescription>
         </DialogHeader>
 
         <div className="my-2">
-          <div className="flex items-baseline gap-1 mb-4">
+          <div className="mb-4 flex items-baseline gap-1">
             <span className="text-3xl font-bold">
               {formatPrice(nextPlanPricing.price, currency, locale)}
             </span>
-            <span className="text-sm text-muted-foreground">{t("perMonth")}</span>
+            <span className="text-sm text-muted-foreground">
+              {t("perMonth")}
+            </span>
             <span className="ml-2 text-sm text-muted-foreground line-through">
               {formatPrice(nextPlanPricing.originalPrice, currency, locale)}
             </span>
@@ -241,58 +371,14 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
     </Dialog>
   ) : null;
 
-  // Show limit-reached message instead of the wizard
-  if (isAtLimit) {
-    return (
-      <div>
-        {upgradeOverlay}
-        {!hasSubscription && (
-          <PlanSelectionDialog
-            open={showPlanSelection}
-            blocking
-          />
-        )}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold">{t("createTitle")}</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {t("createSubtitle")}
-          </p>
-        </div>
-        <div className="rounded-xl border border-red-200 bg-red-50 p-8 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
-            <Zap className="h-6 w-6 text-red-600" />
-          </div>
-          <h2 className="text-lg font-semibold">{t("limitReachedTitle")}</h2>
-          <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-            {t("limitReachedCreateDesc", { used, limit })}
-          </p>
-          {nextPlan ? (
-            <Button
-              onClick={() => setShowUpgrade(true)}
-              className="mt-4 cursor-pointer gradient-bg border-0 text-white hover:opacity-90"
-            >
-              <Zap className="mr-2 h-4 w-4" />
-              {t("viewUpgradeOptions")}
-            </Button>
-          ) : (
-            <p className="mt-4 text-sm text-muted-foreground">
-              {t("maxPlanReached")}
-            </p>
-          )}
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div>
       {upgradeOverlay}
-      {!hasSubscription && (
-          <PlanSelectionDialog
-            open={showPlanSelection}
-            blocking
-          />
-        )}
+      <PlanSelectionDialog
+        open={showPlanDialog}
+        onOpenChange={setShowPlanDialog}
+      />
+
       <div className="mb-8">
         <h1 className="text-2xl font-bold">{t("createTitle")}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
@@ -300,7 +386,17 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
         </p>
       </div>
 
-      {/* Step indicator */}
+      {!hasSubscription && (
+        <div className="mb-6 rounded-xl border border-violet-200 bg-violet-50/60 p-4 text-sm">
+          <p className="font-medium text-violet-900">
+            {t("payAsYouGoTitle")}
+          </p>
+          <p className="mt-1 text-violet-800/80">
+            {t("payAsYouGoDesc")}
+          </p>
+        </div>
+      )}
+
       <div className="mb-8 flex items-center gap-2 overflow-x-auto">
         {steps.map((s, i) => (
           <div key={s} className="flex shrink-0 items-center gap-2">
@@ -325,22 +421,20 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
               {s}
             </span>
             {i < steps.length - 1 && (
-              <div className="mx-1 h-px w-4 sm:w-8 bg-border" />
+              <div className="mx-1 h-px w-4 bg-border sm:w-8" />
             )}
           </div>
         ))}
       </div>
 
-      {/* Step content */}
       <div className="rounded-xl border border-border/60 bg-card p-6">
-        {/* Step 0: Theme */}
         {step === 0 && (
           <div>
             <h2 className="mb-4 text-lg font-semibold">{t("chooseTheme")}</h2>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {videoThemes.map((th, i) => {
                 const Icon = iconMap[th.icon] || Sparkles;
-                const isLocked = isStarter && i >= STARTER_THEME_LIMIT;
+                const isLocked = applyStarterRestrictions && i >= STARTER_THEME_LIMIT;
                 return (
                   <button
                     key={th.id}
@@ -388,7 +482,7 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
                 );
               })}
             </div>
-            {isStarter && (
+            {applyStarterRestrictions && (
               <p className="mt-3 text-center text-xs text-muted-foreground">
                 {t("unlockAllThemes")}{" "}
                 <button
@@ -402,7 +496,6 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
           </div>
         )}
 
-        {/* Step 1: Prompt */}
         {step === 1 && (
           <div className="space-y-4">
             <h2 className="mb-4 text-lg font-semibold">
@@ -431,14 +524,11 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
           </div>
         )}
 
-        {/* Step 2: Narration */}
         {step === 2 && (
           <div className="space-y-4">
             <h2 className="text-lg font-semibold">{t("narrationText")}</h2>
             <div>
-              <Label htmlFor="narration">
-                {t("narratorLabel")}
-              </Label>
+              <Label htmlFor="narration">{t("narratorLabel")}</Label>
               <Textarea
                 id="narration"
                 placeholder={t("narratorPlaceholder")}
@@ -453,7 +543,7 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
               </p>
               {narratorText.length > 0 && narratorText.length < 200 && (
                 <p className="mt-1 text-xs text-amber-600">
-                  ⚠ {t("shortNarrationWarning")}
+                  {t("shortNarrationWarning")}
                 </p>
               )}
               {narratorText.length >= 600 && (
@@ -465,13 +555,13 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
           </div>
         )}
 
-        {/* Step 3: Voice */}
         {step === 3 && (
           <div>
             <h2 className="mb-4 text-lg font-semibold">{t("chooseVoice")}</h2>
             <div className="grid gap-3 sm:grid-cols-2">
               {voiceOptions.map((v, i) => {
-                const isLocked = isStarter && i >= STARTER_VOICE_LIMIT;
+                const isLocked =
+                  applyStarterRestrictions && i >= STARTER_VOICE_LIMIT;
                 return (
                   <button
                     key={v.id}
@@ -507,9 +597,7 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
                             : "bg-muted text-muted-foreground"
                       )}
                     >
-                      <span className="text-xs font-medium">
-                        {v.name[0]}
-                      </span>
+                      <span className="text-xs font-medium">{v.name[0]}</span>
                     </div>
                     <div>
                       <p className="text-sm font-medium">{v.name}</p>
@@ -521,7 +609,7 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
                 );
               })}
             </div>
-            {isStarter && (
+            {applyStarterRestrictions && (
               <p className="mt-3 text-center text-xs text-muted-foreground">
                 {t("unlockAllVoices")}{" "}
                 <button
@@ -535,10 +623,11 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
           </div>
         )}
 
-        {/* Step 4: Review */}
         {step === 4 && (
           <div className="space-y-4">
-            <h2 className="mb-4 text-lg font-semibold">{t("reviewGenerate")}</h2>
+            <h2 className="mb-4 text-lg font-semibold">
+              {t("reviewGenerate")}
+            </h2>
             <div className="space-y-3 rounded-lg bg-muted/50 p-4">
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">{t("theme")}</span>
@@ -552,27 +641,76 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">{t("voice")}</span>
-                <span className="font-medium">{selectedVoice?.name ?? voiceId}</span>
+                <span className="font-medium">
+                  {selectedVoice?.name ?? voiceId}
+                </span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">{t("estDuration")}</span>
+                <span className="text-muted-foreground">
+                  {t("estDuration")}
+                </span>
                 <span className="font-medium">
                   ~{Math.ceil(narratorText.length / 15)}s
                 </span>
               </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">
+                  {t("creditsRequired")}
+                </span>
+                <span className="font-medium">{requiredCredits}</span>
+              </div>
+              {hasSubscription && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">
+                    {t("monthlyCreditsRemaining")}
+                  </span>
+                  <span className="font-medium">{monthlyCreditsRemaining}</span>
+                </div>
+              )}
+              {purchasedCreditsAvailable > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">
+                    {t("purchasedCreditsAvailable")}
+                  </span>
+                  <span className="font-medium">{purchasedCreditsAvailable}</span>
+                </div>
+              )}
+              {creditShortfall > 0 && (
+                <div className="rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 text-sm">
+                  <p className="font-medium text-violet-900">
+                    {t("reviewPaymentPrompt")}
+                  </p>
+                  <p className="mt-1 text-violet-800/80">
+                    {t("creditsShortfallDesc", {
+                      credits: creditShortfall,
+                      price: formatPrice(topupPricing.price, currency, locale),
+                    })}
+                  </p>
+                </div>
+              )}
               <div className="border-t pt-3">
-                <p className="text-xs text-muted-foreground">{t("narrationPreview")}</p>
+                <p className="text-xs text-muted-foreground">
+                  {t("narrationPreview")}
+                </p>
                 <p className="mt-1 text-sm">
                   {narratorText.slice(0, 200)}
                   {narratorText.length > 200 && "..."}
                 </p>
               </div>
             </div>
+
+            <div className="rounded-lg border border-border/60 bg-card p-4 text-sm">
+              <div className="flex items-center justify-between">
+                <span className="text-muted-foreground">
+                  {t("availableCredits")}
+                </span>
+                <span className="font-medium">{totalAvailableCredits}</span>
+              </div>
+            </div>
           </div>
         )}
       </div>
 
-      {/* Navigation */}
       <div className="mt-6 flex items-center justify-between">
         {step > 0 ? (
           <Button
@@ -596,6 +734,30 @@ export function CreateVideoForm({ plan, used, limit, hasSubscription }: CreateVi
             {t("next")}
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
+        ) : creditShortfall > 0 ? (
+          <div className="flex items-center gap-3">
+            <Button
+              variant="outline"
+              className="cursor-pointer"
+              onClick={() => setShowPlanDialog(true)}
+            >
+              {t("viewPlans")}
+            </Button>
+            <Button
+              onClick={handleCreditCheckout}
+              disabled={topupLoading}
+              className="cursor-pointer gradient-bg border-0 text-white hover:opacity-90"
+            >
+              {topupLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Zap className="mr-2 h-4 w-4" />
+              )}
+              {t("payAndCreate", {
+                price: formatPrice(topupPricing.price, currency, locale),
+              })}
+            </Button>
+          </div>
         ) : (
           <Button
             onClick={handleSubmit}

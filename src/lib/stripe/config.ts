@@ -13,7 +13,7 @@ export const plans: PricingPlan[] = [
     nameKey: "starter",
     description: "Perfect for getting started with AI videos",
     descriptionKey: "starterDesc",
-    videosPerMonth: 3,
+    monthlyCredits: 30,
     pricing: {
       USD: {
         price: 29,
@@ -27,14 +27,14 @@ export const plans: PricingPlan[] = [
       },
     },
     features: [
-      "3 videos per month",
+      "30 credits per month",
       "3 standard AI voices",
       "720p video output",
       "5 basic themes",
       "Email support",
     ],
     featureKeys: [
-      "starterFeature1",
+      "starterFeatureCredits",
       "starterFeature2",
       "starterFeature3",
       "starterFeature4",
@@ -47,7 +47,7 @@ export const plans: PricingPlan[] = [
     nameKey: "creator",
     description: "For content creators who need more",
     descriptionKey: "creatorDesc",
-    videosPerMonth: 10,
+    monthlyCredits: 100,
     highlighted: true,
     pricing: {
       USD: {
@@ -62,7 +62,7 @@ export const plans: PricingPlan[] = [
       },
     },
     features: [
-      "10 videos per month",
+      "100 credits per month",
       "10+ premium AI voices",
       "1080p video output",
       "All themes",
@@ -71,7 +71,7 @@ export const plans: PricingPlan[] = [
       "Priority support",
     ],
     featureKeys: [
-      "creatorFeature1",
+      "creatorFeatureCredits",
       "creatorFeature2",
       "creatorFeature3",
       "creatorFeature4",
@@ -86,7 +86,7 @@ export const plans: PricingPlan[] = [
     nameKey: "pro",
     description: "For professionals and teams",
     descriptionKey: "proDesc",
-    videosPerMonth: 25,
+    monthlyCredits: 250,
     pricing: {
       USD: {
         price: 149,
@@ -100,7 +100,7 @@ export const plans: PricingPlan[] = [
       },
     },
     features: [
-      "25 videos per month",
+      "250 credits per month",
       "All premium voices",
       "1080p video output",
       "All themes",
@@ -110,7 +110,7 @@ export const plans: PricingPlan[] = [
       "Dedicated support",
     ],
     featureKeys: [
-      "proFeature1",
+      "proFeatureCredits",
       "proFeature2",
       "proFeature3",
       "proFeature4",
@@ -175,7 +175,39 @@ export function formatPrice(
   }).format(amount);
 }
 
-export function getVideosLimit(plan: string): number {
+export function getMonthlyCreditsLimit(plan: string): number {
   const found = getPlan(plan);
-  return found?.videosPerMonth ?? 0;
+  return found?.monthlyCredits ?? 0;
+}
+
+export const getVideosLimit = getMonthlyCreditsLimit;
+
+export function estimateCreditsForVideo(narratorText: string): 8 | 10 | 12 {
+  const length = narratorText.trim().length;
+  if (length <= 250) return 8;
+  if (length <= 450) return 10;
+  return 12;
+}
+
+export function getCreditTopupPricing(
+  credits: number,
+  currency: SupportedCurrency
+) {
+  if (credits <= 0) {
+    return {
+      price: 0,
+      amountInCents: 0,
+      label: "0 credits",
+      currency,
+    };
+  }
+
+  const amountInCents = credits * 100 - 1;
+
+  return {
+    price: amountInCents / 100,
+    amountInCents,
+    label: `${credits} credits`,
+    currency,
+  };
 }

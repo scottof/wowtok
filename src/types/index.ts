@@ -1,6 +1,6 @@
-import type { Plan, SubStatus, VideoStatus } from "@prisma/client";
+import type { BillingSource, Plan, SubStatus, VideoStatus } from "@prisma/client";
 
-export type { Plan, SubStatus, VideoStatus };
+export type { BillingSource, Plan, SubStatus, VideoStatus };
 export type SupportedCurrency = "USD" | "EUR";
 
 export interface Scene {
@@ -30,7 +30,7 @@ export interface PricingPlan {
   descriptionKey: string;
   features: string[];
   featureKeys: string[];
-  videosPerMonth: number;
+  monthlyCredits: number;
   pricing: Record<
     SupportedCurrency,
     {
@@ -79,7 +79,7 @@ export interface VideoWithUser {
 }
 
 export interface UsageInfo {
-  videosGenerated: number;
-  videosLimit: number;
+  creditsUsed: number;
+  creditsLimit: number;
   month: string;
 }

@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const {
   constructEvent,
   retrieveSubscription,
+  prismaCreditPurchaseUpsert,
+  prismaSubscriptionFindFirst,
   prismaSubscriptionUpsert,
   prismaSubscriptionUpdateMany,
   prismaUsageUpsert,
@@ -10,6 +12,8 @@ const {
 } = vi.hoisted(() => ({
   constructEvent: vi.fn(),
   retrieveSubscription: vi.fn(),
+  prismaCreditPurchaseUpsert: vi.fn(),
+  prismaSubscriptionFindFirst: vi.fn(),
   prismaSubscriptionUpsert: vi.fn(),
   prismaSubscriptionUpdateMany: vi.fn(),
   prismaUsageUpsert: vi.fn(),
@@ -33,7 +37,11 @@ vi.mock("@/lib/stripe/client", () => ({
 
 vi.mock("@/lib/prisma", () => ({
   prisma: {
+    creditPurchase: {
+      upsert: prismaCreditPurchaseUpsert,
+    },
     subscription: {
+      findFirst: prismaSubscriptionFindFirst,
       upsert: prismaSubscriptionUpsert,
       updateMany: prismaSubscriptionUpdateMany,
     },
@@ -69,12 +77,14 @@ describe("api/webhooks/stripe", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     headersMock.mockResolvedValue(createHeaders());
+    prismaCreditPurchaseUpsert.mockResolvedValue(undefined);
+    prismaSubscriptionFindFirst.mockResolvedValue({ userId: "user_123" });
     prismaSubscriptionUpsert.mockResolvedValue(undefined);
     prismaSubscriptionUpdateMany.mockResolvedValue(undefined);
     prismaUsageUpsert.mockResolvedValue(undefined);
   });
 
-  it("persists completed checkout sessions with EUR creator pricing", async () => {
+  it("persists completed subscription checkout sessions with EUR creator pricing", async () => {
     const periodStart = 1_710_000_000;
     const periodEnd = 1_712_592_000;
 
@@ -111,7 +121,11 @@ describe("api/webhooks/stripe", () => {
     );
 
     expect(response.status).toBe(200);
-    expect(constructEvent).toHaveBeenCalledWith("payload", "sig_test", "whsec_test");
+    expect(constructEvent).toHaveBeenCalledWith(
+      "payload",
+      "sig_test",
+      "whsec_test"
+    );
     expect(retrieveSubscription).toHaveBeenCalledWith("sub_123");
     expect(prismaSubscriptionUpsert).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -132,14 +146,65 @@ describe("api/webhooks/stripe", () => {
     );
     expect(prismaUsageUpsert).toHaveBeenCalledWith(
       expect.objectContaining({
-        update: { videosLimit: 10 },
+        update: { creditsLimit: 100 },
         create: expect.objectContaining({
           userId: "user_123",
-          videosGenerated: 0,
-          videosLimit: 10,
+          creditsUsed: 0,
+          creditsLimit: 100,
         }),
       })
     );
+  });
+
+  it("stores completed credit top-up checkout sessions", async () => {
+    constructEvent.mockReturnValue({
+      type: "checkout.session.completed",
+      data: {
+        object: {
+          id: "cs_test_123",
+          amount_total: 799,
+          currency: "eur",
+          payment_intent: "pi_123",
+          metadata: {
+            userId: "user_123",
+            checkoutType: "CREDIT_TOPUP",
+            credits: "8",
+          },
+        },
+      },
+    });
+
+    const response = await POST(
+      new Request("https://www.wowtok.com/api/webhooks/stripe", {
+        method: "POST",
+        body: "payload",
+      })
+    );
+
+    expect(response.status).toBe(200);
+    expect(prismaCreditPurchaseUpsert).toHaveBeenCalledWith({
+      where: { stripeCheckoutSessionId: "cs_test_123" },
+      update: {
+        stripePaymentIntentId: "pi_123",
+        creditsPurchased: 8,
+        creditsRemaining: 8,
+        amount: 799,
+        currency: "EUR",
+        status: "COMPLETED",
+      },
+      create: {
+        userId: "user_123",
+        stripeCheckoutSessionId: "cs_test_123",
+        stripePaymentIntentId: "pi_123",
+        creditsPurchased: 8,
+        creditsRemaining: 8,
+        amount: 799,
+        currency: "EUR",
+        status: "COMPLETED",
+      },
+    });
+    expect(retrieveSubscription).not.toHaveBeenCalled();
+    expect(prismaSubscriptionUpsert).not.toHaveBeenCalled();
   });
 
   it("updates subscriptions on customer.subscription.updated", async () => {
@@ -181,6 +246,20 @@ describe("api/webhooks/stripe", () => {
         cancelAtPeriodEnd: true,
       }),
     });
+    expect(prismaSubscriptionFindFirst).toHaveBeenCalledWith({
+      where: { stripeSubscriptionId: "sub_456" },
+      select: { userId: true },
+    });
+    expect(prismaUsageUpsert).toHaveBeenCalledWith(
+      expect.objectContaining({
+        update: { creditsLimit: 250 },
+        create: expect.objectContaining({
+          userId: "user_123",
+          creditsUsed: 0,
+          creditsLimit: 250,
+        }),
+      })
+    );
   });
 
   it("returns 400 for invalid webhook signatures", async () => {
@@ -196,6 +275,7 @@ describe("api/webhooks/stripe", () => {
     );
 
     expect(response.status).toBe(400);
+    expect(prismaCreditPurchaseUpsert).not.toHaveBeenCalled();
     expect(prismaSubscriptionUpsert).not.toHaveBeenCalled();
     expect(prismaSubscriptionUpdateMany).not.toHaveBeenCalled();
   });

@@ -1,7 +1,7 @@
 import { stripe } from "./client";
 import { prisma } from "@/lib/prisma";
 import { mapPriceToPlan, mapStatus } from "./mappers";
-import { getVideosLimit } from "./config";
+import { getMonthlyCreditsLimit } from "./config";
 import { env } from "@/lib/env";
 
 /**
@@ -68,12 +68,12 @@ export async function syncSubscriptionFromStripe(
     const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
     await prisma.usageRecord.upsert({
       where: { userId_month: { userId, month } },
-      update: { videosLimit: getVideosLimit(plan) },
+      update: { creditsLimit: getMonthlyCreditsLimit(plan) },
       create: {
         userId,
         month,
-        videosGenerated: 0,
-        videosLimit: getVideosLimit(plan),
+        creditsUsed: 0,
+        creditsLimit: getMonthlyCreditsLimit(plan),
       },
     });
   } catch (error) {

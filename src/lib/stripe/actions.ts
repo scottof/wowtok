@@ -5,7 +5,7 @@ import { getLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { stripe } from "./client";
-import { getCurrencyForLocale, getPlanPricing } from "./config";
+import { getCreditTopupPricing, getCurrencyForLocale, getPlanPricing } from "./config";
 import { getLocalizedUrl } from "@/lib/seo/locale-urls";
 
 function getCheckoutCancelPath(returnPath?: string) {
@@ -16,28 +16,7 @@ function getCheckoutCancelPath(returnPath?: string) {
   return returnPath;
 }
 
-export async function createCheckoutSessionByPlan(
-  planId: string,
-  returnPath?: string
-) {
-  const { plans } = await import("./config");
-  const locale = await getLocale();
-  const currency = getCurrencyForLocale(locale);
-  const plan = plans.find((p) => p.id === planId.toUpperCase());
-  const pricing = plan ? getPlanPricing(plan, currency) : undefined;
-
-  if (!plan || !pricing?.stripePriceId) {
-    throw new Error("Invalid plan");
-  }
-  return createCheckoutSession(pricing.stripePriceId, locale, returnPath);
-}
-
-export async function createCheckoutSession(
-  priceId: string,
-  locale?: string,
-  returnPath?: string
-) {
-  const activeLocale = locale ?? (await getLocale());
+async function getCheckoutContext(activeLocale: string) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -69,6 +48,33 @@ export async function createCheckoutSession(
     });
   }
 
+  return { user, dbUser, customerId };
+}
+
+export async function createCheckoutSessionByPlan(
+  planId: string,
+  returnPath?: string
+) {
+  const { plans } = await import("./config");
+  const locale = await getLocale();
+  const currency = getCurrencyForLocale(locale);
+  const plan = plans.find((p) => p.id === planId.toUpperCase());
+  const pricing = plan ? getPlanPricing(plan, currency) : undefined;
+
+  if (!plan || !pricing?.stripePriceId) {
+    throw new Error("Invalid plan");
+  }
+  return createCheckoutSession(pricing.stripePriceId, locale, returnPath);
+}
+
+export async function createCheckoutSession(
+  priceId: string,
+  locale?: string,
+  returnPath?: string
+) {
+  const activeLocale = locale ?? (await getLocale());
+  const { dbUser, customerId } = await getCheckoutContext(activeLocale);
+
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
     mode: "subscription",
@@ -82,6 +88,59 @@ export async function createCheckoutSession(
       { canceled: true }
     ),
     metadata: { userId: dbUser.id },
+  });
+
+  redirect(session.url!);
+}
+
+export async function createCreditTopupCheckoutSession(
+  {
+    requiredCredits,
+    draftFingerprint,
+    returnPath,
+  }: {
+    requiredCredits: number;
+    draftFingerprint?: string;
+    returnPath?: string;
+  }
+) {
+  const activeLocale = await getLocale();
+  const currency = getCurrencyForLocale(activeLocale);
+  const topup = getCreditTopupPricing(requiredCredits, currency);
+  const { dbUser, customerId } = await getCheckoutContext(activeLocale);
+
+  const localizedReturnPath = getCheckoutCancelPath(returnPath ?? "/dashboard/create");
+
+  const session = await stripe.checkout.sessions.create({
+    customer: customerId,
+    mode: "payment",
+    payment_method_types: ["card"],
+    line_items: [
+      {
+        price_data: {
+          currency: currency.toLowerCase(),
+          product_data: {
+            name: `WowTok ${requiredCredits} credit top-up`,
+            description: `Credits for one-off AI TikTok video creation`,
+          },
+          unit_amount: topup.amountInCents,
+        },
+        quantity: 1,
+      },
+    ],
+    allow_promotion_codes: false,
+    success_url: getLocalizedUrl(activeLocale, localizedReturnPath, {
+      payg: "success",
+    }),
+    cancel_url: getLocalizedUrl(activeLocale, localizedReturnPath, {
+      payg: "canceled",
+    }),
+    metadata: {
+      userId: dbUser.id,
+      checkoutType: "CREDIT_TOPUP",
+      credits: String(requiredCredits),
+      draftFingerprint: draftFingerprint ?? "",
+    },
   });
 
   redirect(session.url!);

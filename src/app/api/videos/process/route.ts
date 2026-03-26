@@ -12,6 +12,7 @@ import { generateVoiceoverWithTimestamps } from "@/lib/ai/elevenlabs";
 import { getTheme } from "@/config/themes";
 import { env } from "@/lib/env";
 import type { Scene } from "@/types";
+import { restorePurchasedCreditsForFailedVideo } from "@/lib/credits";
 
 export const maxDuration = 300;
 
@@ -228,8 +229,16 @@ export async function POST(req: Request) {
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
     console.error(`Pipeline failed for video ${videoId}:`, message);
-    await updateVideoStatus(videoId, "FAILED", {
-      errorMessage: message,
+    await prisma.$transaction(async (tx) => {
+      await tx.video.update({
+        where: { id: videoId },
+        data: {
+          status: "FAILED",
+          errorMessage: message,
+        },
+      });
+
+      await restorePurchasedCreditsForFailedVideo(tx, videoId);
     });
   }
 

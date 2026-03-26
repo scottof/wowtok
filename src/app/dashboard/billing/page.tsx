@@ -8,10 +8,14 @@ import {
 import { BillingContent } from "@/components/dashboard/billing-content";
 import { getLocale } from "next-intl/server";
 import { getDashboardViewer } from "@/lib/dashboard/server";
+import { getPurchasedCreditsAvailable } from "@/lib/credits";
 
 export default async function BillingPage() {
   const locale = await getLocale();
   const { dbUser } = await getDashboardViewer();
+  const purchasedCreditsAvailable = dbUser
+    ? await getPurchasedCreditsAvailable(dbUser.id)
+    : 0;
 
   const subscription = dbUser?.subscription;
   const plan = subscription ? getPlan(subscription.plan) : null;
@@ -37,10 +41,11 @@ export default async function BillingPage() {
           ? {
               id: plan.id,
               priceDisplay: formatPrice(pricing.price, currency!, locale),
-              videosPerMonth: plan.videosPerMonth,
+              monthlyCredits: plan.monthlyCredits,
             }
           : null
       }
+      purchasedCreditsAvailable={purchasedCreditsAvailable}
     />
   );
 }

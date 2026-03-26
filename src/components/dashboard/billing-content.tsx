@@ -19,11 +19,16 @@ interface BillingContentProps {
   plan: {
     id: string;
     priceDisplay: string;
-    videosPerMonth: number;
+    monthlyCredits: number;
   } | null;
+  purchasedCreditsAvailable: number;
 }
 
-export function BillingContent({ subscription, plan }: BillingContentProps) {
+export function BillingContent({
+  subscription,
+  plan,
+  purchasedCreditsAvailable,
+}: BillingContentProps) {
   const t = useTranslations("Dashboard");
   const tPricing = useTranslations("Pricing");
   const [showPlanDialog, setShowPlanDialog] = useState(false);
@@ -77,7 +82,7 @@ export function BillingContent({ subscription, plan }: BillingContentProps) {
                   </Badge>
                 </div>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  {plan.priceDisplay}{t("perMonth")} &middot; {plan.videosPerMonth} {t("videosPerMonth")}
+                  {plan.priceDisplay}{t("perMonth")} &middot; {plan.monthlyCredits} {t("creditsPerMonth")}
                 </p>
               </div>
               <CreditCard className="h-8 w-8 text-muted-foreground/30" />
@@ -98,6 +103,15 @@ export function BillingContent({ subscription, plan }: BillingContentProps) {
               </div>
             )}
           </div>
+
+          {purchasedCreditsAvailable > 0 && (
+            <div className="rounded-xl border border-border/60 bg-card p-6">
+              <h3 className="text-lg font-semibold">{t("purchasedCreditsTitle")}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {t("purchasedCreditsDesc", { credits: purchasedCreditsAvailable })}
+              </p>
+            </div>
+          )}
 
           {/* Manage subscription */}
           <Button

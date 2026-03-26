@@ -109,7 +109,7 @@ export function PlanSelectionDialog({
                   </span>
                 )}
                 <p className="text-xs text-muted-foreground mt-2">
-                  {p.videosPerMonth} {t("videosPerMonth")}
+                  {p.monthlyCredits} {t("creditsPerMonth")}
                 </p>
                 <ul className="mt-3 space-y-1.5 flex-1">
                   {p.featureKeys.slice(1, 4).map((featureKey) => (

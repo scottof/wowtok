@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { stripe } from "@/lib/stripe/client";
 import { prisma } from "@/lib/prisma";
-import { getVideosLimit } from "@/lib/stripe/config";
+import { getMonthlyCreditsLimit } from "@/lib/stripe/config";
 import { mapPriceToPlan, mapStatus } from "@/lib/stripe/mappers";
 import { env } from "@/lib/env";
 
@@ -31,10 +31,51 @@ export async function POST(req: Request) {
   switch (event.type) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
-      const subscriptionId = session.subscription as string;
       const userId = session.metadata?.userId;
+      const checkoutType = session.metadata?.checkoutType;
 
-      if (!userId || !subscriptionId) break;
+      if (!userId) break;
+
+      if (checkoutType === "CREDIT_TOPUP") {
+        const credits = Number(session.metadata?.credits || "0");
+        const currency = (session.currency?.toUpperCase() || "USD") as "USD" | "EUR";
+        const amount = session.amount_total ?? 0;
+
+        if (credits <= 0) break;
+
+        await prisma.creditPurchase.upsert({
+          where: { stripeCheckoutSessionId: session.id },
+          update: {
+            stripePaymentIntentId:
+              typeof session.payment_intent === "string"
+                ? session.payment_intent
+                : null,
+            creditsPurchased: credits,
+            creditsRemaining: credits,
+            amount,
+            currency,
+            status: "COMPLETED",
+          },
+          create: {
+            userId,
+            stripeCheckoutSessionId: session.id,
+            stripePaymentIntentId:
+              typeof session.payment_intent === "string"
+                ? session.payment_intent
+                : null,
+            creditsPurchased: credits,
+            creditsRemaining: credits,
+            amount,
+            currency,
+            status: "COMPLETED",
+          },
+        });
+        break;
+      }
+
+      const subscriptionId = session.subscription as string;
+
+      if (!subscriptionId) break;
 
       const subscription = await stripe.subscriptions.retrieve(subscriptionId);
       const item = subscription.items.data[0];
@@ -84,12 +125,12 @@ export async function POST(req: Request) {
       const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
       await prisma.usageRecord.upsert({
         where: { userId_month: { userId, month } },
-        update: { videosLimit: getVideosLimit(plan) },
+        update: { creditsLimit: getMonthlyCreditsLimit(plan) },
         create: {
           userId,
           month,
-          videosGenerated: 0,
-          videosLimit: getVideosLimit(plan),
+          creditsUsed: 0,
+          creditsLimit: getMonthlyCreditsLimit(plan),
         },
       });
       break;
@@ -125,6 +166,28 @@ export async function POST(req: Request) {
           cancelAtPeriodEnd: isUpdatedCanceling,
         },
       });
+
+      const linkedSubscription = await prisma.subscription.findFirst({
+        where: { stripeSubscriptionId: subscription.id },
+        select: { userId: true },
+      });
+
+      if (linkedSubscription) {
+        const now = new Date();
+        const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+        await prisma.usageRecord.upsert({
+          where: { userId_month: { userId: linkedSubscription.userId, month } },
+          update: {
+            creditsLimit: getMonthlyCreditsLimit(plan),
+          },
+          create: {
+            userId: linkedSubscription.userId,
+            month,
+            creditsUsed: 0,
+            creditsLimit: getMonthlyCreditsLimit(plan),
+          },
+        });
+      }
       break;
     }
 

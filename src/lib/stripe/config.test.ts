@@ -1,12 +1,14 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
   defaultCurrency,
+  estimateCreditsForVideo,
   formatPrice,
+  getCreditTopupPricing,
   getCurrencyByPriceId,
   getCurrencyForLocale,
+  getMonthlyCreditsLimit,
   getPlan,
   getPlanPricing,
-  getVideosLimit,
   plans,
 } from "./config";
 
@@ -17,18 +19,18 @@ describe("stripe/config", () => {
       expect(plans.map((p) => p.id)).toEqual(["STARTER", "CREATOR", "PRO"]);
     });
 
-    it("each plan has correct videosPerMonth and USD price", () => {
+    it("each plan has the correct monthly credits and USD price", () => {
       const starter = plans.find((p) => p.id === "STARTER")!;
       const creator = plans.find((p) => p.id === "CREATOR")!;
       const pro = plans.find((p) => p.id === "PRO")!;
 
-      expect(starter.videosPerMonth).toBe(3);
+      expect(starter.monthlyCredits).toBe(30);
       expect(starter.pricing.USD.price).toBe(29);
 
-      expect(creator.videosPerMonth).toBe(10);
+      expect(creator.monthlyCredits).toBe(100);
       expect(creator.pricing.USD.price).toBe(59);
 
-      expect(pro.videosPerMonth).toBe(25);
+      expect(pro.monthlyCredits).toBe(250);
       expect(pro.pricing.USD.price).toBe(149);
     });
   });
@@ -46,15 +48,47 @@ describe("stripe/config", () => {
     });
   });
 
-  describe("getVideosLimit", () => {
+  describe("getMonthlyCreditsLimit", () => {
     it("returns the correct limit for each plan", () => {
-      expect(getVideosLimit("STARTER")).toBe(3);
-      expect(getVideosLimit("CREATOR")).toBe(10);
-      expect(getVideosLimit("PRO")).toBe(25);
+      expect(getMonthlyCreditsLimit("STARTER")).toBe(30);
+      expect(getMonthlyCreditsLimit("CREATOR")).toBe(100);
+      expect(getMonthlyCreditsLimit("PRO")).toBe(250);
     });
 
     it("returns 0 for an unknown plan", () => {
-      expect(getVideosLimit("NONEXISTENT")).toBe(0);
+      expect(getMonthlyCreditsLimit("NONEXISTENT")).toBe(0);
+    });
+  });
+
+  describe("estimateCreditsForVideo", () => {
+    it("uses the length-based credit tiers", () => {
+      expect(estimateCreditsForVideo("a".repeat(10))).toBe(8);
+      expect(estimateCreditsForVideo("a".repeat(250))).toBe(8);
+      expect(estimateCreditsForVideo("a".repeat(251))).toBe(10);
+      expect(estimateCreditsForVideo("a".repeat(450))).toBe(10);
+      expect(estimateCreditsForVideo("a".repeat(451))).toBe(12);
+      expect(estimateCreditsForVideo("a".repeat(600))).toBe(12);
+    });
+  });
+
+  describe("getCreditTopupPricing", () => {
+    it("prices top-ups dynamically per required credit", () => {
+      expect(getCreditTopupPricing(8, "USD")).toMatchObject({
+        amountInCents: 799,
+        price: 7.99,
+      });
+      expect(getCreditTopupPricing(10, "EUR")).toMatchObject({
+        amountInCents: 999,
+        price: 9.99,
+      });
+      expect(getCreditTopupPricing(12, "USD")).toMatchObject({
+        amountInCents: 1199,
+        price: 11.99,
+      });
+      expect(getCreditTopupPricing(2, "USD")).toMatchObject({
+        amountInCents: 199,
+        price: 1.99,
+      });
     });
   });
 

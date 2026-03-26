@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { DashboardContent } from "@/components/dashboard/dashboard-content";
-import { getVideosLimit } from "@/lib/stripe/config";
+import { getMonthlyCreditsLimit } from "@/lib/stripe/config";
 import { syncSubscriptionFromStripe } from "@/lib/stripe/sync";
 import type { VideoStatus } from "@/types";
 import { getCurrentUsageMonth, getDashboardViewer } from "@/lib/dashboard/server";
@@ -58,8 +58,8 @@ export default async function DashboardPage({
           duration: v.duration,
           createdAt: v.createdAt,
         }))}
-      used={usage?.videosGenerated ?? 0}
-      limit={usage?.videosLimit ?? (subscription ? getVideosLimit(subscription.plan) : 0)}
+      used={usage?.creditsUsed ?? 0}
+      limit={usage?.creditsLimit ?? (subscription ? getMonthlyCreditsLimit(subscription.plan) : 0)}
     />
   );
 }
