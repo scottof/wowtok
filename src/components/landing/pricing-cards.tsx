@@ -177,16 +177,6 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
                 </p>
               </div>
 
-              <div>
-                <div className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-                  {t("paygStartingFrom")}
-                </div>
-                <div className="mt-2 text-3xl font-bold">
-                  {t("paygOneTime")}
-                </div>
-                <p className="mt-2 text-sm text-muted-foreground">{t("paygPricingNote")}</p>
-              </div>
-
               <div className="mt-auto pt-6">
                 {isLoggedIn ? (
                   <Button className="w-full cursor-pointer" variant="outline" asChild>
