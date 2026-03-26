@@ -95,7 +95,16 @@
     "proFeature8": "Soporte dedicado",
     "starterFeatureCredits": "30 créditos al mes",
     "creatorFeatureCredits": "100 créditos al mes",
-    "proFeatureCredits": "250 créditos al mes"
+    "proFeatureCredits": "250 créditos al mes",
+    "paygBadge": "Flexible",
+    "paygTitle": "Paga solo cuando lo necesites",
+    "paygDesc": "Crea primero un borrador y después compra solo los créditos necesarios para ese video.",
+    "paygStartingFrom": "Desde",
+    "paygOneTime": "pago único",
+    "paygFeature1": "Recarga exacta de créditos por cada video",
+    "paygFeature2": "El precio final depende de la longitud del borrador",
+    "paygFeature3": "Disponible sin suscripción mensual",
+    "paygFeature4": "Todos los temas y voces se desbloquean tras el pago"
   },
   "FAQ": {
     "title": "Preguntas frecuentes",

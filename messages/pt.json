@@ -367,7 +367,16 @@
     "proFeature8": "Suporte dedicado",
     "starterFeatureCredits": "30 créditos por mês",
     "creatorFeatureCredits": "100 créditos por mês",
-    "proFeatureCredits": "250 créditos por mês"
+    "proFeatureCredits": "250 créditos por mês",
+    "paygBadge": "Flexível",
+    "paygTitle": "Pague conforme usa",
+    "paygDesc": "Crie primeiro um rascunho e depois compre apenas os créditos necessários para esse vídeo.",
+    "paygStartingFrom": "A partir de",
+    "paygOneTime": "pagamento único",
+    "paygFeature1": "Recarga exata de créditos por vídeo",
+    "paygFeature2": "O preço final depende da duração do rascunho",
+    "paygFeature3": "Disponível sem subscrição mensal",
+    "paygFeature4": "Todos os temas e vozes são desbloqueados após o pagamento"
   },
   "PricingPage": {
     "title": "Preços",

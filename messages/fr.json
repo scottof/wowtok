@@ -95,7 +95,16 @@
     "proFeature8": "Support dédié",
     "starterFeatureCredits": "30 crédits par mois",
     "creatorFeatureCredits": "100 crédits par mois",
-    "proFeatureCredits": "250 crédits par mois"
+    "proFeatureCredits": "250 crédits par mois",
+    "paygBadge": "Flexible",
+    "paygTitle": "Paiement à l'usage",
+    "paygDesc": "Créez d'abord un brouillon, puis achetez seulement les crédits nécessaires pour cette vidéo.",
+    "paygStartingFrom": "À partir de",
+    "paygOneTime": "paiement unique",
+    "paygFeature1": "Recharge de crédits exacte pour chaque vidéo",
+    "paygFeature2": "Le prix final dépend de la longueur du brouillon",
+    "paygFeature3": "Disponible sans forfait mensuel",
+    "paygFeature4": "Tous les thèmes et toutes les voix se débloquent après paiement"
   },
   "FAQ": {
     "title": "Questions frequentes",

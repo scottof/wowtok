@@ -95,7 +95,16 @@
     "proFeature5": "Priority generation queue",
     "proFeature6": "No watermark",
     "proFeature7": "Batch generation",
-    "proFeature8": "Dedicated support"
+    "proFeature8": "Dedicated support",
+    "paygBadge": "Flexible",
+    "paygTitle": "Pay as you go",
+    "paygDesc": "Create a draft first, then buy only the credits needed for that video.",
+    "paygStartingFrom": "Starting from",
+    "paygOneTime": "one-time",
+    "paygFeature1": "Exact one-time credit top-up per video",
+    "paygFeature2": "Final price depends on draft length",
+    "paygFeature3": "Available without a monthly subscription",
+    "paygFeature4": "All themes and voices unlock after payment"
   },
   "FAQ": {
     "title": "Frequently asked questions",

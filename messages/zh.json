@@ -95,7 +95,16 @@
     "proFeature8": "专属支持",
     "starterFeatureCredits": "每月 30 积分",
     "creatorFeatureCredits": "每月 100 积分",
-    "proFeatureCredits": "每月 250 积分"
+    "proFeatureCredits": "每月 250 积分",
+    "paygBadge": "灵活",
+    "paygTitle": "按需付费",
+    "paygDesc": "先创建草稿，然后只购买该视频所需的积分。",
+    "paygStartingFrom": "起价",
+    "paygOneTime": "一次性",
+    "paygFeature1": "按单个视频精确一次性充值积分",
+    "paygFeature2": "最终价格取决于草稿长度",
+    "paygFeature3": "无需月度套餐也可使用",
+    "paygFeature4": "付款后即可解锁所有主题和声音"
   },
   "FAQ": {
     "title": "常见问题",

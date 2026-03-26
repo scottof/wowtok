@@ -95,7 +95,16 @@
     "proFeature8": "دعم مخصص",
     "starterFeatureCredits": "30 رصيدًا شهريًا",
     "creatorFeatureCredits": "100 رصيد شهريًا",
-    "proFeatureCredits": "250 رصيدًا شهريًا"
+    "proFeatureCredits": "250 رصيدًا شهريًا",
+    "paygBadge": "مرن",
+    "paygTitle": "ادفع حسب الاستخدام",
+    "paygDesc": "أنشئ مسودة أولاً، ثم اشترِ فقط الأرصدة اللازمة لهذا الفيديو.",
+    "paygStartingFrom": "ابتداءً من",
+    "paygOneTime": "دفعة واحدة",
+    "paygFeature1": "شحن أرصدة دقيق لمرة واحدة لكل فيديو",
+    "paygFeature2": "السعر النهائي يعتمد على طول المسودة",
+    "paygFeature3": "متاح حتى بدون خطة شهرية",
+    "paygFeature4": "يتم فتح جميع السمات والأصوات بعد الدفع"
   },
   "FAQ": {
     "title": "الاسئلة الشائعة",

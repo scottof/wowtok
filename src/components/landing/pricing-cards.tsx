@@ -5,6 +5,7 @@ import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   formatPrice,
+  getCreditTopupPricing,
   getCurrencyForLocale,
   getPlanPricing,
   plans,
@@ -28,6 +29,7 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
   const [isPending, startTransition] = useTransition();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const currency = getCurrencyForLocale(locale);
+  const paygStartingPrice = getCreditTopupPricing(8, currency);
 
   function handleSubscribe(planId: string) {
     trackEvent("select_plan", { plan: planId, source: "pricing_page" });
@@ -57,7 +59,7 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
           {plans.map((plan, i) => {
             const pricing = getPlanPricing(plan, currency);
             if (!pricing) return null;
@@ -154,6 +156,60 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
               </motion.div>
             );
           })}
+
+          <motion.div
+            className="relative rounded-2xl border border-dashed border-violet-300 bg-violet-50/40 p-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: plans.length * 0.1 }}
+            viewport={{ once: true }}
+          >
+            <div className="mb-6">
+              <div className="mb-2 inline-flex items-center rounded-full border border-violet-200 bg-white px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-violet-700">
+                {t("paygBadge")}
+              </div>
+              <h3 className="text-lg font-semibold">{t("paygTitle")}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {t("paygDesc")}
+              </p>
+            </div>
+
+            <div className="mb-6">
+              <div className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
+                {t("paygStartingFrom")}
+              </div>
+              <div className="mt-2 flex items-end gap-2">
+                <span className="text-4xl font-bold">
+                  {formatPrice(paygStartingPrice.price, currency, locale)}
+                </span>
+                <span className="pb-1 text-muted-foreground">{t("paygOneTime")}</span>
+              </div>
+            </div>
+
+            {isLoggedIn ? (
+              <Button className="mb-8 w-full cursor-pointer" variant="outline" asChild>
+                <Link href="/dashboard/create">{t("getStarted")}</Link>
+              </Button>
+            ) : (
+              <Button className="mb-8 w-full cursor-pointer" variant="outline" asChild>
+                <Link href="/signup">{t("getStarted")}</Link>
+              </Button>
+            )}
+
+            <ul className="space-y-3">
+              {[
+                "paygFeature1",
+                "paygFeature2",
+                "paygFeature3",
+                "paygFeature4",
+              ].map((featureKey) => (
+                <li key={featureKey} className="flex items-start gap-3 text-sm">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-violet-600" />
+                  <span>{t(featureKey)}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
         </div>
       </div>
     </section>
