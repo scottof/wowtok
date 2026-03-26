@@ -89,7 +89,7 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
                   </div>
                 )}
 
-                <div className="mb-8 flex min-h-[300px] flex-col">
+                <div className="mb-8 flex min-h-[250px] flex-col">
                   <div className="mb-6">
                     <h3 className="text-lg font-semibold">{t(plan.nameKey)}</h3>
                     <p className="mt-1 text-sm text-muted-foreground">
@@ -166,7 +166,7 @@ export function PricingCards({ isLoggedIn = false }: PricingCardsProps) {
             transition={{ duration: 0.4, delay: plans.length * 0.1 }}
             viewport={{ once: true }}
           >
-            <div className="mb-8 flex min-h-[300px] flex-col">
+            <div className="mb-8 flex min-h-[250px] flex-col">
               <div className="mb-6">
                 <div className="mb-2 inline-flex items-center rounded-full border border-violet-200 bg-white px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-violet-700">
                   {t("paygBadge")}
