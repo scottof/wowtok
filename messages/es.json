@@ -99,12 +99,13 @@
     "paygBadge": "Flexible",
     "paygTitle": "Paga solo cuando lo necesites",
     "paygDesc": "Crea primero un borrador y después compra solo los créditos necesarios para ese video.",
-    "paygStartingFrom": "Desde",
-    "paygOneTime": "pago único",
+    "paygStartingFrom": "Precio",
+    "paygOneTime": "Según tu borrador",
     "paygFeature1": "Recarga exacta de créditos por cada video",
     "paygFeature2": "El precio final depende de la longitud del borrador",
     "paygFeature3": "Disponible sin suscripción mensual",
-    "paygFeature4": "Todos los temas y voces se desbloquean tras el pago"
+    "paygFeature4": "Todos los temas y voces se desbloquean tras el pago",
+    "paygPricingNote": "Los créditos exactos y el total se calculan en el último paso antes de la generación."
   },
   "FAQ": {
     "title": "Preguntas frecuentes",

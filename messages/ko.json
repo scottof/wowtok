@@ -99,12 +99,13 @@
     "paygBadge": "유연함",
     "paygTitle": "필요할 때만 결제",
     "paygDesc": "먼저 초안을 만든 뒤 그 영상에 필요한 크레딧만 구매하세요.",
-    "paygStartingFrom": "시작가",
-    "paygOneTime": "1회 결제",
+    "paygStartingFrom": "요금",
+    "paygOneTime": "초안 기준",
     "paygFeature1": "영상별 정확한 일회성 크레딧 충전",
     "paygFeature2": "최종 가격은 초안 길이에 따라 달라집니다",
     "paygFeature3": "월간 구독 없이도 이용 가능",
-    "paygFeature4": "결제 후 모든 테마와 음성이 열립니다"
+    "paygFeature4": "결제 후 모든 테마와 음성이 열립니다",
+    "paygPricingNote": "정확한 크레딧과 총액은 생성 직전 마지막 단계에서 계산됩니다."
   },
   "FAQ": {
     "title": "자주 묻는 질문",

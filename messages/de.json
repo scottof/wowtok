@@ -99,12 +99,13 @@
     "paygBadge": "Flexibel",
     "paygTitle": "Zahle nur bei Bedarf",
     "paygDesc": "Erstelle zuerst einen Entwurf und kaufe dann nur die Credits, die dieses Video wirklich braucht.",
-    "paygStartingFrom": "Ab",
-    "paygOneTime": "einmalig",
+    "paygStartingFrom": "Preis",
+    "paygOneTime": "Basierend auf deinem Entwurf",
     "paygFeature1": "Exaktes einmaliges Credit-Top-up pro Video",
     "paygFeature2": "Der Endpreis hängt von der Länge des Entwurfs ab",
     "paygFeature3": "Auch ohne Monatsplan verfügbar",
-    "paygFeature4": "Alle Themen und Stimmen werden nach der Zahlung freigeschaltet"
+    "paygFeature4": "Alle Themen und Stimmen werden nach der Zahlung freigeschaltet",
+    "paygPricingNote": "Die genauen Credits und der Gesamtpreis werden im letzten Schritt vor der Generierung berechnet."
   },
   "FAQ": {
     "title": "Haufig gestellte Fragen",

@@ -371,12 +371,13 @@
     "paygBadge": "Flexível",
     "paygTitle": "Pague conforme usa",
     "paygDesc": "Crie primeiro um rascunho e depois compre apenas os créditos necessários para esse vídeo.",
-    "paygStartingFrom": "A partir de",
-    "paygOneTime": "pagamento único",
+    "paygStartingFrom": "Preço",
+    "paygOneTime": "Com base no seu rascunho",
     "paygFeature1": "Recarga exata de créditos por vídeo",
     "paygFeature2": "O preço final depende da duração do rascunho",
     "paygFeature3": "Disponível sem subscrição mensal",
-    "paygFeature4": "Todos os temas e vozes são desbloqueados após o pagamento"
+    "paygFeature4": "Todos os temas e vozes são desbloqueados após o pagamento",
+    "paygPricingNote": "Os créditos exatos e o total são calculados no passo final antes da geração."
   },
   "PricingPage": {
     "title": "Preços",

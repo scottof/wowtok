@@ -99,12 +99,13 @@
     "paygBadge": "Flessibile",
     "paygTitle": "Paga solo quando ti serve",
     "paygDesc": "Crea prima una bozza, poi acquista solo i crediti necessari per quel video.",
-    "paygStartingFrom": "A partire da",
-    "paygOneTime": "una tantum",
+    "paygStartingFrom": "Prezzo",
+    "paygOneTime": "In base alla tua bozza",
     "paygFeature1": "Ricarica crediti una tantum in base al singolo video",
     "paygFeature2": "Il prezzo finale dipende dalla lunghezza della bozza",
     "paygFeature3": "Disponibile anche senza un piano mensile",
-    "paygFeature4": "Tutti i temi e le voci si sbloccano dopo il pagamento"
+    "paygFeature4": "Tutti i temi e le voci si sbloccano dopo il pagamento",
+    "paygPricingNote": "I crediti esatti e il totale vengono calcolati nell ultimo passaggio prima della generazione."
   },
   "FAQ": {
     "title": "Domande frequenti",
