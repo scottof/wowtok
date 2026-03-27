@@ -1,10 +1,36 @@
 import { NextResponse } from "next/server";
+import {
+  assertSameOrigin,
+  consumeRateLimit,
+  getRequestIp,
+} from "@/lib/security/request";
 
 export async function POST(request: Request) {
+  if (!assertSameOrigin(request)) {
+    return NextResponse.json({ error: "Invalid origin" }, { status: 403 });
+  }
+
   const { name, email, subject, message, company } = await request.json();
 
   if (company) {
     return NextResponse.json({ success: true });
+  }
+
+  const rateLimit = consumeRateLimit(`contact:${getRequestIp(request)}`, {
+    limit: 5,
+    windowMs: 15 * 60 * 1000,
+  });
+
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests" },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(rateLimit.retryAfterSeconds),
+        },
+      }
+    );
   }
 
   if (!name || !email || !subject || !message) {
